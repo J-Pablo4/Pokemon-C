@@ -1,18 +1,18 @@
 //
-// Created by aarondev on 11/16/22.
+// Created by jplop on 17/11/2022.
 //
 
 #include "Player.h"
 
-typedef struct redPlayer{
+struct redPlayer{
     Vector2 position;
     float speed;
     int PlayerDirection;
-    bool right;
-    bool left;
-    bool up;
-    bool down;
-}RedPlayer;
+    int right;
+    int left;
+    int up;
+    int down;
+};
 
 void UpdatePlayer(float delta, RedPlayer player){
 
