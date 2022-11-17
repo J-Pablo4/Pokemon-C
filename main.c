@@ -18,7 +18,7 @@ int main() {
     Texture2D route1Txtr = LoadTexture("Assets/route1.png");
     // Texture2D Gym = LoadTexture("Assets/1erGymCrop.png");
     // Texture2D  viriadianTownTxtr = LoadTexture("Assets/viridianTown.png");
-    RedPlayer red = {{(screenWidth/2), (screenHeight/2)},0,0,0,0,1,0};
+    RedPlayer *red = InitPlayer(screenWidth, screenHeight);
 
 
     //SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -29,7 +29,7 @@ int main() {
     {
 
         float deltaTime = GetFrameTime();
-//        UpdatePlayer(deltaTime, red);
+        UpdatePlayer(deltaTime, red);
 
         // Draw
         //----------------------------------------------------------------------------------

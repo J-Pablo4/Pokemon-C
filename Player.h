@@ -10,6 +10,6 @@
 #define PLAYER_HOR_SPD 200.0f
 typedef struct redPlayer RedPlayer;
 // Rectangle mask;
-void UpdatePlayer(float delta, RedPlayer player);
-
+void UpdatePlayer(float delta, RedPlayer *player);
+RedPlayer* InitPlayer(int x, int y);
 #endif //POKEMON_PLAYER_H
