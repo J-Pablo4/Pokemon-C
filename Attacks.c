@@ -4,8 +4,7 @@
 
 #include "Attacks.h"
 
-
-struct attck{
+struct attack{
     char *name;
     AttackType attack;
     Type type;
@@ -15,7 +14,7 @@ struct attck{
     int affected_stats;
     int direction;
     float agregated;
-//    State state;
+    State state_change;
     int state_probability;
     int BASE_PRESITION;
     int BASE_PP; //Power_Points
@@ -29,6 +28,7 @@ Attack* init_attack(Type type, AttackType attack, int power, int presicion, int 
     new_attack->power = power;
     new_attack->presicion = presicion;
     new_attack->pp = pp;
+    new_attack->state_change = state_change;
     new_attack->state_probability = state_probability;
     new_attack->affected_stats = affected_stat;
     new_attack->direction = direction;

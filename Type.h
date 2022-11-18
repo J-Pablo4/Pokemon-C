@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef enum type{water,bug,dragon,electric,ghost,fire,ice,fighting,normal,grass,psychic,rock,ground, poison, flying, none} Type;
+typedef enum type{water_type ,bug_type ,dragon_type ,electric_type,ghost_type ,fire_type ,ice_type ,fighting_type ,normal_type ,grass_type ,psychic_type ,rock_type ,ground_type , poison_type, flying_type, none = -1} Type;
 
 double* get_weakness(Type type1, Type type2);
 
