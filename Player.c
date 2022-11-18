@@ -16,8 +16,8 @@ struct redPlayer{
 
 RedPlayer* InitPlayer(int x, int y){
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
-    newRed->position.x = x/2;
-    newRed->position.y = y/2;
+    newRed->position.x = (float)x/2;
+    newRed->position.y = (float)y/2;
     return newRed;
 }
 
@@ -55,4 +55,35 @@ void UpdatePlayer(float delta, RedPlayer *player){
         player->up = false;
         player->PlayerDirection=1;
     }
+}
+
+Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
+
+    Rectangle framesRed = {0,0, (float)playerTxtr.width/3, (float)playerTxtr.height/4};
+    int currentFrame = 0;
+
+    int framesCounter = 0;
+    int framesSpeed = 8;
+
+    framesCounter ++;
+    if(currentFrame >= (60/framesSpeed))
+    {
+        framesCounter = 0;
+        currentFrame ++;
+
+        if(currentFrame > 2)
+            framesRed.x = (float)currentFrame*(float)playerTxtr.width/3;
+    }
+
+    if(IsKeyDown(KEY_RIGHT))
+        framesSpeed++;
+    else if(IsKeyDown(KEY_LEFT))
+        framesSpeed--;
+
+    if(framesSpeed > MAX_FRAME_SPEED)
+        framesSpeed = MAX_FRAME_SPEED;
+    else if(framesSpeed < MIN_FRAME_SPEED)
+        framesSpeed = MIN_FRAME_SPEED;
+
+    return framesRed;
 }
