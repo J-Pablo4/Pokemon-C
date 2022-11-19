@@ -4,32 +4,37 @@
 
 #include "State.h"
 
-void efecto(Pokemon *pokemon, Attack *attack)
+void effect(Pokemon *pokemon, Attack *attack)
 {
-    switch (attack->state_change)
+    time_t t;
+    srand((unsigned) time(&t));
+    int probability = (rand() % 100);
+
+    if(probability <= get_attack_state_probability(attack))
     {
-        case NORMAL:
+        switch (get_attack_state_change(attack))
         {
-            int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-            if(probabilidad <= movimiento.PROBA_ESPECIAL)
-                if(movimiento.STAT_AFECTADO == Estado.ATAQUE)
+            case normal_state:
+            {
+                if(get_attack_affected_stat(attack) == attack_affected_stat)
                 {
-                    pokemon.setAtaque(pokemon.getAtaque() + (int)movimiento.agregado);
+                    modify_pokemon_attack(get_pokemon_attack(pokemon) + get_attack_aggregated(attack), pokemon);
                 }
-                else if(movimiento.STAT_AFECTADO == Estado.DEFENSA)
+                else if(get_attack_affected_stat(attack) == defense_affected_stat)
                 {
-                    pokemon.setDefensa(pokemon.getDefensa() + (int) movimiento.agregado);
+                    modify_pokemon_defense(get_pokemon_defense(pokemon) + get_attack_aggregated(attack), pokemon);
                 }
-                else if(movimiento.STAT_AFECTADO == Estado.ATAQUE_ESP)
+                else if(get_attack_affected_stat(attack) == S_attack_affected_stat)
                 {
-                    pokemon.setAtaqueEsp(pokemon.getAtaqueEsp() + (int) movimiento.agregado);
+                    modify_pokemon_S_attack(get_pokemon_S_attack(pokemon) + get_attack_aggregated(attack), pokemon);
                 }
-                else if(movimiento.STAT_AFECTADO == Estado.DEFENSA_ESP)
+                else if(get_attack_affected_stat(attack) == S_defense_affected_stat)
                 {
-                    pokemon.setDefensaEsp(pokemon.getDefensaEsp() + (int)movimiento.agregado);
+                    modify_pokemon_S_defense(get_pokemon_S_defense(pokemon) + get_attack_aggregated(attack), pokemon);
                 }
-                else if(movimiento.STAT_AFECTADO == Estado.VELOCIDAD)
+                else if(get_attack_affected_stat(attack) == speed_affected_stat)
                 {
+
                     pokemon.setVelocidad(pokemon.getDefensa() + (int)movimiento.agregado);
                 }
                 else if(movimiento.STAT_AFECTADO == Estado.PS)
@@ -52,114 +57,92 @@ void efecto(Pokemon *pokemon, Attack *attack)
                         pokemon.getMovimiento(i).setPresicion((int)(pokemon.getMovimiento(i).getPresicion() * movimiento.agregado));
                     }
                 }
-        }
-        case PARALIZADO:
-        {
-            if(pokemon.getEstado() == Estado.NORMAL)
+            }
+            case PARALIZADO:
             {
-                int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(probabilidad <= movimiento.PROBA_ESPECIAL)
+                if(pokemon.getEstado() == Estado.normal_state)
                 {
-                    pokemon.setEstado(PARALIZADO);
+                    int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if(probabilidad <= movimiento.get_stat_probability)
+                    {
+                        pokemon.setEstado(PARALIZADO);
+                    }
                 }
             }
-        }
-        case QUEMADO:
-        {
-            if(pokemon.getEstado() == Estado.NORMAL)
+            case QUEMADO:
             {
-                int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(probabilidad <= movimiento.PROBA_ESPECIAL)
+                if(pokemon.getEstado() == Estado.normal_state)
                 {
-                    pokemon.setEstado(QUEMADO);
+                    int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if(probabilidad <= movimiento.get_stat_probability)
+                    {
+                        pokemon.setEstado(QUEMADO);
+                    }
                 }
             }
-        }
-        case DORMIDO:
-        {
-            if(pokemon.getEstado() == Estado.NORMAL)
+            case DORMIDO:
             {
-                int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(probabilidad <= movimiento.PROBA_ESPECIAL)
+                if(pokemon.getEstado() == Estado.normal_state)
                 {
-                    pokemon.setEstado(DORMIDO);
+                    int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if(probabilidad <= movimiento.get_stat_probability)
+                    {
+                        pokemon.setEstado(DORMIDO);
+                    }
                 }
             }
-        }
-        case ENVENENADO:
-        {
-            if(pokemon.getEstado() == Estado.NORMAL)
+            case ENVENENADO:
             {
-                int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(probabilidad <= movimiento.PROBA_ESPECIAL)
+                if(pokemon.getEstado() == Estado.normal_state)
                 {
-                    pokemon.setEstado(ENVENENADO);
+                    int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if(probabilidad <= movimiento.get_stat_probability)
+                    {
+                        pokemon.setEstado(ENVENENADO);
+                    }
                 }
             }
-        }
-        case CONFUNDIDO:
-        {
-            if(pokemon.getEstado() == Estado.NORMAL)
+            case CONFUNDIDO:
             {
-                int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(probabilidad <= movimiento.PROBA_ESPECIAL)
+                if(pokemon.getEstado() == Estado.normal_state)
                 {
-                    pokemon.setEstado(CONFUNDIDO);
+                    int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if(probabilidad <= movimiento.get_stat_probability)
+                    {
+                        pokemon.setEstado(CONFUNDIDO);
+                    }
                 }
             }
-        }
-        case CONGELADO:
-        {
-            if(pokemon.getEstado() != Estado.NORMAL)
+            case CONGELADO:
             {
-                int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(probabilidad <= movimiento.PROBA_ESPECIAL)
+                if(pokemon.getEstado() != Estado.normal_state)
                 {
-                    pokemon.setEstado(CONGELADO);
+                    int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if(probabilidad <= movimiento.get_stat_probability)
+                    {
+                        pokemon.setEstado(CONGELADO);
+                    }
                 }
             }
-        }
-        case CRITICO:
-        {
+            case CRITICO:
+            {
 //				int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-//				if(probabilidad <= movimiento.PROBA_ESPECIAL)
+//				if(probabilidad <= movimiento.get_stat_probability)
 //				{
 //					pokemon.setEstado(CRITICO);
 //				}
 
-        }
-        case RETROCEDER:
-        {
+            }
+            case RETROCEDER:
+            {
 
 //				int probabilidad = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-//				if(probabilidad <= movimiento.PROBA_ESPECIAL)
+//				if(probabilidad <= movimiento.get_stat_probability)
 //				{
 //					pokemon.setEstado(RETROCEDER);
 //				}
 
+            }
         }
-    }
-}
-public static void efecto(Pokemon pokemonAtaque, Pokemon pokemonEfecto, Movimiento movimiento)
-{
-    if(movimiento == Movimiento.ABSORBER)
-    {
-        int agregado = (int)(pokemonEfecto.getDanio(movimiento,pokemonAtaque)*.5);
-        pokemonAtaque.setPs(pokemonAtaque.getStatPs() + agregado);
-        if(pokemonAtaque.getStatPs() > pokemonAtaque.getPs())
-            pokemonAtaque.setPs(pokemonAtaque.getPs());
-    }
-    else if(movimiento == Movimiento.AUTODESTRUCCION)
-    {
-        pokemonAtaque.setPs(0);
-    }
-    else if(movimiento == Movimiento.SUMISION || movimiento == Movimiento.DERRIBO || movimiento == Movimiento.DOBLE_FILO)
-    {
-        int agregado = (int)(pokemonEfecto.getDanio(movimiento,pokemonAtaque)*.25);
-        pokemonAtaque.setPs(pokemonAtaque.getStatPs() - agregado);
-    }
-    else if(movimiento == Movimiento.DESCANSO)
-    {
-        pokemonAtaque.setPs(pokemonAtaque.getPs());
     }
 }

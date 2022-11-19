@@ -40,7 +40,7 @@ struct pokemon
 {
     Type type1;
     Type type2;
-    float *debilidades;
+    float *weaknesses;
     Stats *stats;
     char *name;
 };
@@ -119,4 +119,42 @@ int get_stat(int level, int base_stat, int variable_stat, int set_hp)
         stat = (((((base_stat + variable_stat) * 2) + 4) * level)/ 100) + 10 + level;
         return stat;
     }
+}
+
+int get_pokemon_attack(Pokemon *pokemon)
+{
+    return pokemon->stats->attack;
+}
+int get_pokemon_defense(Pokemon *pokemon)
+{
+    return pokemon->stats->defense;
+}
+int get_pokemon_S_attack(Pokemon *pokemon)
+{
+    return pokemon->stats->S_attack;
+}
+int get_pokemon_S_defense(Pokemon *pokemon)
+{
+    return pokemon->stats->S_defense;
+}
+
+void modify_pokemon_attack(int attack, Pokemon *pokemon)
+{
+    pokemon->stats->attack = attack;
+}
+void modify_pokemon_defense(int defense, Pokemon *pokemon)
+{
+    pokemon->stats->defense = defense;
+}
+void modify_pokemon_S_attack(int S_attack, Pokemon *pokemon)
+{
+    pokemon->stats->S_attack = S_attack;
+}
+void modify_pokemon_S_defense(int S_defense, Pokemon *pokemon)
+{
+    pokemon->stats->S_defense = S_defense;
+}
+void modify_pokemon_speed(int speed, Pokemon *pokemon)
+{
+    pokemon->stats->speed = speed;
 }
