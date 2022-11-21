@@ -2,10 +2,11 @@
 #include "raylib.h"
 #include "Type.h"
 #include "Player.h"
+#include "Attacks.h"
 
 int main() {
 
-    get_weakness(water, water);
+//    get_weakness(water, water);
 
     const int screenWidth = 368;
     const int screenHeight = 640;

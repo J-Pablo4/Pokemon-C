@@ -3,6 +3,8 @@
 //
 
 #include "Attacks.h"
+#include "Pokemon.h"
+#include "Lists.h"
 
 struct attack{
     char *name;
@@ -39,22 +41,115 @@ Attack* init_attack(Type type, AttackType attack, int power, int presicion, int 
     return new_attack;
 }
 
-State get_attack_state_change(Attack *attack)
+void apply_effect(Pokemon *pokemon, Attack *attack)
 {
-    return attack->state_change;
-}
+    time_t t;
+    srand((unsigned) time(&t));
+    int probability = (rand() % 100);
 
-int get_attack_state_probability(Attack *attack)
-{
-    return attack->state_probability;
-}
-
-Affected_stat get_attack_affected_stat(Attack *attack)
-{
-    return attack->affected_stat;
-}
-
-int get_attack_aggregated(Attack *attack)
-{
-    return attack->aggregated;
+    if(probability <= attack->state_probability)
+    {
+        switch (attack->state_change)
+        {
+            case normal_state:
+            {
+                if(attack->affected_stat == attack_affected_stat)
+                {
+                    modify_pokemon_attack(get_pokemon_attack(pokemon) + attack->aggregated, pokemon);
+                }
+                else if(attack->affected_stat == defense_affected_stat)
+                {
+                    modify_pokemon_defense(get_pokemon_defense(pokemon) + attack->aggregated, pokemon);
+                }
+                else if(attack->affected_stat == S_attack_affected_stat)
+                {
+                    modify_pokemon_S_attack(get_pokemon_S_attack(pokemon) + attack->aggregated, pokemon);
+                }
+                else if(attack->affected_stat == S_defense_affected_stat)
+                {
+                    modify_pokemon_S_defense(get_pokemon_S_defense(pokemon) + attack->aggregated, pokemon);
+                }
+                else if(attack->affected_stat == speed_affected_stat)
+                {
+                    modify_pokemon_speed(get_pokemon_speed(pokemon) + attack->aggregated, pokemon);
+                }
+                else if(attack->affected_stat == hp_affected_stat)
+                {
+                    modify_pokemon_hp(get_pokemon_hp(pokemon) + attack->aggregated, pokemon);
+                }
+                else
+                {
+                    Attack *change_precision;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        change_precision = get_element(get_pokemon_list_attacks(pokemon), i);
+                        if(change_precision->presicion == -100)
+                            continue;
+                        change_precision->presicion = change_precision->presicion * attack->aggregated;
+                    }
+                }
+            }
+            case paralyzed_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= attack->state_probability)
+                    {
+                        modify_pokemon_state(paralyzed_state, pokemon);
+                        modify_pokemon_speed((double)get_pokemon_speed(pokemon) * .75, pokemon);
+                    }
+                }
+            }
+            case burned_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= attack->state_probability)
+                    {
+                        modify_pokemon_state(burned_state, pokemon);
+                    }
+                }
+            }
+            case sleep_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= attack->state_probability)
+                    {
+                        modify_pokemon_state(sleep_state, pokemon);
+                    }
+                }
+            }
+            case poisoned_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= attack->state_probability)
+                    {
+                        modify_pokemon_state(poisoned_state, pokemon);
+                    }
+                }
+            }
+            case confused_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= attack->state_probability)
+                    {
+                        modify_pokemon_state(confused_state, pokemon);
+                    }
+                }
+            }
+            case frozen_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= attack->state_probability)
+                    {
+                        modify_pokemon_state(frozen_state, pokemon);
+                    }
+                }
+            }
+        }
+    }
 }
