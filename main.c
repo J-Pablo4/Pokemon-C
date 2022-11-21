@@ -2,10 +2,11 @@
 #include "raylib.h"
 #include "Type.h"
 #include "Player.h"
+#include "Attacks.h"
 
 int main() {
 
-    get_weakness(water, water);
+//    get_weakness(water, water);
 
     const int screenWidth = 368;
     const int screenHeight = 640;
@@ -18,7 +19,7 @@ int main() {
     Texture2D route1Txtr = LoadTexture("Assets/route1.png");
     // Texture2D Gym = LoadTexture("Assets/1erGymCrop.png");
     // Texture2D  viriadianTownTxtr = LoadTexture("Assets/viridianTown.png");
-    RedPlayer red = {{(screenWidth/2), (screenHeight/2)},0,0,0,0,1,0};
+//    RedPlayer red = {{(screenWidth/2), (screenHeight/2)},0,0,0,0,1,0};
 
 
     //SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
