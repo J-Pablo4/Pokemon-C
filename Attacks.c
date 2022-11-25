@@ -20,7 +20,10 @@ struct attack{
     int state_probability;
     int BASE_PRESICION;
     int BASE_PP; //Power_Points
+    int (*Damage) (Attack *, Pokemon *, Pokemon*);
 };
+
+int get_damage(Attack *attack, Pokemon *pokemon, Pokemon *pokemon1);
 
 Attack* init_attack(Type type, AttackType attack, int power, int presicion, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
 {
@@ -37,6 +40,8 @@ Attack* init_attack(Type type, AttackType attack, int power, int presicion, int 
     new_attack->BASE_PP = pp;
     new_attack->BASE_PRESICION = presicion;
     new_attack->aggregated =aggregated; //Nota> Era un float, si falla, regresar a float.
+
+    new_attack->Damage = get_damage;
 
     return new_attack;
 }
@@ -152,4 +157,39 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
         }
     }
+}
+
+int get_damage(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)
+{
+    double bonification = (get_pokemon_type1(pokemon_attacker) == attack->type || get_pokemon_type2(pokemon_attacker) == attack->type) ? 1.5 : 1;
+
+    time_t t;
+    srand((unsigned) time(&t));
+    float variation = (rand() % 100);
+    variation /= 100;
+    variation *= 15;
+    variation += 85;
+
+    int damage = 0;
+
+    if(attack->power == 0)
+        return damage;
+    
+        //    Faltan returns
+    else if(attack->attack == phisical)
+    {
+        damage = (int) ((.01 * bonification * (*(get_pokemon_weaknesses(pokemon_receiver)+attack->type) ) * variation) *
+                ((((0.2 * get_pokemon_level(pokemon_attacker) + 1) * get_pokemon_attack(pokemon_attacker) * attack->power) / (25 *
+                        get_pokemon_defense(pokemon_receiver))) + 2));
+    }
+    else if(attack->attack == special)
+    {
+        damage = (int) ((.01 * bonification * (*(get_pokemon_weaknesses(pokemon_receiver)+attack->type) ) * variation) *
+                        ((((0.2 * get_pokemon_level(pokemon_attacker) + 1) * get_pokemon_S_attack(pokemon_attacker) * attack->power) / (25 *
+                        get_pokemon_S_defense(pokemon_receiver))) + 2));
+    }
+
+    if(damage < 0)
+        return 1;
+    return damage;
 }
