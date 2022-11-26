@@ -13,6 +13,7 @@
 typedef struct pokemon Pokemon;
 
 Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, int defense, int speed, int S_attack, int S_defense);
+void define_attacks(char *name, Pokemon *pokemon, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated);
 int get_pokemon_attack(Pokemon *pokemon);
 int get_pokemon_defense(Pokemon *pokemon);
 int get_pokemon_S_attack(Pokemon *pokemon);
@@ -33,5 +34,6 @@ void modify_pokemon_S_defense(int S_defense, Pokemon *pokemon);
 void modify_pokemon_speed(double speed, Pokemon *pokemon);
 void modify_pokemon_hp(int hp, Pokemon *pokemon);
 void modify_pokemon_state(State state, Pokemon *pokemon);
+void pokemon_to_string(Pokemon *pokemon);
 
 #endif //POKEMON_POKEMON_H

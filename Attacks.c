@@ -11,34 +11,36 @@ struct attack{
     AttackType attack;
     Type type;
     int power;
-    int presicion;
+    int precision;
     int pp; //Power_Points
     Affected_stat affected_stat;
     int direction;
     int aggregated;
     State state_change;
     int state_probability;
-    int BASE_PRESICION;
+    int BASE_PRECISION;
     int BASE_PP; //Power_Points
     int (*Damage) (Attack *, Pokemon *, Pokemon*);
 };
 
 int get_damage(Attack *attack, Pokemon *pokemon, Pokemon *pokemon1);
 
-Attack* init_attack(Type type, AttackType attack, int power, int presicion, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
+
+Attack* init_attack(char *name, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
 {
     Attack * new_attack = malloc(sizeof (Attack));
+    new_attack->name = name;
     new_attack->type = type;
     new_attack->attack = attack;
     new_attack->power = power;
-    new_attack->presicion = presicion;
+    new_attack->precision = precision;
     new_attack->pp = pp;
     new_attack->state_change = state_change;
     new_attack->state_probability = state_probability;
     new_attack->affected_stat = affected_stat;
     new_attack->direction = direction;
     new_attack->BASE_PP = pp;
-    new_attack->BASE_PRESICION = presicion;
+    new_attack->BASE_PRECISION = precision;
     new_attack->aggregated =aggregated; //Nota> Era un float, si falla, regresar a float.
 
     new_attack->Damage = get_damage;
@@ -88,9 +90,9 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     for(int i = 0; i < 4; i++)
                     {
                         change_precision = get_element(get_pokemon_list_attacks(pokemon), i);
-                        if(change_precision->presicion == -100)
+                        if(change_precision->precision == -100)
                             continue;
-                        change_precision->presicion = change_precision->presicion * attack->aggregated;
+                        change_precision->precision = change_precision->precision * attack->aggregated;
                     }
                 }
             }
@@ -193,3 +195,57 @@ int get_damage(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_recei
         return 1;
     return damage;
 }
+
+int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//	metodo que asigna valores despues de un movimiento
+{
+    time_t t;
+    srand((unsigned) time(&t));
+    int precision = (rand() % 100);
+
+    if(precision <= attack->precision || attack ->precision == -100)
+    {
+
+        modify_pokemon_hp(get_pokemon_hp(pokemon_receiver) - get_damage(attack, pokemon_attacker, pokemon_receiver),pokemon_receiver);
+        if(attack->state_probability != -1)
+        {
+            if(attack->affected_stat == normal_state)
+            {
+                if(attack->direction != 0) // efecto a si mismo (pokemon que hace el movimiento)
+                    if(attack->aggregated != -1000)
+                        apply_effect(pokemon_attacker, attack);
+                    //else
+                    //    Estado.efecto(pokemon,this, movimiento); //	absorber autodestruccion y similar
+
+                else	//	efecto al otro (pokemon contrario al que hace el movimiento
+                    if(attack->aggregated != -1000)
+                        apply_effect(pokemon_receiver, attack);
+                    //else
+                    //    Estado.efecto(this,pokemon, movimiento); //	absorber y similar
+            }
+            else if(attack->affected_stat == paralyzed_state)
+            {
+                apply_effect(pokemon_receiver, attack);
+            }
+        }
+        //if (ps <= 0)
+        //    debilitado = true;
+        attack->pp --;
+        return 0;	//	el golpe fue un exito
+    }
+    else
+        attack->pp --;
+    return -1;	// el golpe fallo
+}
+
+void attack_normalize(Attack *attack)
+{
+    attack->pp = attack->BASE_PP;
+    attack->precision = attack->BASE_PRECISION;
+    return;
+}
+
+char* attack_get_name(Attack *attack)
+{
+    return attack->name;
+}
+

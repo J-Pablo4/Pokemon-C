@@ -52,6 +52,7 @@ Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, in
     time_t t;
 
     Pokemon *pokemon_new = malloc(sizeof (Pokemon));
+    pokemon_new->stats = malloc(sizeof (Stats));
     pokemon_new->stats->level = 1;
 
     pokemon_new->type1 = type1;
@@ -128,9 +129,9 @@ void set_level(int level, Pokemon *pokemon)
     }
 }
 
-void define_attacks(Pokemon *pokemon, Type type, AttackType attack, int power, int presicion, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
+void define_attacks(char *name, Pokemon *pokemon, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
 {
-    Attack *new_attack = init_attack(type, attack, power, presicion, pp, state_change, state_probability, affected_stat, direction, aggregated);
+    Attack *new_attack = init_attack(*name,type, attack, power, precision, pp, state_change, state_probability, affected_stat, direction, aggregated);
     list_append(pokemon->attacks, new_attack);
 }
 
@@ -224,4 +225,34 @@ void modify_pokemon_hp(int hp, Pokemon *pokemon)
 void modify_pokemon_state(State state, Pokemon *pokemon)
 {
     pokemon->current_state = state;
+}
+void pokemon_normalize(Pokemon *pokemon)
+{
+    pokemon->stats->hp = get_stat(pokemon->stats->level, pokemon->stats->base_hp, pokemon->stats->variable_hp, 1);
+    pokemon->stats->attack = get_stat(pokemon->stats->level, pokemon->stats->base_attack, pokemon->stats->variable_attack, 0);
+    pokemon->stats->defense = get_stat(pokemon->stats->level, pokemon->stats->base_defense, pokemon->stats->variable_defense, 0);
+    pokemon->stats->speed = get_stat(pokemon->stats->level, pokemon->stats->base_speed, pokemon->stats->variable_speed, 0);
+    pokemon->stats->S_attack = get_stat(pokemon->stats->level, pokemon->stats->base_S_attack, pokemon->stats->variable_S_attack, 0);
+    pokemon->stats->S_defense = get_stat(pokemon->stats->level, pokemon->stats->base_S_defense, pokemon->stats->variable_S_defense, 0);
+}
+
+void pokemon_to_string(Pokemon *pokemon)
+{
+    printf("Pokemon: %s\n", pokemon->name);
+    printf("Type: %d\n", pokemon->type1);
+    printf("Type: %d\n", pokemon->type2);
+    printf("Level: %d\n", pokemon->stats->level);
+    printf("HP: %d\n", pokemon->stats->hp);
+    printf("Attack: %d\n", pokemon->stats->attack);
+    printf("Defense: %d\n", pokemon->stats->defense);
+    printf("Special Attack: %d\n", pokemon->stats->S_attack);
+    printf("Special Defense: %d\n", pokemon->stats->variable_S_defense);
+    printf("Speed: %d\n", pokemon->stats->speed);
+    printf("Movements:\n");
+    Attack *attack;
+    for(int i = 0; i < 4; i++)
+    {
+        attack = get_element(get_pokemon_list_attacks(pokemon), i);
+        printf("%s\n", attack_get_name(attack));
+    }
 }
