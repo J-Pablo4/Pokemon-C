@@ -15,6 +15,19 @@ typedef enum affected_stat{attack_affected_stat, defense_affected_stat, S_attack
 Attack* init_attack(char *name, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated);
 char* attack_get_name(Attack *attack);
 
+void modify_attack_precision(Attack *attack, int precision);
+void modify_attack_pp(Attack *attack, int pp);
+Type get_attack_type(Attack *attack);
+int get_attack_state_probability(Attack *attack);
+AttackType get_attack_attack_type(Attack *attack);
+int get_attack_power(Attack *attack);
+int get_attack_precision(Attack *attack);
+int get_attack_pp(Attack *attack);
+Affected_stat get_attack_affected_stat(Attack *attack);
+int get_attack_direction(Attack *attack);
+int get_attack_aggregated(Attack *attack);
+State get_attack_state_change(Attack *attack);
+
 
 
 #endif //POKEMON_ATTACKS_H

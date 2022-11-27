@@ -235,8 +235,217 @@ void pokemon_normalize(Pokemon *pokemon)
     pokemon->stats->S_attack = get_stat(pokemon->stats->level, pokemon->stats->base_S_attack, pokemon->stats->variable_S_attack, 0);
     pokemon->stats->S_defense = get_stat(pokemon->stats->level, pokemon->stats->base_S_defense, pokemon->stats->variable_S_defense, 0);
 }
+//void pokemon_use_potion(Pokemon, Potion *potion)
+//{
 
-void pokemon_to_string(Pokemon *pokemon)
+//}
+void apply_effect(Pokemon *pokemon, Attack *attack)
+{
+    time_t t;
+    srand((unsigned) time(&t));
+    int probability = (rand() % 100);
+
+    if(probability <= get_attack_state_probability(attack))
+    {
+        switch (get_attack_state_change(attack))
+        {
+            case normal_state:
+            {
+                if(get_attack_affected_stat(attack) == attack_affected_stat)
+                {
+                    modify_pokemon_attack(get_pokemon_attack(pokemon) + get_attack_aggregated(attack), pokemon);
+                }
+                else if(get_attack_affected_stat(attack) == defense_affected_stat)
+                {
+                    modify_pokemon_defense(get_pokemon_defense(pokemon) + get_attack_aggregated(attack), pokemon);
+                }
+                else if(get_attack_affected_stat(attack) == S_attack_affected_stat)
+                {
+                    modify_pokemon_S_attack(get_pokemon_S_attack(pokemon) + get_attack_aggregated(attack), pokemon);
+                }
+                else if(get_attack_affected_stat(attack) == S_defense_affected_stat)
+                {
+                    modify_pokemon_S_defense(get_pokemon_S_defense(pokemon) + get_attack_aggregated(attack), pokemon);
+                }
+                else if(get_attack_affected_stat(attack) == speed_affected_stat)
+                {
+                    modify_pokemon_speed(get_pokemon_speed(pokemon) + get_attack_aggregated(attack), pokemon);
+                }
+                else if(get_attack_affected_stat(attack) == hp_affected_stat)
+                {
+                    modify_pokemon_hp(get_pokemon_hp(pokemon) + get_attack_aggregated(attack), pokemon);
+                }
+                else
+                {
+                    Attack *change_precision;
+                    for(int i = 0; i < 4; i++)
+                    {
+                        change_precision = get_element(get_pokemon_list_attacks(pokemon), i);
+                        if(get_attack_precision(change_precision) == -100)
+                            continue;
+                        modify_attack_precision(change_precision, get_attack_precision(change_precision)*
+                                get_attack_aggregated(attack));
+                    }
+                }
+            }
+            case paralyzed_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= get_attack_state_probability(attack))
+                    {
+                        modify_pokemon_state(paralyzed_state, pokemon);
+                        modify_pokemon_speed((double)get_pokemon_speed(pokemon) * .75, pokemon);
+                    }
+                }
+            }
+            case burned_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= get_attack_state_probability(attack))
+                    {
+                        modify_pokemon_state(burned_state, pokemon);
+                    }
+                }
+            }
+            case sleep_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= get_attack_state_probability(attack))
+                    {
+                        modify_pokemon_state(sleep_state, pokemon);
+                    }
+                }
+            }
+            case poisoned_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= get_attack_state_probability(attack))
+                    {
+                        modify_pokemon_state(poisoned_state, pokemon);
+                    }
+                }
+            }
+            case confused_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= get_attack_state_probability(attack))
+                    {
+                        modify_pokemon_state(confused_state, pokemon);
+                    }
+                }
+            }
+            case frozen_state:
+            {
+                if(get_pokemon_current_state(pokemon) != normal_state)
+                {
+                    if(probability <= get_attack_state_probability(attack))
+                    {
+                        modify_pokemon_state(frozen_state, pokemon);
+                    }
+                }
+            }
+        }
+    }
+}
+
+int get_damage(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)
+{
+    double bonification = (get_pokemon_type1(pokemon_attacker) == get_attack_type(attack) || get_pokemon_type2(pokemon_attacker) == get_attack_type(attack)) ? 1.5 : 1;
+
+    time_t t;
+    srand((unsigned) time(&t));
+    float variation = (rand() % 100);
+    variation /= 100;
+    variation *= 15;
+    variation += 85;
+
+    int damage = 0;
+
+    if(get_attack_power(attack) == 0)
+        return damage;
+
+        //    Faltan returns
+    if(get_attack_attack_type(attack) == phisical)
+    {
+        damage = (int) ((.01 * bonification * (*(get_pokemon_weaknesses(pokemon_receiver) + get_attack_type(attack)) ) * variation) *
+                        ((((0.2 * get_pokemon_level(pokemon_attacker) + 1) * get_pokemon_attack(pokemon_attacker) * get_attack_power(attack)) / (25 *
+                        get_pokemon_defense(pokemon_receiver))) + 2));
+
+    }
+    else if(get_attack_attack_type(attack) == special)
+    {
+        damage = (int) ((.01 * bonification * (*(get_pokemon_weaknesses(pokemon_receiver) + get_attack_type(attack)) ) * variation) *
+                        ((((0.2 * get_pokemon_level(pokemon_attacker) + 1) * get_pokemon_S_attack(pokemon_attacker) * get_attack_power(attack)) / (25 *
+                        get_pokemon_S_defense(pokemon_receiver))) + 2));
+    }
+
+    if(damage <= 0)
+        return 1;
+    return damage;
+}
+
+int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//	metodo que asigna valores despues de un movimiento
+{
+    time_t t;
+    srand((unsigned) time(&t));
+    int precision = (rand() % 100);
+
+    if(precision <= get_attack_precision(attack) || get_attack_precision(attack) == -100)
+    {
+
+        modify_pokemon_hp(get_pokemon_hp(pokemon_receiver) - get_damage(attack, pokemon_attacker, pokemon_receiver),pokemon_receiver);
+        if(get_attack_affected_stat(attack) == normal_state)
+        {
+            if(get_attack_direction(attack)) // efecto a si mismo
+            {
+
+                apply_effect(pokemon_attacker, attack);
+            }
+            else
+            {
+                apply_effect(pokemon_receiver, attack);
+            }
+
+        }
+        else if(get_attack_affected_stat(attack) == paralyzed_state)
+        {
+            apply_effect(pokemon_receiver, attack);
+        }
+        else if(get_attack_affected_stat(attack) == burned_state)
+        {
+            apply_effect(pokemon_receiver, attack);
+        }
+        else if(get_attack_affected_stat(attack) == frozen_state)
+        {
+            apply_effect(pokemon_receiver, attack);
+        }
+        else if(get_attack_affected_stat(attack) == poisoned_state)
+        {
+            apply_effect(pokemon_receiver, attack);
+        }
+        else if(get_attack_affected_stat(attack) == sleep_state)
+        {
+            apply_effect(pokemon_receiver, attack);
+        }
+        else if(get_attack_affected_stat(attack) == confused_state)
+        {
+            apply_effect(pokemon_receiver, attack);
+        }
+
+        modify_attack_pp(attack,get_attack_pp(attack)-1);
+        return 0;	//	el golpe fue un exito
+    }
+    else
+        modify_attack_pp(attack,get_attack_pp(attack)-1);
+    return -1;	// el golpe fallo
+}
+
+void print_pokemon(Pokemon *pokemon)
 {
     printf("Pokemon: %s\n", pokemon->name);
     printf("Type: %d\n", pokemon->type1);
