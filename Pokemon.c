@@ -83,8 +83,8 @@ Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, in
     pokemon_new->stats->base_attack = attack;
     pokemon_new->stats->base_defense = defense;
     pokemon_new->stats->base_speed = speed;
-    pokemon_new->stats->S_attack = S_attack;
-    pokemon_new->stats->S_defense = S_defense;
+    pokemon_new->stats->base_S_attack = S_attack;
+    pokemon_new->stats->base_S_defense = S_defense;
 
     //    Set the hp
     pokemon_new->stats->hp = get_stat(1, hp, pokemon_new->stats->variable_hp, 1);
@@ -131,7 +131,7 @@ void set_level(int level, Pokemon *pokemon)
 
 void define_attacks(char *name, Pokemon *pokemon, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
 {
-    Attack *new_attack = init_attack(*name,type, attack, power, precision, pp, state_change, state_probability, affected_stat, direction, aggregated);
+    Attack *new_attack = init_attack(name,type, attack, power, precision, pp, state_change, state_probability, affected_stat, direction, aggregated);
     list_append(pokemon->attacks, new_attack);
 }
 
