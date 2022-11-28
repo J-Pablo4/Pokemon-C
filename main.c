@@ -38,7 +38,7 @@ int main() {
         // DrawTexture(route1Txtr, 0, 0,WHITE);
         // DrawTexture(Gym, 0,0,WHITE);
         DrawTexture(route1Txtr, 0, 0, WHITE);
-        DrawTexture(test,(screenWidth/2),(screenHeight/2), WHITE);
+        DrawTexture(test,get_x(red),get_y(red), WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

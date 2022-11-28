@@ -26,34 +26,26 @@ void UpdatePlayer(float delta, RedPlayer *player){
     if(IsKeyDown(KEY_RIGHT)){
         player->position.x += PLAYER_HOR_SPD*delta;
         player->right = true;
-        player->left = false;
-        player->down = false;
-        player->up = false;
         player->PlayerDirection=1;
+        printf("%f\n", player->position.x);
     }
     if(IsKeyDown(KEY_LEFT)){
         player->position.x -= PLAYER_HOR_SPD*delta;
-        player->right = false;
         player->left = true;
-        player->down = false;
-        player->up = false;
         player->PlayerDirection=1;
+        printf("izquierda\n");
     }
     if(IsKeyDown(KEY_UP)){
         player->position.y += PLAYER_HOR_SPD*delta;
-        player->right = false;
-        player->left = false;
-        player->down = false;
         player->up = true;
         player->PlayerDirection=1;
+        printf("arriba\n");
     }
     if(IsKeyDown(KEY_DOWN)){
         player->position.y -= PLAYER_HOR_SPD*delta;
-        player->right = false;
-        player->left = false;
         player->down = true;
-        player->up = false;
         player->PlayerDirection=1;
+        printf("Abajo\n");
     }
 }
 
@@ -86,4 +78,14 @@ Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
         framesSpeed = MIN_FRAME_SPEED;
 
     return framesRed;
+}
+
+float get_x( RedPlayer *player)
+{
+    return player->position.x;
+}
+
+float get_y( RedPlayer *player)
+{
+    return player->position.y;
 }

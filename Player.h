@@ -7,6 +7,7 @@
 
 #include "raylib.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define MAX_FRAME_SPEED 10
 #define MIN_FRAME_SPEED 1
@@ -17,5 +18,8 @@ typedef struct redPlayer RedPlayer;
 void UpdatePlayer(float delta, RedPlayer *player);
 RedPlayer* InitPlayer(int x, int y);
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
+
+float get_x( RedPlayer *player);
+float get_y( RedPlayer *player);
 
 #endif //POKEMON_PLAYER_H
