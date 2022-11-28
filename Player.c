@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "stdio.h"
 
 struct redPlayer{
     Vector2 position;
