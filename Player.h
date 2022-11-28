@@ -11,7 +11,7 @@
 
 #define MAX_FRAME_SPEED 10
 #define MIN_FRAME_SPEED 1
-#define PLAYER_HOR_SPD 200.0f
+#define PLAYER_HOR_SPD 100.0f
 
 typedef struct redPlayer RedPlayer;
 // Rectangle mask;

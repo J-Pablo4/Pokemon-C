@@ -19,7 +19,7 @@ int main() {
 
     RedPlayer *red = InitPlayer(screenWidth, screenHeight);
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(24);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     // Main game loop

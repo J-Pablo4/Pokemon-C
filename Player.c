@@ -12,6 +12,7 @@ struct redPlayer{
     int left;
     int up;
     int down;
+    Texture2D playerTXTR;
 };
 
 RedPlayer* InitPlayer(int x, int y){
@@ -27,25 +28,21 @@ void UpdatePlayer(float delta, RedPlayer *player){
         player->position.x += PLAYER_HOR_SPD*delta;
         player->right = true;
         player->PlayerDirection=1;
-        printf("%f\n", player->position.x);
     }
     if(IsKeyDown(KEY_LEFT)){
         player->position.x -= PLAYER_HOR_SPD*delta;
         player->left = true;
         player->PlayerDirection=1;
-        printf("izquierda\n");
     }
     if(IsKeyDown(KEY_UP)){
-        player->position.y += PLAYER_HOR_SPD*delta;
+        player->position.y -= PLAYER_HOR_SPD*delta;
         player->up = true;
         player->PlayerDirection=1;
-        printf("arriba\n");
     }
     if(IsKeyDown(KEY_DOWN)){
-        player->position.y -= PLAYER_HOR_SPD*delta;
+        player->position.y += PLAYER_HOR_SPD*delta;
         player->down = true;
         player->PlayerDirection=1;
-        printf("Abajo\n");
     }
 }
 
