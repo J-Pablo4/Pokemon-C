@@ -29,6 +29,7 @@ void UpdatePlayer(float delta, RedPlayer *player){
         player->position.x += PLAYER_HOR_SPD*delta;
         player->right = true;
         player->PlayerDirection=1;
+
     }
     if(IsKeyDown(KEY_LEFT)){
         player->position.x -= PLAYER_HOR_SPD*delta;
@@ -49,7 +50,7 @@ void UpdatePlayer(float delta, RedPlayer *player){
 
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
 
-    Rectangle framesRed = {getPlayerXPos(player), getPlayerYPos(player), (float)playerTxtr.width/3, (float)playerTxtr.height/3};
+    Rectangle framesRed = {getPlayerPos(player).x, getPlayerPos(player).y, (float)playerTxtr.width, (float)playerTxtr.height};
     int currentFrame = 0;
 
     int framesCounter = 0;
@@ -63,6 +64,7 @@ Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
 
         if(currentFrame > 2)
             framesRed.x = (float)currentFrame*(float)playerTxtr.width/3;
+
     }
 
     if(IsKeyDown(KEY_RIGHT))
@@ -78,12 +80,10 @@ Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
     return framesRed;
 }
 
-float getPlayerXPos( RedPlayer *player)
+Vector2 getPlayerPos( RedPlayer *player)
 {
-    return player->position.x;
-}
-
-float getPlayerYPos( RedPlayer *player)
-{
-    return player->position.y;
+    Vector2 XYPosition;
+    XYPosition.x = player->position.x;
+    XYPosition.y = player->position.y;
+    return XYPosition;
 }

@@ -14,12 +14,11 @@
 #define PLAYER_HOR_SPD 100.0f
 
 typedef struct redPlayer RedPlayer;
-// Rectangle mask;
 void UpdatePlayer(float delta, RedPlayer *player);
 RedPlayer* InitPlayer(int x, int y);
-Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
 
-float getPlayerXPos( RedPlayer *player);
-float getPlayerYPos( RedPlayer *player);
+Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
+Vector2 getPlayerPos( RedPlayer *player);
+
 
 #endif //POKEMON_PLAYER_H

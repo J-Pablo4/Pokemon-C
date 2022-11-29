@@ -37,9 +37,7 @@ int main() {
 
         ClearBackground(BLACK);
         DrawTexture(route1Txtr, 0, 0, WHITE);
-        DrawTexture(redTxtr,getPlayerXPos(red),getPlayerYPos(red), WHITE);
-        float playerXPos = getPlayerXPos(red);
-        float playerYPos = getPlayerYPos(red);
+        DrawTexture(redTxtr, getPlayerPos(red).x, getPlayerPos(red).y, WHITE);
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
         DrawRectangle(0,0,30, screenHeight, WHITE);   //Pared izq map
         DrawRectangle(0,0, 156, 35, WHITE);           //Arboles izq campeon
