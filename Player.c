@@ -49,7 +49,7 @@ void UpdatePlayer(float delta, RedPlayer *player){
 
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
 
-    Rectangle framesRed = {0,0, (float)playerTxtr.width/3, (float)playerTxtr.height/4};
+    Rectangle framesRed = {getPlayerXPos(player), getPlayerYPos(player), (float)playerTxtr.width/3, (float)playerTxtr.height/3};
     int currentFrame = 0;
 
     int framesCounter = 0;
@@ -78,12 +78,12 @@ Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
     return framesRed;
 }
 
-float get_x( RedPlayer *player)
+float getPlayerXPos( RedPlayer *player)
 {
     return player->position.x;
 }
 
-float get_y( RedPlayer *player)
+float getPlayerYPos( RedPlayer *player)
 {
     return player->position.y;
 }

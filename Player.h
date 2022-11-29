@@ -19,7 +19,7 @@ void UpdatePlayer(float delta, RedPlayer *player);
 RedPlayer* InitPlayer(int x, int y);
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
 
-float get_x( RedPlayer *player);
-float get_y( RedPlayer *player);
+float getPlayerXPos( RedPlayer *player);
+float getPlayerYPos( RedPlayer *player);
 
 #endif //POKEMON_PLAYER_H
