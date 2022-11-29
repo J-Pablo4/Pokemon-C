@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "Type.h"
 #include "Player.h"
+#include "mapBorders.h"
 
 int main() {
 
@@ -37,15 +38,11 @@ int main() {
 
         ClearBackground(BLACK);
         DrawTexture(route1Txtr, 0, 0, WHITE);
-        DrawTexture(redTxtr,getPlayerXPos(red),getPlayerYPos(red), WHITE);
+        //DrawTexture(redTxtr,getPlayerXPos(red),getPlayerYPos(red), WHITE);
         float playerXPos = getPlayerXPos(red);
         float playerYPos = getPlayerYPos(red);
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
-        DrawRectangle(0,0,30, screenHeight, WHITE);   //Pared izq map
-        DrawRectangle(0,0, 156, 35, WHITE);           //Arboles izq campeon
-        DrawRectangle(0,screenHeight-52, 185,52,WHITE); //Arboles izq entrada
-        DrawRectangle(screenWidth-136, screenHeight-52, 50, 52, RED); //Arboles der entrada
-
+        drawMapCollisionBoxes(screenWidth,screenHeight);
         // DrawText(playerXPos, 0, 0, 8, BLACK);
         // DrawText(playerYPos, 0, 15, 8, BLACK);
         EndDrawing();
