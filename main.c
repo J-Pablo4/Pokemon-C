@@ -47,7 +47,8 @@ int main() {
         DrawRectangle(screenWidth-136, screenHeight-52, 50, 52, RED); //Arboles der entrada
 
         // DrawText(playerXPos, 0, 0, 8, BLACK);
-        // DrawText(playerYPos, 0, 15, 8, BLACK); EndDrawing();
+        // DrawText(playerYPos, 0, 15, 8, BLACK);
+        EndDrawing();
         //----------------------------------------------------------------------------------
     }
 
