@@ -16,14 +16,6 @@
 typedef struct redPlayer RedPlayer;
 void UpdatePlayer(float delta, RedPlayer *player);
 RedPlayer* InitPlayer(int x, int y);
-<<<<<<< Updated upstream
-
-Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
-Vector2 getPlayerPos( RedPlayer *player);
-
-
-=======
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
 Vector2 getPlayerPos(RedPlayer *player);
->>>>>>> Stashed changes
 #endif //POKEMON_PLAYER_H
