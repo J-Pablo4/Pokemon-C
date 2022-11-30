@@ -50,7 +50,11 @@ void UpdatePlayer(float delta, RedPlayer *player){
 
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
 
+<<<<<<< Updated upstream
     Rectangle framesRed = {getPlayerPos(player).x, getPlayerPos(player).y, (float)playerTxtr.width, (float)playerTxtr.height};
+=======
+    Rectangle framesRed = {getPlayerPos(player).x, getPlayerPos(player).y, (float)playerTxtr.width/3, (float)playerTxtr.height/3};
+>>>>>>> Stashed changes
     int currentFrame = 0;
 
     int framesCounter = 0;
@@ -80,6 +84,7 @@ Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
     return framesRed;
 }
 
+<<<<<<< Updated upstream
 Vector2 getPlayerPos( RedPlayer *player)
 {
     Vector2 XYPosition;
@@ -87,3 +92,11 @@ Vector2 getPlayerPos( RedPlayer *player)
     XYPosition.y = player->position.y;
     return XYPosition;
 }
+=======
+Vector2 getPlayerPos(RedPlayer *player){
+    Vector2 pos;
+    pos.x = player->position.x;
+    pos.y = player->position.y;
+    return pos;
+}
+>>>>>>> Stashed changes
