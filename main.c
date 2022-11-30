@@ -38,15 +38,8 @@ int main() {
 
         ClearBackground(BLACK);
         DrawTexture(route1Txtr, 0, 0, WHITE);
-<<<<<<< Updated upstream
-<<<<<<< HEAD
         DrawTexture(redTxtr, getPlayerPos(red).x, getPlayerPos(red).y, WHITE);
-=======
-        //DrawTexture(redTxtr,getPlayerXPos(red),getPlayerYPos(red), WHITE);
-        float playerXPos = getPlayerXPos(red);
-        float playerYPos = getPlayerYPos(red);
->>>>>>> 434bedafe37e572b3b2586aea0eb53af8f063394
-=======
+
         Rectangle mask;
         mask.x = getPlayerPos(red).x;
         mask.y = getPlayerPos(red).y * (redTxtr.height/4);
@@ -56,7 +49,6 @@ int main() {
         DrawTextureRec(redTxtr,mask, getPlayerPos(red), WHITE);
         float playerXPos = getPlayerPos(red).x;
         float playerYPos = getPlayerPos(red).y;
->>>>>>> Stashed changes
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
         drawMapCollisionBoxes(screenWidth,screenHeight);
         // DrawText(playerXPos, 0, 0, 8, BLACK);
