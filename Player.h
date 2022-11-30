@@ -7,9 +7,15 @@
 
 #include "raylib.h"
 #include <stdlib.h>
-#define PLAYER_HOR_SPD 200.0f
-typedef struct redPlayer RedPlayer;
-// Rectangle mask;
-void UpdatePlayer(float delta, RedPlayer player);
+#include <stdio.h>
 
+#define MAX_FRAME_SPEED 10
+#define MIN_FRAME_SPEED 1
+#define PLAYER_HOR_SPD 100.0f
+
+typedef struct redPlayer RedPlayer;
+void UpdatePlayer(float delta, RedPlayer *player);
+RedPlayer* InitPlayer(int x, int y);
+Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
+Vector2 getPlayerPos(RedPlayer *player);
 #endif //POKEMON_PLAYER_H
