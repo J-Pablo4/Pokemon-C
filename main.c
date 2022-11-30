@@ -38,7 +38,7 @@ int main() {
 
         ClearBackground(BLACK);
         DrawTexture(route1Txtr, 0, 0, WHITE);
-        //DrawTexture(redTxtr,getPlayerXPos(red),getPlayerYPos(red), WHITE);
+        DrawTexture(redTxtr,getPlayerXPos(red),getPlayerYPos(red), WHITE);
         float playerXPos = getPlayerXPos(red);
         float playerYPos = getPlayerYPos(red);
         DrawRectangle(screenWidth/2,15,8,8,BLUE);

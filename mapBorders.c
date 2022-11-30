@@ -4,7 +4,7 @@
 
 #include "mapBorders.h"
 void drawMapCollisionBoxes(int screenWidth, int screenHeight){
-    DrawRectangle(0,0,30, screenHeight, WHITE);   //Pared izq map
+    DrawRectangle(0,0,30, screenHeight, CLITERAL(Color){255,255,255,128});   //Pared izq map
     DrawRectangle(0,0, 156, 35, WHITE);           //Arboles izq campeon
     DrawRectangle(0,screenHeight-52, 185,52,WHITE); //Arboles izq entrada
     DrawRectangle(screenWidth-140, screenHeight-52, 140, 52, WHITE); //Arboles der entrada
@@ -23,4 +23,7 @@ void drawMapCollisionBoxes(int screenWidth, int screenHeight){
     DrawRectangle(screenWidth-80, 425, 80, 4, WHITE); //Linea 2da linea
     DrawRectangle(screenWidth-220, 505, 200, 5, WHITE); //1era linea pared derecha
     DrawRectangle(0, 505, 90, 4, WHITE); //1era linea pared izq
+    DrawRectangle(screenWidth/2,15,12,12,RED);
+    DrawRectangle(120, 315, 12, 12, BLUE);
+    DrawRectangle(80, 490, 12, 12, GREEN);
 }
