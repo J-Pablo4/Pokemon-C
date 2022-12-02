@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "stdio.h"
+#include "Lists.h"
+#include "Pokemon.h"
 int framesCounter = 0;
 
 struct redPlayer{
