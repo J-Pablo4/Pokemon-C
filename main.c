@@ -24,6 +24,8 @@ int main() {
 
     SetTargetFPS(24);
 
+    get_player_pokemons(red);
+
     while (!WindowShouldClose())
     {
         float deltaTime = GetFrameTime();

@@ -126,7 +126,7 @@ void set_pokemons_to_player(RedPlayer *player, Pokemon *pokemon_arry[], int inde
     list_append(player->pokemons, pokemon_arry[index]);
 }
 
-void get_pokemons(RedPlayer *player)
+void get_player_pokemons(RedPlayer *player)
 {
     FILE *file = fopen("../pokemon.txt", "r");
     Pokemon *pokemon_arry[20] = {};

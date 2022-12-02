@@ -18,4 +18,5 @@ Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
 Vector2 getPlayerPos(RedPlayer *player);
 void RenderPlayer(RedPlayer *player, int width);
 void setPlayerTexture(Texture2D t, RedPlayer *player);
+void get_player_pokemons(RedPlayer *player);
 #endif //POKEMON_PLAYER_H
