@@ -27,6 +27,7 @@ typedef struct stats
     int variable_S_defense;
 
     //    Stats
+    int fixed_hp;
     int hp;
     int attack;
     int defense;
@@ -45,6 +46,8 @@ struct pokemon
     List *attacks;
     State current_state;
 };
+
+
 
 Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, int defense, int speed, int S_attack, int S_defense)
 {
@@ -104,6 +107,8 @@ Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, in
     //    Set the Special defense
     pokemon_new->stats->S_defense = get_stat(1, S_defense, pokemon_new->stats->variable_S_defense, 0);
 
+    pokemon_new->stats->fixed_hp = pokemon_new->stats->hp;
+
     pokemon_new->name = name;
 
     pokemon_new->current_state = normal_state;
@@ -126,6 +131,7 @@ void set_level(int level, Pokemon *pokemon)
         pokemon->stats->speed = get_stat(level, pokemon->stats->base_speed, pokemon->stats->variable_speed, 0);
         pokemon->stats->S_attack = get_stat(level, pokemon->stats->base_S_attack, pokemon->stats->variable_S_attack, 0);
         pokemon->stats->S_defense = get_stat(level, pokemon->stats->base_S_defense, pokemon->stats->variable_S_defense, 0);
+        pokemon->stats->fixed_hp = pokemon->stats->hp;
     }
 }
 
@@ -235,10 +241,14 @@ void pokemon_normalize(Pokemon *pokemon)
     pokemon->stats->S_attack = get_stat(pokemon->stats->level, pokemon->stats->base_S_attack, pokemon->stats->variable_S_attack, 0);
     pokemon->stats->S_defense = get_stat(pokemon->stats->level, pokemon->stats->base_S_defense, pokemon->stats->variable_S_defense, 0);
 }
-//void pokemon_use_potion(Pokemon, Potion *potion)
-//{
-
-//}
+void pokemon_use_potion(Pokemon *pokemon, Potion potion)
+{
+    pokemon->stats->hp += potion;
+    if (pokemon->stats->hp > pokemon->stats->fixed_hp)
+    {
+        pokemon->stats->hp = pokemon->stats->fixed_hp;
+    }
+}
 void apply_effect(Pokemon *pokemon, Attack *attack)
 {
     time_t t;
@@ -290,7 +300,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
             case paralyzed_state:
             {
-                if(get_pokemon_current_state(pokemon) != normal_state)
+                if(get_pokemon_current_state(pokemon) == normal_state)
                 {
                     if(probability <= get_attack_state_probability(attack))
                     {
@@ -301,7 +311,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
             case burned_state:
             {
-                if(get_pokemon_current_state(pokemon) != normal_state)
+                if(get_pokemon_current_state(pokemon) == normal_state)
                 {
                     if(probability <= get_attack_state_probability(attack))
                     {
@@ -311,7 +321,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
             case sleep_state:
             {
-                if(get_pokemon_current_state(pokemon) != normal_state)
+                if(get_pokemon_current_state(pokemon) == normal_state)
                 {
                     if(probability <= get_attack_state_probability(attack))
                     {
@@ -321,7 +331,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
             case poisoned_state:
             {
-                if(get_pokemon_current_state(pokemon) != normal_state)
+                if(get_pokemon_current_state(pokemon) == normal_state)
                 {
                     if(probability <= get_attack_state_probability(attack))
                     {
@@ -331,7 +341,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
             case confused_state:
             {
-                if(get_pokemon_current_state(pokemon) != normal_state)
+                if(get_pokemon_current_state(pokemon) == normal_state)
                 {
                     if(probability <= get_attack_state_probability(attack))
                     {
@@ -341,7 +351,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
             }
             case frozen_state:
             {
-                if(get_pokemon_current_state(pokemon) != normal_state)
+                if(get_pokemon_current_state(pokemon) == normal_state)
                 {
                     if(probability <= get_attack_state_probability(attack))
                     {
@@ -399,11 +409,12 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
     {
 
         modify_pokemon_hp(get_pokemon_hp(pokemon_receiver) - get_damage(attack, pokemon_attacker, pokemon_receiver),pokemon_receiver);
-        if(get_attack_affected_stat(attack) == normal_state)
+
+
+        if(get_attack_state_change(attack) == normal_state)
         {
             if(get_attack_direction(attack)) // efecto a si mismo
             {
-
                 apply_effect(pokemon_attacker, attack);
             }
             else
@@ -412,27 +423,27 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
             }
 
         }
-        else if(get_attack_affected_stat(attack) == paralyzed_state)
+        else if(get_attack_state_change(attack) == paralyzed_state)
         {
             apply_effect(pokemon_receiver, attack);
         }
-        else if(get_attack_affected_stat(attack) == burned_state)
+        else if(get_attack_state_change(attack) == burned_state)
         {
             apply_effect(pokemon_receiver, attack);
         }
-        else if(get_attack_affected_stat(attack) == frozen_state)
+        else if(get_attack_state_change(attack) == frozen_state)
         {
             apply_effect(pokemon_receiver, attack);
         }
-        else if(get_attack_affected_stat(attack) == poisoned_state)
+        else if(get_attack_state_change(attack) == poisoned_state)
         {
             apply_effect(pokemon_receiver, attack);
         }
-        else if(get_attack_affected_stat(attack) == sleep_state)
+        else if(get_attack_state_change(attack) == sleep_state)
         {
             apply_effect(pokemon_receiver, attack);
         }
-        else if(get_attack_affected_stat(attack) == confused_state)
+        else if(get_attack_state_change(attack) == confused_state)
         {
             apply_effect(pokemon_receiver, attack);
         }
@@ -448,6 +459,7 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
 void print_pokemon(Pokemon *pokemon)
 {
     printf("Pokemon: %s\n", pokemon->name);
+    printf("State: %d\n", pokemon->current_state);
     printf("Type: %d\n", pokemon->type1);
     printf("Type: %d\n", pokemon->type2);
     printf("Level: %d\n", pokemon->stats->level);

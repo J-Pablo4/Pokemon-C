@@ -11,6 +11,8 @@
 #include "Attacks.h"
 
 typedef struct pokemon Pokemon;
+typedef enum potion{potion = 20, super_potion = 50, hyper_potion = 200, max_potion = 100000} Potion;
+
 
 Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, int defense, int speed, int S_attack, int S_defense);
 void define_attacks(char *name, Pokemon *pokemon, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated);
@@ -27,6 +29,7 @@ Type get_pokemon_type1(Pokemon *pokemon);
 Type get_pokemon_type2(Pokemon *pokemon);
 double* get_pokemon_weaknesses(Pokemon *pokemon);
 int get_pokemon_level(Pokemon *pokemon);
+void pokemon_use_potion(Pokemon *pokemon, Potion potion);
 
 void modify_pokemon_attack(int attack, Pokemon *pokemon);
 void modify_pokemon_defense(int defense, Pokemon *pokemon);
