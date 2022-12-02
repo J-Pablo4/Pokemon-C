@@ -76,7 +76,7 @@ void* get_element(List *l, int index)
     {
         // queremos borrar head
         Node *to_return = l->head->element;
-        l->head = l->head->next;
+        //l->head = l->head->next;
         return to_return;
     }
     Node *current = l->head;
