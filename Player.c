@@ -1,19 +1,17 @@
-//
-// Created by jplop on 17/11/2022.
-//
-
 #include "Player.h"
 #include "stdio.h"
+int framesCounter = 0;
 
 struct redPlayer{
     Vector2 position;
     float speed;
-    int PlayerDirection;
+    Vector2 PlayerDirection;
     int right;
     int left;
     int up;
     int down;
     Texture2D playerTXTR;
+    Rectangle mask;
 };
 
 RedPlayer* InitPlayer(int x, int y){
@@ -24,61 +22,54 @@ RedPlayer* InitPlayer(int x, int y){
 }
 
 void UpdatePlayer(float delta, RedPlayer *player){
+    int frameSpeed = 3;
+    int currentFrame = 0;
 
     if(IsKeyDown(KEY_RIGHT)){
         player->position.x += PLAYER_HOR_SPD*delta;
         player->right = true;
-        player->PlayerDirection=1;
+        player->left = false;
+        player->PlayerDirection.y = 3;
+        player->PlayerDirection.x = 3;
+        framesCounter++;
 
     }
     if(IsKeyDown(KEY_LEFT)){
         player->position.x -= PLAYER_HOR_SPD*delta;
         player->left = true;
-        player->PlayerDirection=1;
+        player->PlayerDirection.y = 2;
+        player->PlayerDirection.x = 2;
+        framesCounter++;
     }
     if(IsKeyDown(KEY_UP)){
         player->position.y -= PLAYER_HOR_SPD*delta;
         player->up = true;
-        player->PlayerDirection=1;
+        player->down = false;
+        player->PlayerDirection.y = 1;
+        player->PlayerDirection.x = 0;
+        framesCounter++;
     }
     if(IsKeyDown(KEY_DOWN)){
         player->position.y += PLAYER_HOR_SPD*delta;
         player->down = true;
-        player->PlayerDirection=1;
-    }
-}
-
-Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player){
-
-
-    Rectangle framesRed = {getPlayerPos(player).x, getPlayerPos(player).y, (float)playerTxtr.width/3, (float)playerTxtr.height/3};
-    int currentFrame = 0;
-
-    int framesCounter = 0;
-    int framesSpeed = 8;
-
-    framesCounter ++;
-    if(currentFrame >= (60/framesSpeed))
-    {
-        framesCounter = 0;
-        currentFrame ++;
-
-        if(currentFrame > 2)
-            framesRed.x = (float)currentFrame*(float)playerTxtr.width/3;
-
+        player->up = false;
+        player->PlayerDirection.y = 0;
+        player->PlayerDirection.x = 0;
+        framesCounter++;
     }
 
-    if(IsKeyDown(KEY_RIGHT))
-        framesSpeed++;
-    else if(IsKeyDown(KEY_LEFT))
-        framesSpeed--;
 
-    if(framesSpeed > MAX_FRAME_SPEED)
-        framesSpeed = MAX_FRAME_SPEED;
-    else if(framesSpeed < MIN_FRAME_SPEED)
-        framesSpeed = MIN_FRAME_SPEED;
-
-    return framesRed;
+    if (framesCounter >= frameSpeed){                                  //ANIMATION
+        framesCounter= 0;
+            player->PlayerDirection.x++;
+            currentFrame++;
+        if(currentFrame > 5){
+            currentFrame = 0;
+            player->PlayerDirection.x++;
+        } else {
+            player->PlayerDirection.x = 1;
+        }
+    }
 }
 
 
@@ -89,8 +80,24 @@ Vector2 getPlayerPos(RedPlayer *player){
     return pos;
 }
 
+void setPlayerTexture(Texture2D t, RedPlayer *player)
+{
+    player->playerTXTR = t;
+}
+
+void RenderPlayer(RedPlayer *player, int width)
+{
+    Rectangle mask;
+    mask.y =player->PlayerDirection.y * (float)player->playerTXTR.height/4;
+    mask.x =player->PlayerDirection.x * (float)player->playerTXTR.width/3;
+    mask.height = player->playerTXTR.height/4;
+    mask.width = player->playerTXTR.width/3;
+    DrawTextureRec(player->playerTXTR, mask, getPlayerPos(player), WHITE);
+
+}
+
 Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
 {
-    Rectangle playerArea = {player->position.x, player->position.y, (float)playerTXTR.width/3, (float)playerTXTR.height/3};
+    Rectangle playerArea = {player->position.x, player->position.y,(float)playerTXTR.width/3, (float)playerTXTR.height/4};
     return playerArea;
 }
