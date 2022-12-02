@@ -15,6 +15,7 @@ struct redPlayer{
     Texture2D playerTXTR;
     Rectangle mask;
     List *pokemons;
+    Potion potions[5];
 };
 
 RedPlayer* InitPlayer(int x, int y){
@@ -147,4 +148,13 @@ void get_player_pokemons(RedPlayer *player)
         set_pokemons_to_player(player, pokemon_arry, 4);
         set_pokemons_to_player(player, pokemon_arry, 5);
     }
+}
+
+void set_player_potions(RedPlayer *player)
+{
+    player->potions[0] = potion;
+    player->potions[1] = potion;
+    player->potions[2] = super_potion;
+    player->potions[3] = hyper_potion;
+    player->potions[4] = max_potion;
 }
