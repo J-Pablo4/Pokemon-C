@@ -6,7 +6,7 @@
 #include "mapBorders.h"
 
 int main() {
-
+    init_pokemons();
 //    get_weakness(water, water);
 
     const int screenWidth = 368;
