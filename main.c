@@ -25,6 +25,7 @@ int main() {
     SetTargetFPS(24);
 
     get_player_pokemons(red);
+    set_player_potions(red);
 
     while (!WindowShouldClose())
     {
