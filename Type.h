@@ -13,4 +13,5 @@ typedef enum type{water_type ,bug_type ,dragon_type ,electric_type,ghost_type ,f
 
 double* get_weakness(Type type1, Type type2);
 
+
 #endif //POKEMON_TYPE_H
