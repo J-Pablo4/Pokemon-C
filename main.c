@@ -38,6 +38,7 @@ int main() {
         float playerYPos = getPlayerPos(red).y;
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
         drawMapCollisionBoxes(screenWidth,screenHeight,redArea);
+        drawNPCTXTR(blueTxtr,leafTxtr,lanceTxtr, redArea);
         EndDrawing();
     }
 
