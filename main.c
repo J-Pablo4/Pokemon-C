@@ -2,11 +2,12 @@
 #include "raylib.h"
 #include "Type.h"
 #include "Player.h"
+#include "Attacks.h"
 #include "mapBorders.h"
 
 int main() {
 
-    get_weakness(water, water);
+//    get_weakness(water, water);
 
     const int screenWidth = 368;
     const int screenHeight = 640;
@@ -17,7 +18,6 @@ int main() {
     Texture2D test = LoadTexture("Assets/redPlayerTEST.png");
     Texture2D blueTxtr = LoadTexture("Assets/blueRival.png");
     Texture2D route1Txtr = LoadTexture("Assets/route1.png");
-    Texture2D lanceTxtr = LoadTexture("Assets/eliteFour");
 
     RedPlayer *red = InitPlayer(screenWidth, screenHeight);
     setPlayerTexture(redTxtr, red);

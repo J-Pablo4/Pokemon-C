@@ -9,7 +9,7 @@ double* get_weakness(Type type1, Type type2) {
 
     switch (type1)
     {
-        case water:
+        case water_type:
         {
             if (type2 == none) {
                 double weakness_array[] = {0.5, 1, 1, 2, 1, 0.5, 0.5, 1, 1, 2, 1, 1, 1, 1, 1};
@@ -17,35 +17,35 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if ( type2 == fighting)
+            else if ( type2 == fighting_type)
             {
                 double weakness_array[] = {0.5,0.5,1,2,1,0.5,0.5,1,1,2,2,0.5,1,1,2};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == psychic)
+            else if (type2 == psychic_type)
             {
                 double weakness_array[] = {0.5, 2, 1, 2, 2, 0.5, 0.5, 0.5, 1, 2, 0.5, 1, 1, 1, 1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == ice)
+            else if (type2 == ice_type)
             {
                 double weakness_array[] = {0.5,1,1,2,1,1,0.25,2,1,2,1,2,1,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == poison)
+            else if (type2 == poison_type)
             {
                 double weakness_array[] = {0.5,0.5,1,2,1,0.5,0.5,0.5,1,1,2,1,2,0.5,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {0.5,0.5,1,4,1,0.5,1,0.5,1,1,1,2,0,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -53,7 +53,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case bug:
+        case bug_type:
         {
             if (type2 == none)
             {
@@ -62,21 +62,21 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {1,0.5,1,2,1,2,2,0.25,1,0.25,1,4,0,1,2};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == poison)
+            else if (type2 == poison_type)
             {
                 double weakness_array[] = {1,0.5,1,1,1,2,1,0.25,1,0.25,2,2,1,0.5,2};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == grass)
+            else if (type2 == grass_type)
             {
                 double weakness_array[] = {0.5,2,1,0.5,1,4,0.5,1,1,0.25,1,2,0.25,2,4};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -84,7 +84,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case dragon:
+        case dragon_type:
         {
             if (type2 == none)
             {
@@ -93,7 +93,7 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {0.5,0.5,2,1,1,0.5,4,0.5,1,0.25,1,2,0,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -101,7 +101,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case electric:
+        case electric_type:
         {
             if (type2 == none)
             {
@@ -110,7 +110,7 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {1,0.5,1,1,1,1,2,0.5,1,0.5,1,2,0,1,0.5};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -118,9 +118,9 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case ghost:
+        case ghost_type:
         {
-            if(type2 == poison)
+            if(type2 == poison_type)
             {
                 double weakness_array[] = {1,0.25,1,1,2,1,1,0,0,0.5,2,1,2,0.25,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -128,7 +128,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case fire:
+        case fire_type:
         {
             if (type2 == none)
             {
@@ -137,7 +137,7 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {2,0.25,1,2,1,0.5,1,0.5,1,0.25,1,4,0,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -145,16 +145,16 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case ice:
+        case ice_type:
         {
-            if (type2 == psychic)
+            if (type2 == psychic_type)
             {
                 double weakness_array[] = {1,2,1,1,2,2,0.5,1,1,1,0.5,2,1,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {1,0.5,1,2,1,2,1,1,1,0.5,1,4,0,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -162,14 +162,14 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case fighting:
+        case fighting_type:
         {
             double weakness_array[] = {1,0.5,1,1,1,1,1,1,1,1,2,0.5,1,1,2};
             memcpy(weakness, weakness_array, sizeof (double)*15);
 
             return weakness;
         }
-        case normal:
+        case normal_type:
         {
             if (type2 == none)
             {
@@ -178,7 +178,7 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {1,0.5,1,2,0,1,2,1,1,0.5,1,2,0,1,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -186,7 +186,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case grass:
+        case grass_type:
         {
             if (type2 == none)
             {
@@ -195,14 +195,14 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == psychic)
+            else if (type2 == psychic_type)
             {
                 double weakness_array[] = {0.5,4,1,0.5,2,2,2,0.5,1,0.5,0.5,1,0.5,2,2};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == poison)
+            else if (type2 == poison_type)
             {
                 double weakness_array[] = {0.5,1,1,0.5,1,2,2,0.5,1,0.25,2,1,1,1,2};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -210,30 +210,30 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case psychic:
+        case psychic_type:
         {
             double weakness_array[] = {1,2,1,1,2,1,1,0.5,1,1,0.5,1,1,1,1};
             memcpy(weakness, weakness_array, sizeof (double)*15);
 
             return weakness;
         }
-        case rock:
+        case rock_type:
         {
-            if (type2 == water)
+            if (type2 == water_type)
             {
                 double weakness_array[] = {1,1,1,2,1,0.25,0.5,2,0.5,4,1,1,2,0.5,0.5};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == ground)
+            else if (type2 == ground_type)
             {
                 double weakness_array[] = {4,1,1,0,1,0.5,2,2,0.5,4,1,0.5,2,0.25,0.5};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {2,0.5,1,2,1,0.5,2,1,0.5,1,1,2,0,0.5,0.5};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -241,7 +241,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case ground:
+        case ground_type:
         {
             if (type2 == none)
             {
@@ -250,7 +250,7 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == rock)
+            else if (type2 == rock_type)
             {
                 double weakness_array[] = {4,1,1,0,1,0.5,2,2,0.5,4,1,0.5,2,0.25,0.5};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
@@ -258,7 +258,7 @@ double* get_weakness(Type type1, Type type2) {
                 return weakness;
             }
         }
-        case poison:
+        case poison_type:
         {
             if (type2 == none)
             {
@@ -267,14 +267,14 @@ double* get_weakness(Type type1, Type type2) {
 
                 return weakness;
             }
-            else if (type2 == ground)
+            else if (type2 == ground_type)
             {
                 double weakness_array[] = {2,0.5,1,0,1,1,2,0.5,1,1,2,0.5,2,0.25,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
 
                 return weakness;
             }
-            else if (type2 == flying)
+            else if (type2 == flying_type)
             {
                 double weakness_array[] = {1,0.25,1,2,1,1,2,0.25,1,0.25,2,2,0,0.5,1};
                 memcpy(weakness, weakness_array, sizeof (double)*15);
