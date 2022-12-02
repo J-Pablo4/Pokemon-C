@@ -41,5 +41,6 @@ void modify_pokemon_state(State state, Pokemon *pokemon);
 void print_pokemon(Pokemon *pokemon);
 void pokemon_normalize(Pokemon *pokemon);
 int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver);
+void init_pokemons();
 
 #endif //POKEMON_POKEMON_H

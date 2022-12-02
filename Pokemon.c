@@ -477,3 +477,98 @@ void print_pokemon(Pokemon *pokemon)
         printf("%s\n", attack_get_name(attack));
     }
 }
+
+void init_pokemons()
+{
+    FILE *file = fopen("../pokemon.txt", "w");
+
+    if(file == NULL)
+    {
+        printf("No se abrio el archivo\n");
+        return;
+    }else
+    {
+        Pokemon *p1 = new_pokemon("Bulbasaur",grass_type,poison_type,45,49,49,45,65,65);
+        set_level(50, p1);
+//        define_attacks()
+        fwrite(p1, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p2 = new_pokemon("Ivysaur",grass_type,poison_type,60,62,63,60,80,80);
+        set_level(50, p2);
+        fwrite(p2, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p3 = new_pokemon("Venusaur",grass_type,poison_type,80,82,83,80,100,100);
+        set_level(50, p3);
+        fwrite(p3, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p4 = new_pokemon("Charmander",fire_type,none,39,52,43,65,60,50);
+        set_level(50, p4);
+        fwrite(p4, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p5 = new_pokemon("Charmeleon",fire_type,none,58,64,58,80,80,65);
+        set_level(50, p5);
+        fwrite(p5, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p6 = new_pokemon("Charizard",fire_type,flying_type,78,84,78,100,109,85);
+        set_level(50, p6);
+        fwrite(p6, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p7 = new_pokemon("Squirtle",water_type,none,44,48,65,43,50,64);
+        set_level(50, p7);
+        fwrite(p7, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p8 = new_pokemon("Wartortle",water_type,none,59,63,80,58,65,80);
+        set_level(50, p8);
+        fwrite(p8, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p9 = new_pokemon("Blastoise",water_type,none,79,83,100,78,85,105);
+        set_level(50, p9);
+        fwrite(p9, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p10 = new_pokemon("Caterpie",bug_type,none,45,30,35,45,20,20);
+        set_level(50, p10);
+        fwrite(p10, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p11 = new_pokemon("Metapod",bug_type,none,50,20,55,30,25,25);
+        set_level(50, p11);
+        fwrite(p11, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p12 = new_pokemon("Butterfree",bug_type,flying_type,60,45,50,70,90,80);
+        set_level(50, p12);
+        fwrite(p12, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p13 = new_pokemon("Weedle",bug_type,poison_type,40,35,30,50,20,20);
+        set_level(50, p13);
+        fwrite(p13, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p14 = new_pokemon("Kakuna",bug_type,poison_type,45,25,50,35,25,25);
+        set_level(50, p14);
+        fwrite(p14, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p15 = new_pokemon("Beedrill",bug_type,poison_type,65,80,40,75,45,80);
+        set_level(50, p15);
+        fwrite(p15, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p16 = new_pokemon("Pidgey",normal_type,flying_type,40,45,40,56,35,35);
+        set_level(50, p16);
+        fwrite(p16, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p17 = new_pokemon("Pidgeotto",normal_type,flying_type,63,60,55,71,50,50);
+        set_level(50, p17);
+        fwrite(p17, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p18 = new_pokemon("Pidgeot",normal_type,flying_type,83,80,75,101,70,70);
+        set_level(50, p18);
+        fwrite(p18, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p19 = new_pokemon("Rattata",normal_type,none,30,56,35,72,25,35);
+        set_level(50, p19);
+        fwrite(p19, sizeof(Pokemon *), 1, file);
+
+        Pokemon *p20 = new_pokemon("Raticate",normal_type,none,55,81,60,97,50,70);
+        set_level(50, p20);
+        fwrite(p20, sizeof(Pokemon *), 1, file);
+
+        fclose(file);
+    }
+}
