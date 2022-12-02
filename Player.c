@@ -14,6 +14,7 @@ struct redPlayer{
     int down;
     Texture2D playerTXTR;
     Rectangle mask;
+    List *pokemons;
 };
 
 RedPlayer* InitPlayer(int x, int y){
