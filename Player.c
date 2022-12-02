@@ -18,8 +18,8 @@ struct redPlayer{
 
 RedPlayer* InitPlayer(int x, int y){
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
-    newRed->position.x = (float)x/2;
-    newRed->position.y = (float)y/2;
+    newRed->position.x = ((float)x/2)+10;
+    newRed->position.y = 600;
     return newRed;
 }
 
@@ -87,4 +87,10 @@ Vector2 getPlayerPos(RedPlayer *player){
     pos.x = player->position.x;
     pos.y = player->position.y;
     return pos;
+}
+
+Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
+{
+    Rectangle playerArea = {player->position.x, player->position.y, (float)playerTXTR.width/3, (float)playerTXTR.height/3};
+    return playerArea;
 }
