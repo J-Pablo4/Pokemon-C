@@ -10,6 +10,8 @@ struct redPlayer{
     int left;
     int up;
     int down;
+    int widht;
+    int height;
     Texture2D playerTXTR;
     Rectangle mask;
 };
@@ -80,9 +82,9 @@ Vector2 getPlayerPos(RedPlayer *player){
     return pos;
 }
 
-void setPlayerTexture(Texture2D t, RedPlayer *player)
+void setPlayerTexture(Texture2D txtr, RedPlayer *player)
 {
-    player->playerTXTR = t;
+    player->playerTXTR = txtr;
 }
 
 void RenderPlayer(RedPlayer *player, int width)
@@ -92,12 +94,16 @@ void RenderPlayer(RedPlayer *player, int width)
     mask.x =player->PlayerDirection.x * (float)player->playerTXTR.width/3;
     mask.height = player->playerTXTR.height/4;
     mask.width = player->playerTXTR.width/3;
+    player->mask = mask;
     DrawTextureRec(player->playerTXTR, mask, getPlayerPos(player), WHITE);
-
 }
 
 Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
 {
     Rectangle playerArea = {player->position.x, player->position.y,(float)playerTXTR.width/3, (float)playerTXTR.height/4};
     return playerArea;
+}
+
+Rectangle getMask(RedPlayer *player){
+    return player->mask;
 }

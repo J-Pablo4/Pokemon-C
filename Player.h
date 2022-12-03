@@ -17,6 +17,8 @@ RedPlayer* InitPlayer(int x, int y);
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
 Vector2 getPlayerPos(RedPlayer *player);
 void RenderPlayer(RedPlayer *player, int width);
-void setPlayerTexture(Texture2D t, RedPlayer *player);
+void setPlayerTexture(Texture2D txtr, RedPlayer *player);
 Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR);
+Rectangle getMask(RedPlayer *player);
+Vector2 getPlayerPos(RedPlayer *player);
 #endif //POKEMON_PLAYER_H

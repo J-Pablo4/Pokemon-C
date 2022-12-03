@@ -23,6 +23,8 @@ int main() {
     RedPlayer *red = InitPlayer(screenWidth, screenHeight);
     Rectangle redArea = getPlayerArea(red, redTxtr);
     setPlayerTexture(redTxtr, red);
+    Rectangle redMask = getMask(red);
+    Vector2 playerPos = getPlayerPos(red);
 
     SetTargetFPS(24);
 
@@ -37,7 +39,7 @@ int main() {
         float playerXPos = getPlayerPos(red).x;
         float playerYPos = getPlayerPos(red).y;
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
-        drawMapCollisionBoxes(screenWidth,screenHeight,redArea);
+        drawMapCollisionBoxes(screenWidth,screenHeight,redMask, playerPos);
         drawNPCTXTR(blueTxtr,leafTxtr,lanceTxtr, redArea);
         EndDrawing();
     }
