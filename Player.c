@@ -19,8 +19,8 @@ struct redPlayer{
 
 RedPlayer* InitPlayer(int x, int y){
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
-    newRed->position.x = (float)x/2;
-    newRed->position.y = (float)y/2;
+    newRed->position.x = ((float)x/2)+10;
+    newRed->position.y = 600;
     newRed->pokemons = list_new();
     return newRed;
 }
@@ -98,6 +98,12 @@ void RenderPlayer(RedPlayer *player, int width)
     mask.width = player->playerTXTR.width/3;
     DrawTextureRec(player->playerTXTR, mask, getPlayerPos(player), WHITE);
 
+}
+
+Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
+{
+    Rectangle playerArea = {player->position.x, player->position.y,(float)playerTXTR.width/3, (float)playerTXTR.height/4};
+    return playerArea;
 }
 
 void set_player_potions(RedPlayer *player)

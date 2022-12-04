@@ -5,7 +5,11 @@
 #ifndef POKEMON_MAPBORDERS_H
 #define POKEMON_MAPBORDERS_H
 #include "raylib.h"
-#define TRANSPARENT      (Color){ 138, 221, 45, 0 }
-void drawMapCollisionBoxes(int screenWidht, int screerHeight);
+#include "Player.h"
+
+void drawMapCollisionBoxes(int screenWidth, int screenHeight, Rectangle area);
+void playerCollision(Rectangle area, Rectangle collisionBox);
+void drawNPCTXTR(Texture2D npc1, Texture2D npc2, Texture2D npc3, Rectangle area);
+
 
 #endif //POKEMON_MAPBORDERS_H
