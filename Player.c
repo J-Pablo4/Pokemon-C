@@ -1,8 +1,8 @@
 #include "Player.h"
 #include <stdio.h>
 #include "Pokemon.h"
+#include "raylib.h"
 int framesCounter = 0;
-
 struct redPlayer{
     Vector2 position;
     float speed;
@@ -11,10 +11,24 @@ struct redPlayer{
     int left;
     int up;
     int down;
+    int widht;
+    int height;
     Texture2D playerTXTR;
     Rectangle mask;
     List *pokemons;
     Potion potions[5];
+};
+
+struct npc{
+    List *pokemon;
+    Vector2 npcPosition;
+    Texture2D txtr;
+};
+
+struct npc{
+    List *pokemon;
+    Vector2 npcPosition;
+    Texture2D txtr;
 };
 
 RedPlayer* InitPlayer(int x, int y){
@@ -23,6 +37,15 @@ RedPlayer* InitPlayer(int x, int y){
     newRed->position.y = 600;
     newRed->pokemons = list_new();
     return newRed;
+}
+
+NPC* initNPC(int x, int y, Texture2D txtr)
+{
+    NPC *newNPC = calloc(1, sizeof(NPC));
+    newNPC->npcPosition.x = x;
+    newNPC->npcPosition.y = y;
+    newNPC->txtr = txtr;
+    return newNPC;
 }
 
 void UpdatePlayer(float delta, RedPlayer *player){
@@ -84,9 +107,14 @@ Vector2 getPlayerPos(RedPlayer *player){
     return pos;
 }
 
-void setPlayerTexture(Texture2D t, RedPlayer *player)
+void setPlayerPos(RedPlayer *player, int a, int b){
+    player->position.x = a;
+    player->position.y = b;
+}
+
+void setPlayerTexture(Texture2D txtr, RedPlayer *player)
 {
-    player->playerTXTR = t;
+    player->playerTXTR = txtr;
 }
 
 void RenderPlayer(RedPlayer *player, int width)
@@ -96,14 +124,33 @@ void RenderPlayer(RedPlayer *player, int width)
     mask.x =player->PlayerDirection.x * (float)player->playerTXTR.width/3;
     mask.height = player->playerTXTR.height/4;
     mask.width = player->playerTXTR.width/3;
+    player->mask = mask;
     DrawTextureRec(player->playerTXTR, mask, getPlayerPos(player), WHITE);
-
 }
 
 Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
 {
     Rectangle playerArea = {player->position.x, player->position.y,(float)playerTXTR.width/3, (float)playerTXTR.height/4};
     return playerArea;
+}
+
+Rectangle getMask(RedPlayer *player){
+    return player->mask;
+}
+
+Vector2 getNPCVector2(NPC *npc);
+Vector2 getNpcVector2(NPC *npc) {
+    return npc->npcPosition;
+}
+
+Texture2D getNPCTxtr(NPC *npc)
+{
+    return npc->txtr;
+}
+
+void setNPCTxtr(Texture2D npcTxtr, NPC npc)
+{
+
 }
 
 void set_player_potions(RedPlayer *player)

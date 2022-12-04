@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "Player.h"
 #include "mapBorders.h"
+#include "fighting.h"
 
 int main() {
     init_pokemons();
@@ -18,8 +19,19 @@ int main() {
     Texture2D lanceTxtr = LoadTexture("Assets/lanceCrop.png");
 
     RedPlayer *red = InitPlayer(screenWidth, screenHeight);
+    NPC *leafNPC = initNPC(145,300, leafTxtr);
+    NPC *blueNPC = initNPC(174,12,blueTxtr);
+    NPC *lanceNPC = initNPC(80,474,lanceTxtr);
     Rectangle redArea = getPlayerArea(red, redTxtr);
     setPlayerTexture(redTxtr, red);
+    Rectangle redMask = getMask(red);
+    Vector2 playerPos = getPlayerPos(red);
+    //Vector2 npcVectorBlue = getNPCVector2(blueNPC);
+    //Vector2 npcVectorLeaf = getNPCVector2(leafNPC);
+    //Vector2 npcVectorLance = getNPCVector2(lanceNPC);
+    Texture2D txtrBlue = getNPCTxtr(blueNPC);
+    Texture2D txtrLeaf = getNPCTxtr(leafNPC);
+    Texture2D txtrLance = getNPCTxtr(lanceNPC);
 
     SetTargetFPS(24);
 
@@ -37,8 +49,7 @@ int main() {
         float playerXPos = getPlayerPos(red).x;
         float playerYPos = getPlayerPos(red).y;
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
-        drawMapCollisionBoxes(screenWidth,screenHeight,redArea);
-        drawNPCTXTR(blueTxtr,leafTxtr,lanceTxtr, redArea);
+        drawMapCollisionBoxes(screenWidth,screenHeight,red);
         EndDrawing();
     }
 
