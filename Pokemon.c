@@ -289,13 +289,18 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                 else
                 {
                     Attack *change_precision;
-                    for(int i = 0; i < 4; i++)
+                    int i = 0;
+                    while (get_element(get_pokemon_list_attacks(pokemon), i) != NULL)
                     {
                         change_precision = get_element(get_pokemon_list_attacks(pokemon), i);
                         if(get_attack_precision(change_precision) == -100)
+                        {
+                            i++;
                             continue;
-                        modify_attack_precision(change_precision, get_attack_precision(change_precision)*
+                        }
+                        modify_attack_precision(change_precision, get_attack_precision(change_precision)+
                                 get_attack_aggregated(attack));
+                        i++;
                     }
                 }
             }
@@ -498,7 +503,7 @@ void init_pokemons()
 
     Pokemon *p1 = new_pokemon("Bulbasaur",grass_type,poison_type,45,49,49,45,65,65);
     define_attacks("Razor Leaf", p1,grass_type,phisical,55,95,25,none_state,0,0,0,0);
-    define_attacks("Growth",p1,normal_type,stat,0,0,40,normal_state,100,S_attack_affected_stat,1,1);
+    define_attacks("Growth",p1,normal_type,stat,0,-100,40,normal_state,100,S_attack_affected_stat,1,1);
     define_attacks("Body slam",p1,normal_type,phisical,85,100,15,paralyzed_state,30,0,0,0);
     define_attacks("Stun spore", p1,grass_type,stat,0,75,30,paralyzed_state,100,0,0,0);
 
@@ -510,7 +515,7 @@ void init_pokemons()
     file = fopen("../pokemon.txt", "a");
     Pokemon *p2 = new_pokemon("Ivysaur",grass_type,poison_type,60,62,63,60,80,80);
     define_attacks("Razor Leaf", p2,grass_type,phisical,55,95,25,none_state,0,0,0,0);
-    define_attacks("Growth", p2,normal_type,stat,0,0,40,normal_state,100,S_attack_affected_stat,1,1);
+    define_attacks("Growth", p2,normal_type,stat,0,-100,40,normal_state,100,S_attack_affected_stat,1,1);
     define_attacks("Stun spore",p2, grass_type,stat,0,75,30,paralyzed_state,100,0,0,0);
     define_attacks("Body slam",p2,normal_type,phisical,85,100,15,paralyzed_state,30,0,0,0);
 
@@ -522,7 +527,7 @@ void init_pokemons()
     file = fopen("../pokemon.txt", "a");
     Pokemon *p3 = new_pokemon("Venusaur",grass_type,poison_type,80,82,83,80,100,100);
     define_attacks("Razor Leaf",p3, grass_type,phisical,55,95,25,none_state,0,0,0,0);
-    define_attacks("Growth",p3, normal_type,stat,0,0,40,normal_state,100,S_attack_affected_stat,1,1);
+    define_attacks("Growth",p3, normal_type,stat,0,-100,40,normal_state,100,S_attack_affected_stat,1,1);
     define_attacks("Sleep Powder",p3,grass_type,stat,0,75,15,sleep_state,100,0,0,0);
     define_attacks("Body slam",p3,normal_type,phisical,85,100,15,paralyzed_state,30,0,0,0);
 
@@ -559,7 +564,7 @@ void init_pokemons()
     Pokemon *p6 = new_pokemon("Charizard",fire_type,flying_type,78,84,78,100,109,85);
     define_attacks("Fire blast",p6,fire_type,special,120,85,5,burned_state,30,0,0,0);
     define_attacks("Wing Attack",p6,flying_type,phisical,60,100,35,none_state,0,0,0,0);
-    define_attacks("Swords Dance",p6,normal_type,stat,0,0,30,normal_state,100,attack_affected_stat,1,2);
+    define_attacks("Swords Dance",p6,normal_type,stat,0,-100,30,normal_state,100,attack_affected_stat,1,2);
     define_attacks("Slash",p6,normal_type,phisical,70,100,20,none_state,0,0,0,0);
 
     set_level(50, p6);
@@ -607,7 +612,7 @@ void init_pokemons()
     Pokemon *p10 = new_pokemon("Caterpie",bug_type,none,45,30,35,45,20,20);
     define_attacks("String Shot",p10,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
     define_attacks("Tackle",p10,normal_type,phisical,35,95,35,none_state,0,0,0,0);
-    define_attacks("Harden",p10,normal_type,stat,0,0,30,normal_state,100,defense_affected_stat,1,1);
+    define_attacks("Harden",p10,normal_type,stat,0,-100,30,normal_state,100,defense_affected_stat,1,1);
 
     set_level(50, p10);
     fwrite(p10, sizeof(Pokemon), 1, file);
@@ -616,8 +621,9 @@ void init_pokemons()
 
     file = fopen("../pokemon.txt", "a");
     Pokemon *p11 = new_pokemon("Metapod",bug_type,none,50,20,55,30,25,25);     define_attacks("String Shot",p11,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
+    define_attacks("String Shot",p10,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
     define_attacks("Tackle",p11,normal_type,phisical,35,95,35,none_state,0,0,0,0);
-    define_attacks("Harden",p11,normal_type,stat,0,0,30,normal_state,100,defense_affected_stat,1,1);
+    define_attacks("Harden",p11,normal_type,stat,0,-100,30,normal_state,100,defense_affected_stat,1,1);
 
     set_level(50, p11);
     fwrite(p11, sizeof(Pokemon), 1, file);
@@ -641,7 +647,7 @@ void init_pokemons()
     Pokemon *p13 = new_pokemon("Weedle", bug_type, poison_type, 40, 35, 30, 50, 20, 20);
     define_attacks("Poison sting", p13, poison_type, phisical, 15, 100, 35, poisoned_state, 20, 0, 0, 0);
     define_attacks("Tackle", p13, normal_type, phisical, 35, 95, 35, none_state, 0, 0, 0, 0);
-    define_attacks("Harden", p13, normal_type, stat, 0, 0, 30, normal_state, 100, defense_affected_stat, 1, 1);
+    define_attacks("Harden", p13, normal_type, stat, 0, -100, 30, normal_state, 100, defense_affected_stat, 1, 1);
 
     set_level(50, p13);
     fwrite(p13, sizeof(Pokemon), 1, file);
@@ -652,7 +658,7 @@ void init_pokemons()
     Pokemon *p14 = new_pokemon("Kakuna", bug_type, poison_type, 45, 25, 50, 35, 25, 25);
     define_attacks("Poison sting", p14, poison_type, phisical, 15, 100, 35, poisoned_state, 20, 0, 0, 0);
     define_attacks("Tackle", p14, normal_type, phisical, 35, 95, 35, none_state, 0, 0, 0, 0);
-    define_attacks("Harden", p14, normal_type, stat, 0, 0, 30, normal_state, 100, defense_affected_stat, 1, 1);
+    define_attacks("Harden", p14, normal_type, stat, 0, -100, 30, normal_state, 100, defense_affected_stat, 1, 1);
 
     set_level(50, p14);
     fwrite(p14, sizeof(Pokemon), 1, file);
@@ -664,7 +670,7 @@ void init_pokemons()
     define_attacks("Twineedle", p15, bug_type, phisical, 50, 100, 20, none_state, 0, 0, 0, 0);
     define_attacks("Toxic", p15, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
     define_attacks("Razor wind", p15, normal_type, special, 80, 100, 10, none_state, 0, 0, 0, 0);
-    define_attacks("Harden", p15, normal_type, stat, 0, 0, 30, normal_state, 100, defense_affected_stat, 1, 1);
+    define_attacks("Harden", p15, normal_type, stat, 0, -100, 30, normal_state, 100, defense_affected_stat, 1, 1);
 
     set_level(50, p15);
     fwrite(p15, sizeof(Pokemon), 1, file);

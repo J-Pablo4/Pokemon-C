@@ -3,7 +3,6 @@
 //
 
 #include "Attacks.h"
-#include "Pokemon.h"
 #include "Lists.h"
 
 struct attack{

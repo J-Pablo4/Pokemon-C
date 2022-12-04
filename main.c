@@ -1,14 +1,10 @@
 #include "Pokemon.h"
 #include "raylib.h"
-#include "Type.h"
 #include "Player.h"
-#include "Attacks.h"
 #include "mapBorders.h"
-#include <stdio.h>
 
 int main() {
     init_pokemons();
-//    get_weakness(water, water);
 
     const int screenWidth = 368;
     const int screenHeight = 640;
@@ -48,5 +44,4 @@ int main() {
 
     CloseWindow();
     return 0;
-
 }
