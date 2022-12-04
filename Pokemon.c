@@ -486,6 +486,7 @@ void print_pokemon(Pokemon *pokemon)
         printf("Aggregated: %d, ", get_attack_aggregated(attack));
         printf("State Change: %d, ", get_attack_state_change(attack));
         printf("State Probability: %d\n", get_attack_state_probability(attack));
+        printf("\n");
         i++;
     }
 }
@@ -745,11 +746,10 @@ int is_index_in_array(int *indexes, int index)
     return 0;
 }
 
-void set_pokemons_to_player(RedPlayer *player, Pokemon pokemon_array[], int index_array)
+void set_pokemons_to_player(RedPlayer *player, Pokemon pokemon_array[], int index_array, int *indexes)
 {
     time_t t;
     int index;
-    int indexes[6] = {21,21,21,21,21,21};
 
     srand((unsigned) time(&t));
     index = (rand() % 20);
@@ -758,7 +758,7 @@ void set_pokemons_to_player(RedPlayer *player, Pokemon pokemon_array[], int inde
         index = (rand() % 20);
     }
     indexes[index_array] = index;
-    list_append(get_player_pokemons(player), &pokemon_array[index]);
+    list_append(get_player_pokemons(player), &(pokemon_array[index]));
 }
 
 void obtain_pokemons_from_file(RedPlayer *player)
@@ -775,13 +775,13 @@ void obtain_pokemons_from_file(RedPlayer *player)
         rewind(file);
         fread(pokemon_array, sizeof (Pokemon), 20, file);
         fclose(file);
+        int indexes[6] = {21,21,21,21,21,21};
 
-//        print_pokemon(pokemon_array);
-        set_pokemons_to_player(player, pokemon_array, 0);
-        set_pokemons_to_player(player, pokemon_array, 1);
-        set_pokemons_to_player(player, pokemon_array, 2);
-        set_pokemons_to_player(player, pokemon_array, 3);
-        set_pokemons_to_player(player, pokemon_array, 4);
-        set_pokemons_to_player(player, pokemon_array, 5);
+        set_pokemons_to_player(player, pokemon_array, 0, indexes);
+        set_pokemons_to_player(player, pokemon_array, 1, indexes);
+        set_pokemons_to_player(player, pokemon_array, 2, indexes);
+        set_pokemons_to_player(player, pokemon_array, 3, indexes);
+        set_pokemons_to_player(player, pokemon_array, 4, indexes);
+        set_pokemons_to_player(player, pokemon_array, 5, indexes);
     }
 }
