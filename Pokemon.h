@@ -9,6 +9,7 @@
 #include <time.h>
 #include "Lists.h"
 #include "Attacks.h"
+#include "Player.h"
 
 typedef struct pokemon Pokemon;
 typedef enum potion{potion = 20, super_potion = 50, hyper_potion = 200, max_potion = 100000} Potion;
@@ -42,5 +43,6 @@ void print_pokemon(Pokemon *pokemon);
 void pokemon_normalize(Pokemon *pokemon);
 int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver);
 void init_pokemons();
+void obtain_pokemons_from_file(RedPlayer *player);
 
 #endif //POKEMON_POKEMON_H

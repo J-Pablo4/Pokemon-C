@@ -1,6 +1,5 @@
 #include "Player.h"
-#include "stdio.h"
-#include "Lists.h"
+#include <stdio.h>
 #include "Pokemon.h"
 int framesCounter = 0;
 
@@ -101,56 +100,6 @@ void RenderPlayer(RedPlayer *player, int width)
 
 }
 
-int is_index_in_array(int *indexes, int index)
-{
-    for (int i = 0; i < 6; ++i) {
-        if(indexes[i] == index)
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-void set_pokemons_to_player(RedPlayer *player, Pokemon *pokemon_arry[], int index_array)
-{
-    time_t t;
-    int index;
-    int indexes[6] = {21,21,21,21,21,21};
-
-    srand((unsigned) time(&t));
-    index = (rand() % 20);
-    while(is_index_in_array(indexes, index))
-    {
-        index = (rand() % 20);
-    }
-    indexes[index_array] = index;
-    list_append(player->pokemons, pokemon_arry[index]);
-}
-
-void get_player_pokemons(RedPlayer *player)
-{
-    FILE *file = fopen("../pokemon.txt", "r");
-    Pokemon *pokemon_arry[20] = {};
-
-    if(file == NULL)
-    {
-        printf("No se abrio el archivo\n");
-        return;
-    }else
-    {
-        fread(pokemon_arry, sizeof (Pokemon *), 20, file);
-        fclose(file);
-
-        set_pokemons_to_player(player, pokemon_arry, 0);
-        set_pokemons_to_player(player, pokemon_arry, 1);
-        set_pokemons_to_player(player, pokemon_arry, 2);
-        set_pokemons_to_player(player, pokemon_arry, 3);
-        set_pokemons_to_player(player, pokemon_arry, 4);
-        set_pokemons_to_player(player, pokemon_arry, 5);
-    }
-}
-
 void set_player_potions(RedPlayer *player)
 {
     player->potions[0] = potion;
@@ -158,4 +107,9 @@ void set_player_potions(RedPlayer *player)
     player->potions[2] = super_potion;
     player->potions[3] = hyper_potion;
     player->potions[4] = max_potion;
+}
+
+List* get_player_pokemons(RedPlayer *player)
+{
+    return player->pokemons;
 }

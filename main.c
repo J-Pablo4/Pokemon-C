@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Attacks.h"
 #include "mapBorders.h"
+#include <stdio.h>
 
 int main() {
     init_pokemons();
@@ -12,37 +13,49 @@ int main() {
     const int screenWidth = 368;
     const int screenHeight = 640;
 
-    InitWindow(screenWidth, screenHeight, "Pokemon Memoria Dinamica");
-
-    Texture2D redTxtr = LoadTexture("Assets/redPlayerWalking.png");
-    Texture2D test = LoadTexture("Assets/redPlayerTEST.png");
-    Texture2D blueTxtr = LoadTexture("Assets/blueRival.png");
-    Texture2D route1Txtr = LoadTexture("Assets/route1.png");
+//    InitWindow(screenWidth, screenHeight, "Pokemon Memoria Dinamica");
+//
+//    Texture2D redTxtr = LoadTexture("Assets/redPlayerWalking.png");
+//    Texture2D test = LoadTexture("Assets/redPlayerTEST.png");
+//    Texture2D blueTxtr = LoadTexture("Assets/blueRival.png");
+//    Texture2D route1Txtr = LoadTexture("Assets/route1.png");
 
     RedPlayer *red = InitPlayer(screenWidth, screenHeight);
-    setPlayerTexture(redTxtr, red);
+//    setPlayerTexture(redTxtr, red);
+//
+//    SetTargetFPS(24);
 
-    SetTargetFPS(24);
-
-    get_player_pokemons(red);
+    obtain_pokemons_from_file(red);
     set_player_potions(red);
 
-    while (!WindowShouldClose())
-    {
-        float deltaTime = GetFrameTime();
-        UpdatePlayer(deltaTime, red);
-        BeginDrawing();
-        ClearBackground(BLACK);
-        DrawTexture(route1Txtr, 0, 0, WHITE);
-        RenderPlayer(red, 3);
-        float playerXPos = getPlayerPos(red).x;
-        float playerYPos = getPlayerPos(red).y;
-        DrawRectangle(screenWidth/2,15,8,8,BLUE);
-        drawMapCollisionBoxes(screenWidth,screenHeight);
-        EndDrawing();
-    }
+    print_pokemon(get_element(get_player_pokemons(red),0));
+    printf("\n");
+    print_pokemon(get_element(get_player_pokemons(red),1));
+    printf("\n");
+    print_pokemon(get_element(get_player_pokemons(red),2));
+    printf("\n");
+    print_pokemon(get_element(get_player_pokemons(red),3));
+    printf("\n");
+    print_pokemon(get_element(get_player_pokemons(red),4));
+    printf("\n");
+    print_pokemon(get_element(get_player_pokemons(red),5));
 
-    CloseWindow();
+//    while (!WindowShouldClose())
+//    {
+//        float deltaTime = GetFrameTime();
+//        UpdatePlayer(deltaTime, red);
+//        BeginDrawing();
+//        ClearBackground(BLACK);
+//        DrawTexture(route1Txtr, 0, 0, WHITE);
+//        RenderPlayer(red, 3);
+//        float playerXPos = getPlayerPos(red).x;
+//        float playerYPos = getPlayerPos(red).y;
+//        DrawRectangle(screenWidth/2,15,8,8,BLUE);
+//        drawMapCollisionBoxes(screenWidth,screenHeight);
+//        EndDrawing();
+//    }
+
+//    CloseWindow();
     return 0;
 
 }

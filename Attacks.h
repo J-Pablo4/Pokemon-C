@@ -27,7 +27,7 @@ Affected_stat get_attack_affected_stat(Attack *attack);
 int get_attack_direction(Attack *attack);
 int get_attack_aggregated(Attack *attack);
 State get_attack_state_change(Attack *attack);
-
-
+int get_attack_base_precision(Attack *attack);
+int get_attack_base_pp(Attack *attack);
 
 #endif //POKEMON_ATTACKS_H
