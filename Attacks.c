@@ -97,7 +97,6 @@ void attack_normalize(Attack *attack)
 {
     attack->pp = attack->BASE_PP;
     attack->precision = attack->BASE_PRECISION;
-    return;
 }
 
 char* attack_get_name(Attack *attack)
