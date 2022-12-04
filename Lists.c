@@ -94,19 +94,3 @@ void* get_element(List *l, int index)
         return to_return;
     }
 }
-
-//int list_contains(List *l, int value_to_find)
-//{
-//    Node *current = (*l).head;
-////    for (Node *current = (*l).head; current != NULL; current = (*current).next) {
-////        if((*current).value == value_to_find)
-////            return 1;
-////    }
-//    while (current)
-//    {
-//        if((*current).value == value_to_find)
-//            return 1;
-//        current = (*current).next;
-//    }
-//    return 0;
-//}
