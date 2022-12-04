@@ -16,11 +16,26 @@ struct redPlayer{
     Rectangle mask;
 };
 
+struct npc{
+    List *pokemon;
+    Vector2 npcPosition;
+    Texture2D txtr;
+};
+
 RedPlayer* InitPlayer(int x, int y){
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
     newRed->position.x = ((float)x/2)+10;
     newRed->position.y = 600;
     return newRed;
+}
+
+NPC* initNPC(int x, int y, Texture2D txtr)
+{
+    NPC *newNPC = calloc(1, sizeof(NPC));
+    newNPC->npcPosition.x = x;
+    newNPC->npcPosition.y = y;
+    newNPC->txtr = txtr;
+    return newNPC;
 }
 
 void UpdatePlayer(float delta, RedPlayer *player){
@@ -106,4 +121,19 @@ Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
 
 Rectangle getMask(RedPlayer *player){
     return player->mask;
+}
+
+Vector2 getNpcVector2(NPC *npc)
+{
+    return npc->npcPosition;
+}
+
+Texture2D getNPCTxtr(NPC *npc)
+{
+    return npc->txtr;
+}
+
+void setNPCTxtr(Texture2D npcTxtr, NPC npc)
+{
+
 }
