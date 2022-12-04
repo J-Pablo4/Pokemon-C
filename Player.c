@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "stdio.h"
 int framesCounter = 0;
+#include "raylib.h"
 
 struct redPlayer{
     Vector2 position;
@@ -123,8 +124,8 @@ Rectangle getMask(RedPlayer *player){
     return player->mask;
 }
 
-Vector2 getNpcVector2(NPC *npc)
-{
+Vector2 getNPCVector2(NPC *npc);
+Vector2 getNpcVector2(NPC *npc) {
     return npc->npcPosition;
 }
 

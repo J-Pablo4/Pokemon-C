@@ -4,8 +4,9 @@
 #include "raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "Pokemon.h"
+//#include "Pokemon.h"
 #include "Lists.h"
+#include "raylib.h"
 #define MAX_FRAME_SPEED 10
 #define MIN_FRAME_SPEED 1
 #define PLAYER_HOR_SPD 100.0f

@@ -30,8 +30,8 @@ int main() {
     Rectangle redMask = getMask(red);
     Vector2 playerPos = getPlayerPos(red);
     Vector2 npcVectorBlue = getNPCVector2(blueNPC);
-    Vector2 npcVectorLeaf = getNPCVector2(leafNPC);
-    Vector2 npcVectorLance = getNPCVector2(lanceNPC);
+    //Vector2 npcVectorLeaf = getNPCVector2(leafNPC);
+    //Vector2 npcVectorLance = getNPCVector2(lanceNPC);
     Texture2D txtrBlue = getNPCTxtr(blueNPC);
     Texture2D txtrLeaf = getNPCTxtr(leafNPC);
     Texture2D txtrLance = getNPCTxtr(lanceNPC);
@@ -49,8 +49,7 @@ int main() {
         float playerXPos = getPlayerPos(red).x;
         float playerYPos = getPlayerPos(red).y;
         DrawRectangle(screenWidth/2,15,8,8,BLUE);
-        drawMapCollisionBoxes(screenWidth,screenHeight,redMask, playerPos);
-        drawNPCTXTR(,leafTxtr,lanceTxtr, redArea);
+        drawMapCollisionBoxes(screenWidth,screenHeight,redMask, getPlayerPos(red));
         EndDrawing();
     }
 
