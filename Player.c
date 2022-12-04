@@ -22,6 +22,7 @@ RedPlayer* InitPlayer(int x, int y){
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
     newRed->position.x = (float)x/2;
     newRed->position.y = (float)y/2;
+    newRed->pokemons = list_new();
     return newRed;
 }
 
