@@ -1,5 +1,6 @@
 #include "Player.h"
-#include "stdio.h"
+#include <stdio.h>
+#include "Pokemon.h"
 int framesCounter = 0;
 
 struct redPlayer{
@@ -12,12 +13,15 @@ struct redPlayer{
     int down;
     Texture2D playerTXTR;
     Rectangle mask;
+    List *pokemons;
+    Potion potions[5];
 };
 
 RedPlayer* InitPlayer(int x, int y){
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
     newRed->position.x = ((float)x/2)+10;
     newRed->position.y = 600;
+    newRed->pokemons = list_new();
     return newRed;
 }
 
@@ -100,4 +104,18 @@ Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR)
 {
     Rectangle playerArea = {player->position.x, player->position.y,(float)playerTXTR.width/3, (float)playerTXTR.height/4};
     return playerArea;
+}
+
+void set_player_potions(RedPlayer *player)
+{
+    player->potions[0] = potion;
+    player->potions[1] = potion;
+    player->potions[2] = super_potion;
+    player->potions[3] = hyper_potion;
+    player->potions[4] = max_potion;
+}
+
+List* get_player_pokemons(RedPlayer *player)
+{
+    return player->pokemons;
 }

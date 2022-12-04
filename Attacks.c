@@ -71,6 +71,14 @@ State get_attack_state_change(Attack *attack)
 {
     return attack->state_change;
 }
+int get_attack_base_precision(Attack *attack)
+{
+    return attack->BASE_PRECISION;
+}
+int get_attack_base_pp(Attack *attack)
+{
+    return attack->BASE_PP;
+}
 
 
 Attack* init_attack(char *name, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
@@ -97,7 +105,6 @@ void attack_normalize(Attack *attack)
 {
     attack->pp = attack->BASE_PP;
     attack->precision = attack->BASE_PRECISION;
-    return;
 }
 
 char* attack_get_name(Attack *attack)

@@ -4,9 +4,10 @@
 #include "Player.h"
 #include "Attacks.h"
 #include "mapBorders.h"
+#include <stdio.h>
 
 int main() {
-
+    init_pokemons();
 //    get_weakness(water, water);
 
     const int screenWidth = 368;
@@ -25,6 +26,9 @@ int main() {
     setPlayerTexture(redTxtr, red);
 
     SetTargetFPS(24);
+
+    obtain_pokemons_from_file(red);
+    set_player_potions(red);
 
     while (!WindowShouldClose())
     {

@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "Lists.h"
 
 #define MAX_FRAME_SPEED 10
 #define MIN_FRAME_SPEED 1
@@ -19,4 +20,6 @@ Vector2 getPlayerPos(RedPlayer *player);
 void RenderPlayer(RedPlayer *player, int width);
 void setPlayerTexture(Texture2D t, RedPlayer *player);
 Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR);
+List* get_player_pokemons(RedPlayer *player);
+void set_player_potions(RedPlayer *player);
 #endif //POKEMON_PLAYER_H

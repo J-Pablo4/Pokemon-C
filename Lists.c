@@ -74,7 +74,6 @@ void* get_element(List *l, int index)
 {
     if(index == 0)
     {
-        // queremos borrar head
         Node *to_return = l->head->element;
         //l->head = l->head->next;
         return to_return;
@@ -86,10 +85,14 @@ void* get_element(List *l, int index)
             return NULL; // el indice no es valido
         current = current->next;
     }
-
-    Node *to_return = current->next->element;
-
-    return to_return;
+    if(current->next == NULL)
+    {
+        return NULL;
+    } else
+    {
+        Node *to_return = current->next->element;
+        return to_return;
+    }
 }
 
 //int list_contains(List *l, int value_to_find)
