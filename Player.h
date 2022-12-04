@@ -23,6 +23,7 @@ RedPlayer* InitPlayer(int x, int y);
 NPC* initNPC(int x, int y, Texture2D txtr);
 Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
 Vector2 getPlayerPos(RedPlayer *player);
+void setPlayerPos(RedPlayer *player, int a, int b);
 void RenderPlayer(RedPlayer *player, int width);
 void setPlayerTexture(Texture2D txtr, RedPlayer *player);
 Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR);

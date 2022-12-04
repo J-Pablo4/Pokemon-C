@@ -1,8 +1,7 @@
 #include "Player.h"
 #include "stdio.h"
-int framesCounter = 0;
 #include "raylib.h"
-
+int framesCounter = 0;
 struct redPlayer{
     Vector2 position;
     float speed;
@@ -96,6 +95,11 @@ Vector2 getPlayerPos(RedPlayer *player){
     pos.x = player->position.x;
     pos.y = player->position.y;
     return pos;
+}
+
+void setPlayerPos(RedPlayer *player, int a, int b){
+    player->position.x = a;
+    player->position.y = b;
 }
 
 void setPlayerTexture(Texture2D txtr, RedPlayer *player)
