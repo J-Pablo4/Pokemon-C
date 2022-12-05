@@ -97,9 +97,9 @@ int main() {
             sleep(2);
             JUMP
 
-            battle(red, blue);
-//            battle(red, leaf);
-//            battle(red, lance);
+            battle(red, blue, 3);
+            battle(red, leaf,4);
+            battle(red, lance, 5);
             break;
         }
         case 'b':

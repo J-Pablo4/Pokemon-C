@@ -16,12 +16,12 @@ int potion_exist(RedPlayer *player);
 Attack* select_attack(Pokemon *player_pokemon);
 Attack* getEnemyAttack(Pokemon* enemyPokemon);
 
-void battle(RedPlayer *player, Enemy *enemy)
+void battle(RedPlayer *player, Enemy *enemy, int i)
 {
     Pokemon *enemy_pokemon = NULL;
     Pokemon *player_pokemon = NULL;
     char choice;
-    int index = 3;
+    int index = i;
     printf("you're gonna fight with %s\n", get_enemy_name(enemy));
     enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
     JUMP
