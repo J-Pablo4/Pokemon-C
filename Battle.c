@@ -14,6 +14,7 @@ char fight_menu(Pokemon *enemy_pokemon, Pokemon *player_pokemon);
 void potions_menu(Pokemon *player_pokemon, RedPlayer *player);
 int potion_exist(RedPlayer *player);
 Attack* select_attack(Pokemon *player_pokemon);
+Attack* getEnemyAttack(Pokemon* enemyPokemon);
 
 void battle(RedPlayer *player, Enemy *enemy)
 {
@@ -31,25 +32,31 @@ void battle(RedPlayer *player, Enemy *enemy)
     printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
 
     sleep(1);
-
-    choice = fight_menu(enemy_pokemon, player_pokemon);
-    
-    if(choice == 'a')
+    while (teamPlayerAlive(player) && teamEnemyAlive(enemy))
     {
-        Attack *players_attack = select_attack(player_pokemon);
-        if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
-        {
-            hit(players_attack,player_pokemon,enemy_pokemon);
-        } else
-        {
-
-        }
-    } else
-    {
-        potions_menu(player_pokemon, player);
         printf("Enemy: %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
         printf("You: %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
+        JUMP
+        choice = fight_menu(enemy_pokemon, player_pokemon);
+
+        if(choice == 'a')
+        {
+            Attack *players_attack = select_attack(player_pokemon);
+            Attack *enemyAttack = getEnemyAttack(enemy_pokemon);
+            if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
+            {
+                hit(players_attack,player_pokemon,enemy_pokemon);
+            } else
+            {
+                hit(enemyAttack,enemy_pokemon,player_pokemon);
+            }
+        } else
+        {
+            potions_menu(player_pokemon, player);
+
+        }
     }
+
 }
 
 Pokemon* select_pokemon_for_battle(RedPlayer *player)
@@ -258,4 +265,21 @@ Attack* select_attack(Pokemon *player_pokemon)
         default:
             return NULL;
     }
+}
+
+Attack* getEnemyAttack(Pokemon* enemyPokemon)
+{
+    int selectedAttack = true;
+    while (selectedAttack)
+    {
+        time_t t;
+        int index;
+        srand((unsigned) time(&t));
+        index = (rand() % 3);
+        Attack *a = get_element(get_pokemon_list_attacks(enemyPokemon),index);
+
+        if(get_attack_pp(a) > 0)
+            return a;
+    }
+    return 0;
 }

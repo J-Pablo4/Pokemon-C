@@ -46,6 +46,7 @@ struct pokemon
     char *name;
     List *attacks;
     State current_state;
+    int alive;
 };
 
 
@@ -58,7 +59,7 @@ Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, in
     Pokemon *pokemon_new = malloc(sizeof (Pokemon));
     pokemon_new->stats = malloc(sizeof (Stats));
     pokemon_new->stats->level = 1;
-
+    pokemon_new->alive = 1;
     pokemon_new->type1 = type1;
     pokemon_new->type2 = type2;
 
@@ -232,6 +233,11 @@ void modify_pokemon_speed(double speed, Pokemon *pokemon)
 void modify_pokemon_hp(int hp, Pokemon *pokemon)
 {
     pokemon->stats->hp = hp;
+    if(hp <= 0)
+    {
+        pokemon->alive = 0;
+        pokemon->stats->hp = 0;
+    }
 }
 void modify_pokemon_state(State state, Pokemon *pokemon)
 {
@@ -858,4 +864,31 @@ void init_enemy_pokemons(Enemy *enemy)
         set_pokemons_to_enemy(enemy, pokemon_array, 4, indexes);
         set_pokemons_to_enemy(enemy, pokemon_array, 5, indexes);
     }
+}
+
+int teamPlayerAlive(RedPlayer *player)
+{
+
+    for (int i = 0; i < 5; ++i) {
+        Pokemon *pk = get_element(get_player_pokemons(player),i);
+        if(pk->alive == 1)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int teamEnemyAlive(Enemy *enemy)
+{
+
+    for (int i = 0; i < 5; ++i) {
+        Pokemon *pk = get_element(get_enemy_pokemons(enemy),i);
+        if(pk->alive == 1)
+        {
+            return 1;
+        }
+    }
+    return 0;
+
 }
