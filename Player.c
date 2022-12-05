@@ -9,12 +9,14 @@ struct redPlayer{
 struct enemy{
     List *enemyPokemons;
     int defeated;
+    char *name;
 };
 
-Enemy* init_enemy()
+Enemy* init_enemy(char *name)
 {
     Enemy *npc = calloc(1, sizeof (Enemy));
     npc->enemyPokemons = list_new();
+    npc->name = name;
     return npc;
 }
 
@@ -34,6 +36,11 @@ void set_player_potions(RedPlayer *player)
     player->potions[4] = max_potion;
 }
 
+void set_player_potion_to_none(RedPlayer *player, int index)
+{
+    player->potions[index] = none_potion;
+}
+
 List* get_player_pokemons(RedPlayer *player)
 {
     return player->pokemons;
@@ -42,4 +49,14 @@ List* get_player_pokemons(RedPlayer *player)
 List* get_enemy_pokemons(Enemy *enemy)
 {
     return enemy->enemyPokemons;
+}
+
+char* get_enemy_name(Enemy *enemy)
+{
+    return enemy->name;
+}
+
+Potion* get_player_potions(RedPlayer *player)
+{
+    return player->potions;
 }

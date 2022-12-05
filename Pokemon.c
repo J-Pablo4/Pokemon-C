@@ -156,6 +156,10 @@ int get_stat(int level, int base_stat, int variable_stat, int set_hp)
     }
 }
 
+char* get_pokemon_name(Pokemon *pokemon)
+{
+    return pokemon->name;
+}
 int get_pokemon_attack(Pokemon *pokemon)
 {
     return pokemon->stats->attack;

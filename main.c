@@ -44,9 +44,9 @@ int main() {
         {
             init_pokemons();
             RedPlayer *red = init_player();
-            Enemy *blue = init_enemy();
-            Enemy *leaf = init_enemy();
-            Enemy *lance = init_enemy();
+            Enemy *blue = init_enemy("Blue");
+            Enemy *leaf = init_enemy("Leaf");
+            Enemy *lance = init_enemy("Lance");
 
             obtain_pokemons_from_file(red);
             set_player_potions(red);
@@ -96,7 +96,9 @@ int main() {
             sleep(2);
             JUMP
 
-            battle(red);
+            battle(red, blue);
+//            battle(red, leaf);
+//            battle(red, lance);
             break;
         }
         case 'b':
