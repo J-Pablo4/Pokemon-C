@@ -4,6 +4,9 @@
 #include "Type.h"
 #include "Pokemon.h"
 #include "Player.h"
+#include <unistd.h>
+
+#define JUMP printf("\n");
 
 int get_stat(int level, int base_stat, int variable_stat, int set_hp);
 
@@ -325,6 +328,8 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(paralyzed_state, pokemon);
+                        printf("%s has been paralyzed.\n",get_pokemon_name(pokemon));
+                        JUMP
                         modify_pokemon_speed((double)get_pokemon_speed(pokemon) * .75, pokemon);
                     }
                 }
@@ -336,6 +341,8 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(burned_state, pokemon);
+                        printf("%s has been burned.\n",get_pokemon_name(pokemon));
+                        JUMP
                     }
                 }
             }
@@ -346,6 +353,8 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(sleep_state, pokemon);
+                        printf("%s has been sleep_state.\n",get_pokemon_name(pokemon));
+                        JUMP
                     }
                 }
             }
@@ -356,6 +365,8 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(poisoned_state, pokemon);
+                        printf("%s has been poisoned.\n",get_pokemon_name(pokemon));
+                        JUMP
                     }
                 }
             }
@@ -366,6 +377,8 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(confused_state, pokemon);
+                        printf("%s has been confused.\n",get_pokemon_name(pokemon));
+                        JUMP
                     }
                 }
             }
@@ -376,6 +389,8 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(frozen_state, pokemon);
+                        printf("%s has been frozen_state.\n",get_pokemon_name(pokemon));
+                        JUMP
                     }
                 }
             }
@@ -424,7 +439,9 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
     time_t t;
     srand((unsigned) time(&t));
     int precision = (rand() % 100);
-
+    printf("%s has used %s\n", pokemon_attacker->name, get_attack_name(attack));
+    JUMP
+    sleep(1);
     if(precision <= get_attack_precision(attack) || get_attack_precision(attack) == -100)
     {
 
@@ -471,7 +488,12 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
         return 0;	//	el golpe fue un exito
     }
     else
+    {
+        printf("It Missed...\n");
+        JUMP
+        sleep(1);
         modify_attack_pp(attack,get_attack_pp(attack)-1);
+    }
     return -1;	// el golpe fallo
 }
 

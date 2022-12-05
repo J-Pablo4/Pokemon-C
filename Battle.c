@@ -40,11 +40,17 @@ void battle(RedPlayer *player, Enemy *enemy)
             printf("%s has fainted.\n", get_pokemon_name(enemy_pokemon));
             JUMP
             sleep(1);
+            printf("The enemy has chosen %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
+            JUMP
+            sleep(1);
             index--;
             enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
         }else if(!get_pokemon_alive(player_pokemon))
         {
             printf("%s has fainted.\n", get_pokemon_name(player_pokemon));
+            JUMP
+            sleep(1);
+            printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
             JUMP
             sleep(1);
             player_pokemon = select_pokemon_for_battle(player);
@@ -59,24 +65,20 @@ void battle(RedPlayer *player, Enemy *enemy)
         printf("You: %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
         JUMP
         choice = fight_menu(enemy_pokemon, player_pokemon);
+        Attack *enemyAttack = getEnemyAttack(enemy_pokemon);
 
         if(choice == 'a')
         {
             Attack *players_attack = select_attack(player_pokemon);
-            Attack *enemyAttack = getEnemyAttack(enemy_pokemon);
             if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
             {
                 hit(players_attack,player_pokemon,enemy_pokemon);
                 if(get_pokemon_alive(enemy_pokemon))
                 {
-                    printf("The enemy has chosen %s\n", get_attack_name(enemyAttack));
-                    JUMP
                     hit(enemyAttack,enemy_pokemon,player_pokemon);
                 }
             } else
             {
-                printf("The enemy has chosen %s\n", get_attack_name(enemyAttack));
-                JUMP
                 hit(enemyAttack,enemy_pokemon,player_pokemon);
                 if(get_pokemon_alive(enemy_pokemon))
                 {
@@ -86,6 +88,7 @@ void battle(RedPlayer *player, Enemy *enemy)
         } else
         {
             potions_menu(player_pokemon, player);
+            hit(enemyAttack,enemy_pokemon,player_pokemon);
         }
     }
 
