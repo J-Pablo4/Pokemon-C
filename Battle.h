@@ -5,7 +5,7 @@
 #ifndef POKEMON_BATTLE_H
 #define POKEMON_BATTLE_H
 #include "Player.h"
-
+#include <time.h>
 void battle(RedPlayer *player, Enemy *enemy);
 
 #endif //POKEMON_BATTLE_H

@@ -50,5 +50,7 @@ void obtain_pokemons_from_file(RedPlayer *player);
 void init_enemy_pokemons(Enemy *enemy);
 char* get_pokemon_name(Pokemon *pokemon);
 void set_player_potion_to_none(RedPlayer *player, int index);
+int teamPlayerAlive(RedPlayer *player);
+int teamEnemyAlive(Enemy *enemy);
 
 #endif //POKEMON_POKEMON_H
