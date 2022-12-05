@@ -27,7 +27,7 @@ int main() {
     JUMP
     printf("A command line experience!!!\n");
     JUMP
-    system("pause");
+    sleep(2);
 
     printf("-----MENU-----\n");
     JUMP
@@ -51,9 +51,9 @@ int main() {
             obtain_pokemons_from_file(red);
             set_player_potions(red);
 
-            init_enemy_pokemons(blue);
-            init_enemy_pokemons(leaf);
-            init_enemy_pokemons(lance);
+            init_enemy_pokemons(blue,0);
+            init_enemy_pokemons(leaf,1);
+            init_enemy_pokemons(lance,2);
 
             printf("NEW GAME!!!");
             JUMP

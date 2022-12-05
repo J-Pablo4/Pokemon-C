@@ -185,6 +185,10 @@ int get_pokemon_hp(Pokemon *pokemon)
 {
     return pokemon->stats->hp;
 }
+int get_pokemon_alive(Pokemon *pokemon)
+{
+    return pokemon->alive;
+}
 List* get_pokemon_list_attacks(Pokemon *pokemon)
 {
     return pokemon->attacks;
@@ -801,21 +805,6 @@ void set_pokemons_to_player(RedPlayer *player, Pokemon pokemon_array[], int inde
     list_append(get_player_pokemons(player), &(pokemon_array[index]));
 }
 
-void set_pokemons_to_enemy(Enemy *enemy, Pokemon pokemon_array[], int index_array, int *indexes)
-{
-    time_t t;
-    int index;
-
-    srand((unsigned) time(&t));
-    index = (rand() % 20);
-    while(is_index_in_array(indexes, index))
-    {
-        index = (rand() % 20);
-    }
-    indexes[index_array] = index;
-    list_append(get_enemy_pokemons(enemy), &(pokemon_array[index]));
-}
-
 void obtain_pokemons_from_file(RedPlayer *player)
 {
     FILE *file = fopen("../pokemon.txt", "r");
@@ -841,28 +830,151 @@ void obtain_pokemons_from_file(RedPlayer *player)
     }
 }
 
-void init_enemy_pokemons(Enemy *enemy)
+void init_enemy_pokemons(Enemy *enemy, int flag)
 {
-    FILE *file = fopen("../pokemon.txt", "r");
-    Pokemon *pokemon_array = calloc(20,sizeof (Pokemon));
-
-    if(file == NULL)
+    if(flag == 0)
     {
-        printf("No se abrio el archivo\n");
-        return;
-    }else
-    {
-        rewind(file);
-        fread(pokemon_array, sizeof (Pokemon), 20, file);
-        fclose(file);
-        int indexes[6] = {21,21,21,21,21,21};
+        Pokemon *p5 = new_pokemon("Charmeleon",fire_type,none,58,64,58,80,80,65);
+        define_attacks("Slash",p5,normal_type,phisical,70,100,20,none_state,0,0,0,0);
+        define_attacks("Flamethrower",p5,fire_type,special,90,100,15,burned_state,10,0,0,0);
+        define_attacks("Submission",p5,fighting_type,phisical,80,80,25,none_state,0,0,0,0);
+        define_attacks("Earthquake",p5,ground_type,phisical,100,100,10,none_state,0,0,0,0);
 
-        set_pokemons_to_enemy(enemy, pokemon_array, 0, indexes);
-        set_pokemons_to_enemy(enemy, pokemon_array, 1, indexes);
-        set_pokemons_to_enemy(enemy, pokemon_array, 2, indexes);
-        set_pokemons_to_enemy(enemy, pokemon_array, 3, indexes);
-        set_pokemons_to_enemy(enemy, pokemon_array, 4, indexes);
-        set_pokemons_to_enemy(enemy, pokemon_array, 5, indexes);
+        set_level(55, p5);
+        list_append(get_enemy_pokemons(enemy), p5);
+
+        Pokemon *p10 = new_pokemon("Caterpie",bug_type,none,45,30,35,45,20,20);
+        define_attacks("String Shot",p10,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
+        define_attacks("Tackle",p10,normal_type,phisical,35,95,35,none_state,0,0,0,0);
+        define_attacks("Harden",p10,normal_type,stat,0,-100,30,normal_state,100,defense_affected_stat,1,1);
+
+        set_level(50, p10);
+        list_append(get_enemy_pokemons(enemy), p10);
+
+        Pokemon *p15 = new_pokemon("Beedrill", bug_type, poison_type, 65, 80, 40, 75, 45, 80);
+        define_attacks("Twineedle", p15, bug_type, phisical, 50, 100, 20, none_state, 0, 0, 0, 0);
+        define_attacks("Toxic", p15, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
+        define_attacks("Razor wind", p15, normal_type, special, 80, 100, 10, none_state, 0, 0, 0, 0);
+        define_attacks("Harden", p15, normal_type, stat, 0, -100, 30, normal_state, 100, defense_affected_stat, 1, 1);
+
+        set_level(50, p15);
+        list_append(get_enemy_pokemons(enemy), p15);
+
+        Pokemon *p20 = new_pokemon("Raticate", normal_type, none, 55, 81, 60, 97, 50, 70);
+        define_attacks("Hyper Fang", p20, normal_type, phisical, 80, 90, 15, none_state, 0, 0, 0, 0);
+        define_attacks("Toxic", p20, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
+        define_attacks("Body Slam", p20, normal_type, phisical, 85, 100, 15, paralyzed_state, 30, 0, 0, 0);
+        define_attacks("Sand Attack", p20, normal_type, stat, 0, 100, 15, normal_state, 100, precision_affected_stat, 0,
+                       -6);
+
+        set_level(50, p20);
+        list_append(get_enemy_pokemons(enemy), p20);
+    } else if(flag == 1)
+    {
+        Pokemon *p8 = new_pokemon("Wartortle",water_type,none,59,63,80,58,65,80);
+        define_attacks("Toxic",p8,poison_type,stat,0,85,10,poisoned_state,100,0,0,0);
+        define_attacks("Submission",p8,fighting_type,phisical,80,80,25,none_state,0,0,0,0);
+        define_attacks("Earthquake",p8,ground_type,phisical,100,100,10,none_state,0,0,0,0);
+        define_attacks("Surf",p8,water_type,special,90,100,15,none_state,0,0,0,0);
+
+        set_level(60, p8);
+        list_append(get_enemy_pokemons(enemy), p8);
+
+        Pokemon *p17 = new_pokemon("Pidgeotto", normal_type, flying_type, 63, 60, 55, 71, 50, 50);
+        define_attacks("Sand Attack", p17, normal_type, stat, 0, 100, 15, normal_state, 100, precision_affected_stat, 0,
+                       -6);
+        define_attacks("Wing Attack", p17, flying_type, phisical, 60, 100, 35, none_state, 0, 0, 0, 0);
+        define_attacks("Swift", p17, normal_type, special, 60, 0, 20, 0, none_state, 0, 0, 0);
+        define_attacks("Toxic", p17, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
+
+        set_level(55, p17);
+        list_append(get_enemy_pokemons(enemy), p17);
+
+        Pokemon *p19 = new_pokemon("Rattata", normal_type, none, 30, 56, 35, 72, 25, 35);
+        define_attacks("Hyper Fang", p19, normal_type, phisical, 80, 90, 15, none_state, 0, 0, 0, 0);
+        define_attacks("Toxic", p19, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
+        define_attacks("Body slam", p19, normal_type, phisical, 85, 100, 15, paralyzed_state, 30, 0, 0, 0);
+        define_attacks("Earthquake", p19, ground_type, phisical, 100, 100, 10, none_state, 0, 0, 0, 0);
+
+        set_level(55, p19);
+        list_append(get_enemy_pokemons(enemy), p19);
+
+        Pokemon *p12 = new_pokemon("Butterfree", bug_type, flying_type, 60, 45, 50, 70, 90, 80);
+        define_attacks("Stun spore", p12, grass_type, stat, 0, 75, 30, paralyzed_state, 100, 0, 0, 0);
+        define_attacks("Swift", p12, normal_type, special, 60, 0, 20, none_state, 0, 0, 0, 0);
+        define_attacks("Psychic", p12, psychic_type, special, 90, 100, 10, normal_state, 33, S_defense_affected_stat, 0,
+                       -1);
+        define_attacks("Wing Attack", p12, flying_type, phisical, 60, 100, 35, none_state, 0, 0, 0, 0);
+
+        set_level(55, p12);
+        list_append(get_enemy_pokemons(enemy), p12);
+
+        Pokemon *p15 = new_pokemon("Beedrill", bug_type, poison_type, 65, 80, 40, 75, 45, 80);
+        define_attacks("Twineedle", p15, bug_type, phisical, 50, 100, 20, none_state, 0, 0, 0, 0);
+        define_attacks("Toxic", p15, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
+        define_attacks("Razor wind", p15, normal_type, special, 80, 100, 10, none_state, 0, 0, 0, 0);
+        define_attacks("Harden", p15, normal_type, stat, 0, -100, 30, normal_state, 100, defense_affected_stat, 1, 1);
+
+        set_level(55, p15);
+        list_append(get_enemy_pokemons(enemy), p15);
+    } else
+    {
+        Pokemon *p3 = new_pokemon("Venusaur",grass_type,poison_type,80,82,83,80,100,100);
+        define_attacks("Razor Leaf",p3, grass_type,phisical,55,95,25,none_state,0,0,0,0);
+        define_attacks("Growth",p3, normal_type,stat,0,-100,40,normal_state,100,S_attack_affected_stat,1,1);
+        define_attacks("Sleep Powder",p3,grass_type,stat,0,75,15,sleep_state,100,0,0,0);
+        define_attacks("Body slam",p3,normal_type,phisical,85,100,15,paralyzed_state,30,0,0,0);
+
+        set_level(65, p3);
+        list_append(get_enemy_pokemons(enemy), p3);
+
+        Pokemon *p6 = new_pokemon("Charizard",fire_type,flying_type,78,84,78,100,109,85);
+        define_attacks("Fire blast",p6,fire_type,special,120,85,5,burned_state,30,0,0,0);
+        define_attacks("Wing Attack",p6,flying_type,phisical,60,100,35,none_state,0,0,0,0);
+        define_attacks("Swords Dance",p6,normal_type,stat,0,-100,30,normal_state,100,attack_affected_stat,1,2);
+        define_attacks("Slash",p6,normal_type,phisical,70,100,20,none_state,0,0,0,0);
+
+        set_level(60, p6);
+        list_append(get_enemy_pokemons(enemy), p6);
+
+        Pokemon *p9 = new_pokemon("Blastoise",water_type,none,79,83,100,78,85,105);
+        define_attacks("Headbutt",p9,normal_type,phisical,70,100,15,none_state,0,0,0,0);
+        define_attacks("Hydro pump",p9,water_type,special,120,80,5,none_state,0,0,0,0);
+        define_attacks("Tail whip",p9,normal_type,stat,0,100,30,normal_state,100,defense_affected_stat,0,-1);
+        define_attacks("Surf",p9,water_type,special,90,100,15,none_state,0,0,0,0);
+
+        set_level(60, p9);
+        list_append(get_enemy_pokemons(enemy), p9);
+
+        Pokemon *p12 = new_pokemon("Butterfree", bug_type, flying_type, 60, 45, 50, 70, 90, 80);
+        define_attacks("Stun spore", p12, grass_type, stat, 0, 75, 30, paralyzed_state, 100, 0, 0, 0);
+        define_attacks("Swift", p12, normal_type, special, 60, 0, 20, none_state, 0, 0, 0, 0);
+        define_attacks("Psychic", p12, psychic_type, special, 90, 100, 10, normal_state, 33, S_defense_affected_stat, 0,
+                       -1);
+        define_attacks("Wing Attack", p12, flying_type, phisical, 60, 100, 35, none_state, 0, 0, 0, 0);
+
+        set_level(60, p12);
+        list_append(get_enemy_pokemons(enemy), p12);
+
+        Pokemon *p18 = new_pokemon("Pidgeot", normal_type, flying_type, 83, 80, 75, 101, 70, 70);
+        define_attacks("Swift", p18, normal_type, special, 60, 0, 20, none_state, 0, 0, 0, 0);
+        define_attacks("Gust", p18, normal_type, special, 40, 100, 35, none_state, 0, 0, 0, 0);
+        define_attacks("Sand Attack", p18, normal_type, stat, 0, 100, 15, normal_state, 100, precision_affected_stat, 0,
+                       -6);
+        define_attacks("Wing Attack", p18, flying_type, phisical, 60, 100, 35, none_state, 0, 0, 0, 0);
+
+        set_level(60, p18);
+        list_append(get_enemy_pokemons(enemy), p18);
+
+        Pokemon *p20 = new_pokemon("Raticate", normal_type, none, 55, 81, 60, 97, 50, 70);
+        define_attacks("Hyper Fang", p20, normal_type, phisical, 80, 90, 15, none_state, 0, 0, 0, 0);
+        define_attacks("Toxic", p20, poison_type, stat, 0, 85, 10, poisoned_state, 100, 0, 0, 0);
+        define_attacks("Body slam", p20, normal_type, phisical, 85, 100, 15, paralyzed_state, 30, 0, 0, 0);
+        define_attacks("Sand Attack", p20, normal_type, stat, 0, 100, 15, normal_state, 100, precision_affected_stat, 0,
+                       -6);
+
+        set_level(60, p20);
+        list_append(get_enemy_pokemons(enemy), p20);
     }
 }
 

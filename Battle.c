@@ -21,8 +21,9 @@ void battle(RedPlayer *player, Enemy *enemy)
     Pokemon *enemy_pokemon = NULL;
     Pokemon *player_pokemon = NULL;
     char choice;
+    int index = 3;
     printf("you're gonna fight with %s\n", get_enemy_name(enemy));
-    enemy_pokemon = get_element(get_enemy_pokemons(enemy), 5);
+    enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
     JUMP
     printf("The enemy has chosen %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
     JUMP
@@ -30,10 +31,24 @@ void battle(RedPlayer *player, Enemy *enemy)
 
     player_pokemon = select_pokemon_for_battle(player);
     printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
-
+    JUMP
     sleep(1);
     while (teamPlayerAlive(player) && teamEnemyAlive(enemy))
     {
+        if(!get_pokemon_alive(enemy_pokemon))
+        {
+            index--;
+            enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
+        }else if(!get_pokemon_alive(player_pokemon))
+        {
+            player_pokemon = select_pokemon_for_battle(player);
+            while (!get_pokemon_alive(player_pokemon))
+            {
+                printf("This pokemon is fainted... Select another one.");
+                JUMP
+                player_pokemon = select_pokemon_for_battle(player);
+            }
+        }
         printf("Enemy: %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
         printf("You: %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
         JUMP
