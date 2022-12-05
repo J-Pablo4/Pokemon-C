@@ -9,9 +9,10 @@
 
 #define JUMP printf("\n");
 
+Pokemon* select_pokemon_for_battle(RedPlayer *player);
+
 void battle(RedPlayer *player, Enemy *enemy)
 {
-    char choice;
     Pokemon *enemy_pokemon = NULL;
     Pokemon *player_pokemon = NULL;
     printf("you're gonna fight with %s\n", get_enemy_name(enemy));
@@ -20,6 +21,17 @@ void battle(RedPlayer *player, Enemy *enemy)
     printf("The enemy has chosen %s\n", get_pokemon_name(enemy_pokemon));
     JUMP
     system("pause");
+
+    player_pokemon = select_pokemon_for_battle(player);
+    printf("You have selected %s", get_pokemon_name(player_pokemon));
+
+    sleep(1);
+
+}
+
+Pokemon* select_pokemon_for_battle(RedPlayer *player)
+{
+    char choice;
     printf("---Select a pokemon---\n");
     printf("[a] %s", get_pokemon_name(get_element(get_player_pokemons(player),0)));
     JUMP
@@ -36,56 +48,35 @@ void battle(RedPlayer *player, Enemy *enemy)
     JUMP
     setbuf(stdin,NULL);
     printf("Choice > ");
-    choice = fgetc(stdin);
-
+    choice = fgetc(stdin)
+            ;
     switch (choice)
     {
         case 'a':
         {
-            player_pokemon = get_element(get_player_pokemons(player),0);
-            printf("You have selected %s", get_pokemon_name(player_pokemon));
-            JUMP
-            break;
+            return get_element(get_player_pokemons(player),0);
         }
         case 'b':
         {
-            player_pokemon = get_element(get_player_pokemons(player),1);
-            printf("You have selected %s", get_pokemon_name(player_pokemon));
-            JUMP
-            break;
+            return get_element(get_player_pokemons(player),1);
         }
         case 'c':
         {
-            player_pokemon = get_element(get_player_pokemons(player),2);
-            printf("You have selected %s", get_pokemon_name(player_pokemon));
-            JUMP
-            break;
+            return get_element(get_player_pokemons(player),2);
         }
         case 'd':
         {
-            player_pokemon = get_element(get_player_pokemons(player),3);
-            printf("You have selected %s", get_pokemon_name(player_pokemon));
-            JUMP
-            break;
+            return get_element(get_player_pokemons(player),3);
         }
         case 'e':
         {
-            player_pokemon = get_element(get_player_pokemons(player),4);
-            printf("You have selected %s", get_pokemon_name(player_pokemon));
-            JUMP
-            break;
+            return get_element(get_player_pokemons(player),4);
         }
         case 'f':
         {
-            player_pokemon = get_element(get_player_pokemons(player),5);
-            printf("You have selected %s", get_pokemon_name(player_pokemon));
-            JUMP
-            break;
+            return get_element(get_player_pokemons(player),5);
         }
         default:
-            break;
+            return NULL;
     }
-
-    sleep(1);
-
 }

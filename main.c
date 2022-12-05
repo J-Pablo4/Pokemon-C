@@ -97,6 +97,8 @@ int main() {
             JUMP
 
             battle(red, blue);
+//            battle(red, leaf);
+//            battle(red, lance);
             break;
         }
         case 'b':
