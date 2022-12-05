@@ -6,6 +6,10 @@ struct redPlayer{
     Potion potions[5];
 };
 
+struct enemy{
+    List *enemyPokemons;
+}
+
 RedPlayer* init_player()
 {
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
