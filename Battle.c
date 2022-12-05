@@ -61,6 +61,10 @@ void battle(RedPlayer *player, Enemy *enemy)
             if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
             {
                 hit(players_attack,player_pokemon,enemy_pokemon);
+                if(get_pokemon_alive(enemy_pokemon))
+                {
+                    hit(enemyAttack,enemy_pokemon,player_pokemon);
+                }
             } else
             {
                 hit(enemyAttack,enemy_pokemon,player_pokemon);
@@ -68,7 +72,6 @@ void battle(RedPlayer *player, Enemy *enemy)
         } else
         {
             potions_menu(player_pokemon, player);
-
         }
     }
 
