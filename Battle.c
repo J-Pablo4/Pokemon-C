@@ -25,7 +25,7 @@ void battle(RedPlayer *player, Enemy *enemy)
     JUMP
     printf("The enemy has chosen %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
     JUMP
-    system("pause");
+    sleep(2);
 
     player_pokemon = select_pokemon_for_battle(player);
     printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
