@@ -468,9 +468,9 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
 void print_pokemon(Pokemon *pokemon)
 {
     printf("Pokemon: %s\n", pokemon->name);
-    printf("State: %d\n", pokemon->current_state);
-    printf("Type: %d\n", pokemon->type1);
-    printf("Type: %d\n", pokemon->type2);
+    printf("State: %s\n", state_to_string(pokemon->current_state));
+    printf("Type: %s\n", type_to_string(pokemon->type1));
+    printf("Type: %s\n", type_to_string(pokemon->type2));
     printf("Level: %d\n", pokemon->stats->level);
     printf("HP: %d\n", pokemon->stats->hp);
     printf("Attack: %d\n", pokemon->stats->attack);
@@ -485,19 +485,37 @@ void print_pokemon(Pokemon *pokemon)
     {
         attack = get_element(get_pokemon_list_attacks(pokemon), i);
         printf("Attack: %s, ", attack_get_name(attack));
-        printf("Attack Type: %d, ", get_attack_attack_type(attack));
-        printf("Type: %d, ", get_attack_type(attack));
+        printf("Attack Type: %s, ", attack_type_to_string(get_attack_attack_type(attack)));
+        printf("Type: %s, ", type_to_string(get_attack_type(attack)));
         printf("Power: %d, ", get_attack_power(attack));
         printf("Precision: %d/%d ", get_attack_precision(attack), get_attack_base_precision(attack));
         printf("PP: %d/%d, ", get_attack_pp(attack),get_attack_base_pp(attack));
         printf("Affected Stat: %d, ", get_attack_affected_stat(attack));
         printf("Direction: %d, ", get_attack_direction(attack));
         printf("Aggregated: %d, ", get_attack_aggregated(attack));
-        printf("State Change: %d, ", get_attack_state_change(attack));
+        printf("State Change: %s, ", state_to_string(get_attack_state_change(attack)));
         printf("State Probability: %d\n", get_attack_state_probability(attack));
         printf("\n");
         i++;
     }
+}
+
+char* type_to_string(Type type)
+{
+    char* types[] = {"Water", "Bug", "Dragon", "Electric", "Ghost", "Fire", "Ice", "Fighting", "Normal", "Grass",
+                     "Psychic", "Rock", "Ground", "Poison", "Flying", "none"};
+    return types[type];
+}
+
+char* state_to_string(State state)
+{
+    char* states[] = {"Normal", "Sleep", "Burned", "Paralyzed", "Confused", "Poisoned", "Frozen","none"};
+    return states[state];
+}
+char* attack_type_to_string(AttackType attackType)
+{
+    char* attack_types[] = {"Physical", "Special", "Stat"};
+    return attack_types[attackType];
 }
 
 void init_pokemons()
