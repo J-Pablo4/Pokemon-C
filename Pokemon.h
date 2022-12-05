@@ -45,5 +45,6 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver);
 void init_pokemons();
 void obtain_pokemons_from_file(RedPlayer *player);
 void init_enemy_pokemons(Enemy *enemy);
+char* get_pokemon_name(Pokemon *pokemon);
 
 #endif //POKEMON_POKEMON_H

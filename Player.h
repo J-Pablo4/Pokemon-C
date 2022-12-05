@@ -13,6 +13,7 @@ RedPlayer* init_player();
 List* get_player_pokemons(RedPlayer *player);
 void set_player_potions(RedPlayer *player);
 List* get_enemy_pokemons(Enemy *enemy);
-Enemy* init_enemy();
+Enemy* init_enemy(char *name);
+char* get_enemy_name(Enemy *enemy);
 
 #endif //POKEMON_PLAYER_H
