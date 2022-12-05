@@ -36,6 +36,11 @@ void set_player_potions(RedPlayer *player)
     player->potions[4] = max_potion;
 }
 
+void set_player_potion_to_none(RedPlayer *player, int index)
+{
+    player->potions[index] = none_potion;
+}
+
 List* get_player_pokemons(RedPlayer *player)
 {
     return player->pokemons;
@@ -49,4 +54,9 @@ List* get_enemy_pokemons(Enemy *enemy)
 char* get_enemy_name(Enemy *enemy)
 {
     return enemy->name;
+}
+
+Potion* get_player_potions(RedPlayer *player)
+{
+    return player->potions;
 }
