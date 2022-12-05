@@ -37,14 +37,20 @@ void battle(RedPlayer *player, Enemy *enemy)
     {
         if(!get_pokemon_alive(enemy_pokemon))
         {
+            printf("%s has fainted.\n", get_pokemon_name(enemy_pokemon));
+            JUMP
+            sleep(1);
             index--;
             enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
         }else if(!get_pokemon_alive(player_pokemon))
         {
+            printf("%s has fainted.\n", get_pokemon_name(player_pokemon));
+            JUMP
+            sleep(1);
             player_pokemon = select_pokemon_for_battle(player);
             while (!get_pokemon_alive(player_pokemon))
             {
-                printf("This pokemon is fainted... Select another one.");
+                printf("This pokemon is fainted... Select another one.\n");
                 JUMP
                 player_pokemon = select_pokemon_for_battle(player);
             }
@@ -63,11 +69,19 @@ void battle(RedPlayer *player, Enemy *enemy)
                 hit(players_attack,player_pokemon,enemy_pokemon);
                 if(get_pokemon_alive(enemy_pokemon))
                 {
+                    printf("The enemy has chosen %s\n", get_attack_name(enemyAttack));
+                    JUMP
                     hit(enemyAttack,enemy_pokemon,player_pokemon);
                 }
             } else
             {
+                printf("The enemy has chosen %s\n", get_attack_name(enemyAttack));
+                JUMP
                 hit(enemyAttack,enemy_pokemon,player_pokemon);
+                if(get_pokemon_alive(enemy_pokemon))
+                {
+                    hit(players_attack,player_pokemon,enemy_pokemon);
+                }
             }
         } else
         {
