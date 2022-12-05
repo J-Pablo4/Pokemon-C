@@ -490,7 +490,7 @@ void print_pokemon(Pokemon *pokemon)
         printf("Power: %d, ", get_attack_power(attack));
         printf("Precision: %d/%d ", get_attack_precision(attack), get_attack_base_precision(attack));
         printf("PP: %d/%d, ", get_attack_pp(attack),get_attack_base_pp(attack));
-        printf("Affected Stat: %d, ", get_attack_affected_stat(attack));
+        printf("Affected Stat: %s, ", affected_stat_to_string(get_attack_affected_stat(attack)));
         printf("Direction: %d, ", get_attack_direction(attack));
         printf("Aggregated: %d, ", get_attack_aggregated(attack));
         printf("State Change: %s, ", state_to_string(get_attack_state_change(attack)));
@@ -517,6 +517,12 @@ char* attack_type_to_string(AttackType attackType)
     char* attack_types[] = {"Physical", "Special", "Stat"};
     return attack_types[attackType];
 }
+char* affected_stat_to_string(Affected_stat affectedStat)
+{
+    char* stats[] = {"Attack", "Defense", "S Attack", "S Defense", "Speed", "Precision", "HP"};
+    return stats[affectedStat];
+}
+
 
 void init_pokemons()
 {

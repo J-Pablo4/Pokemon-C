@@ -42,6 +42,7 @@ void print_pokemon(Pokemon *pokemon);
 char* type_to_string(Type type);
 char* state_to_string(State state);
 char* attack_type_to_string(AttackType attackType);
+char* affected_stat_to_string(Affected_stat affectedStat);
 void pokemon_normalize(Pokemon *pokemon);
 int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver);
 void init_pokemons();
