@@ -38,6 +38,10 @@ int get_attack_state_probability(Attack *attack)
 {
     return attack->state_probability;
 }
+char* get_attack_name(Attack *attack)
+{
+    return attack->name;
+}
 AttackType get_attack_attack_type(Attack *attack)
 {
     return attack->attack;

@@ -5,6 +5,7 @@
 #include "Battle.h"
 #include "Pokemon.h"
 #include <unistd.h>
+#include "Attacks.h"
 
 #define JUMP printf("\n");
 
@@ -12,6 +13,7 @@ Pokemon* select_pokemon_for_battle(RedPlayer *player);
 char fight_menu(Pokemon *enemy_pokemon, Pokemon *player_pokemon);
 void potions_menu(Pokemon *player_pokemon, RedPlayer *player);
 int potion_exist(RedPlayer *player);
+Attack* select_attack(Pokemon *player_pokemon);
 
 void battle(RedPlayer *player, Enemy *enemy)
 {
@@ -21,22 +23,32 @@ void battle(RedPlayer *player, Enemy *enemy)
     printf("you're gonna fight with %s\n", get_enemy_name(enemy));
     enemy_pokemon = get_element(get_enemy_pokemons(enemy), 5);
     JUMP
-    printf("The enemy has chosen %s\n", get_pokemon_name(enemy_pokemon));
+    printf("The enemy has chosen %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
     JUMP
     system("pause");
 
     player_pokemon = select_pokemon_for_battle(player);
-    printf("You have selected %s\n", get_pokemon_name(player_pokemon));
+    printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
 
     sleep(1);
+
     choice = fight_menu(enemy_pokemon, player_pokemon);
     
     if(choice == 'a')
     {
-        printf("hola");
+        Attack *players_attack = select_attack(player_pokemon);
+        if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
+        {
+            hit(players_attack,player_pokemon,enemy_pokemon);
+        } else
+        {
+
+        }
     } else
     {
         potions_menu(player_pokemon, player);
+        printf("Enemy: %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
+        printf("You: %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
     }
 }
 
@@ -195,4 +207,55 @@ int potion_exist(RedPlayer *player)
         }
     }
     return 0;
+}
+
+Attack* select_attack(Pokemon *player_pokemon)
+{
+    Attack *at1 = get_element(get_pokemon_list_attacks(player_pokemon),0);
+    Attack *at2 = get_element(get_pokemon_list_attacks(player_pokemon),1);
+    Attack *at3 = get_element(get_pokemon_list_attacks(player_pokemon),2);
+    Attack *at4 = get_element(get_pokemon_list_attacks(player_pokemon),3);
+    char choice;
+
+    printf("---Select an Attack ---\n");
+    printf("[a] %s PP:%d/%d Type:%s", get_attack_name(at1), get_attack_pp(at1),get_attack_base_pp(at1), type_to_string(
+            get_attack_type(at1)));
+    JUMP
+    printf("[b] %s PP:%d/%d Type:%s", get_attack_name(at2), get_attack_pp(at2),get_attack_base_pp(at2), type_to_string(
+            get_attack_type(at2)));
+    JUMP
+    printf("[c] %s PP:%d/%d Type:%s", get_attack_name(at3), get_attack_pp(at3),get_attack_base_pp(at3), type_to_string(
+            get_attack_type(at3)));
+    JUMP
+    if(at4 != NULL)
+    {
+        printf("[d] %s PP:%d/%d Type:%s", get_attack_name(at4), get_attack_pp(at4),get_attack_base_pp(at4), type_to_string(
+                get_attack_type(at4)));
+        JUMP
+    }
+
+    setbuf(stdin,NULL);
+    printf("Choice > ");
+    choice = fgetc(stdin);
+
+    switch (choice) {
+        case 'a':
+        {
+            return at1;
+        }
+        case 'b':
+        {
+            return at2;
+        }
+        case 'c':
+        {
+            return at3;
+        }
+        case 'd':
+        {
+            return at4;
+        }
+        default:
+            return NULL;
+    }
 }
