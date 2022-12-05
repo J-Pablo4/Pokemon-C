@@ -23,6 +23,7 @@ int main() {
     printf("       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n");
     printf("        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n");
     printf("                                `'                            '-._|\n");
+
     sleep(1);
     JUMP
     printf("A command line experience!!!\n");

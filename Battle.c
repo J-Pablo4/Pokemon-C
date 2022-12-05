@@ -89,6 +89,25 @@ void battle(RedPlayer *player, Enemy *enemy)
         }
     }
 
+    if(teamPlayerAlive(player))
+    {
+        printf("YOU WIN!!!\n");
+        JUMP
+        sleep(1);
+        printf("You have defeated %s", get_enemy_name(enemy));
+    } else
+    {
+        printf(" _____                         ____                 \n");
+        printf("/ ____|                       / __ \\                \n");
+        printf("| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ \n");
+        printf("| | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__|\n");
+        printf("| |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |   \n");
+        printf(" \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_| \n");
+        JUMP
+        sleep(1);
+        printf("Thanks for playing... See you next time\n");
+    }
+
 }
 
 Pokemon* select_pokemon_for_battle(RedPlayer *player)
