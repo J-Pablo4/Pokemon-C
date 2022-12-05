@@ -44,5 +44,6 @@ void pokemon_normalize(Pokemon *pokemon);
 int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver);
 void init_pokemons();
 void obtain_pokemons_from_file(RedPlayer *player);
+void init_enemy_pokemons(Enemy *enemy);
 
 #endif //POKEMON_POKEMON_H

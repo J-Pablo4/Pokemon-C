@@ -8,6 +8,14 @@ struct redPlayer{
 
 struct enemy{
     List *enemyPokemons;
+    int defeated;
+};
+
+Enemy* init_enemy()
+{
+    Enemy *npc = calloc(1, sizeof (Enemy));
+    npc->enemyPokemons = list_new();
+    return npc;
 }
 
 RedPlayer* init_player()
@@ -29,4 +37,9 @@ void set_player_potions(RedPlayer *player)
 List* get_player_pokemons(RedPlayer *player)
 {
     return player->pokemons;
+}
+
+List* get_enemy_pokemons(Enemy *enemy)
+{
+    return enemy->enemyPokemons;
 }

@@ -44,8 +44,17 @@ int main() {
         {
             init_pokemons();
             RedPlayer *red = init_player();
+            Enemy *blue = init_enemy();
+            Enemy *leaf = init_enemy();
+            Enemy *lance = init_enemy();
+
             obtain_pokemons_from_file(red);
             set_player_potions(red);
+
+            init_enemy_pokemons(blue);
+            init_enemy_pokemons(leaf);
+            init_enemy_pokemons(lance);
+
             printf("NEW GAME!!!");
             JUMP
             sleep(1);
@@ -86,7 +95,7 @@ int main() {
             print_pokemon(get_element(get_player_pokemons(red),5));
             sleep(2);
             JUMP
-            
+
             battle(red);
             break;
         }

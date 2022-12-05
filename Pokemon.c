@@ -767,6 +767,21 @@ void set_pokemons_to_player(RedPlayer *player, Pokemon pokemon_array[], int inde
     list_append(get_player_pokemons(player), &(pokemon_array[index]));
 }
 
+void set_pokemons_to_enemy(Enemy *enemy, Pokemon pokemon_array[], int index_array, int *indexes)
+{
+    time_t t;
+    int index;
+
+    srand((unsigned) time(&t));
+    index = (rand() % 20);
+    while(is_index_in_array(indexes, index))
+    {
+        index = (rand() % 20);
+    }
+    indexes[index_array] = index;
+    list_append(get_enemy_pokemons(enemy), &(pokemon_array[index]));
+}
+
 void obtain_pokemons_from_file(RedPlayer *player)
 {
     FILE *file = fopen("../pokemon.txt", "r");
@@ -789,5 +804,30 @@ void obtain_pokemons_from_file(RedPlayer *player)
         set_pokemons_to_player(player, pokemon_array, 3, indexes);
         set_pokemons_to_player(player, pokemon_array, 4, indexes);
         set_pokemons_to_player(player, pokemon_array, 5, indexes);
+    }
+}
+
+void init_enemy_pokemons(Enemy *enemy)
+{
+    FILE *file = fopen("../pokemon.txt", "r");
+    Pokemon *pokemon_array = calloc(20,sizeof (Pokemon));
+
+    if(file == NULL)
+    {
+        printf("No se abrio el archivo\n");
+        return;
+    }else
+    {
+        rewind(file);
+        fread(pokemon_array, sizeof (Pokemon), 20, file);
+        fclose(file);
+        int indexes[6] = {21,21,21,21,21,21};
+
+        set_pokemons_to_enemy(enemy, pokemon_array, 0, indexes);
+        set_pokemons_to_enemy(enemy, pokemon_array, 1, indexes);
+        set_pokemons_to_enemy(enemy, pokemon_array, 2, indexes);
+        set_pokemons_to_enemy(enemy, pokemon_array, 3, indexes);
+        set_pokemons_to_enemy(enemy, pokemon_array, 4, indexes);
+        set_pokemons_to_enemy(enemy, pokemon_array, 5, indexes);
     }
 }
