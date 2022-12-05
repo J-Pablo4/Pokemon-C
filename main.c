@@ -1,6 +1,7 @@
 #include "Pokemon.h"
 #include "Player.h"
 #include <unistd.h>
+#include "Battle.h"
 
 #define JUMP printf("\n");
 
@@ -48,6 +49,22 @@ int main() {
             printf("NEW GAME!!!");
             JUMP
             sleep(1);
+            JUMP
+            printf("You are Red... The best Pokemon trainer in the world.\n");
+            JUMP
+            system("pause");
+            printf("You are always proud of yourself, and always wish\n");
+            printf("to prove to others what you are capable of.\n");
+            JUMP
+            system("pause");
+            printf("Recently, you became aware of a Pokemon tournament, \n");
+            printf("where you, obviously, needed to participate.\n");
+            JUMP
+            system("pause");
+            printf("So, you grabbed the best Pokemons you have, 5 dollars to register for the tournament,\n");
+            printf("a sandwich for lunch, and directed yourself towards the tournament.\n");
+            JUMP
+            system("pause");
             printf("This are your pokemons. Take a look to them...");
             JUMP
             system("pause");
@@ -69,6 +86,8 @@ int main() {
             print_pokemon(get_element(get_player_pokemons(red),5));
             sleep(2);
             JUMP
+            
+            battle(red);
             break;
         }
         case 'b':

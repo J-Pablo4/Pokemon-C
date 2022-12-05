@@ -19,7 +19,7 @@ endif()
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(${PROJECT_NAME} Pokemon main.c Pokemon.c Pokemon.h Type.c Type.h Player.c Player.h Attacks.c Attacks.h Lists.c Lists.h)
+add_executable(${PROJECT_NAME} Pokemon main.c Pokemon.c Pokemon.h Type.c Type.h Player.c Player.h Attacks.c Attacks.h Lists.c Lists.h Battle.c Battle.h)
 target_link_libraries(${PROJECT_NAME} raylib)
 
 # Web Configurations
