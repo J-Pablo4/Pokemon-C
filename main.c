@@ -97,9 +97,38 @@ int main() {
             sleep(2);
             JUMP
 
+            printf("Blue: we face eachother again Red... this time i'm going to win!!!\n");
+            sleep(2);
             battle(red, blue, 3);
+            printf("Blue: You are strong as ever, I'll have to keep training\n");
+            printf("      for our next match, good luck in the rest of the tournament my eternal rival.");
+            sleep(2);
+            JUMP
+            printf("(Red and Blue shake hands and Red goes down the hallway)");
+            sleep(2);
+            JUMP
+            printf("Leaf: You finally are here, I'm not going to lose to you like Blue did\n");
+            sleep(2);
             battle(red, leaf,4);
+            printf("Leaf: You so damn strong, but I almost got you\n");
+            printf("Leaf: I'm heading to mt. Silver to keep combat with some strong pokemon\n");
+            printf("(Leaf goes running to the entry where she then gets on a taxi to mt. Silver)\n");
+            sleep(2);
+            printf("Lance: You must be pretty strong to get till this phase of the tournament\n");
+            printf("       but I'm a Pokemon champion, I'm not losing to a kid\n");
+            sleep(2);
             battle(red, lance, 5);
+            printf("Lance: That's it! I hate to admit it, but you are a pokemon master!");
+            printf("       If I had my Dragonites I would have won!\n");
+            sleep(2);
+            printf("Creditos\n");
+            printf("------------------------------------------\n");
+            printf("Game developers:\n");
+            printf("Juan Pablo Lopez Zuñiga, GitHub: J-Pablo4\n");
+            printf("Miguel Ignacio Hernandez Noriega, GitHub: MiguelHIteso\n");
+            printf("Jose Antonio Mendoza Navarro, GitHub: josemenav\n");
+            printf("Francisco Aaron Ortega Anguiano, GitHub: AaronOrtega1");
+            sleep(3);
             break;
         }
         case 'b':
