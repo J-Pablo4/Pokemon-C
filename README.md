@@ -1,5 +1,7 @@
 # Pokemon-C
 
+### Es responsabilidad del jugador seleccionar de manera correcta las opciones que se le dan en cada uno de los menus para el correcto funcionamiento del juego
+
 ## Player
 En nuestra libreria de player se define la estructura del jugador principal y enemigos: 
 ```
@@ -120,3 +122,5 @@ despliegan el menu de pokemones que tiene el jugador, así como el menu de posio
 - is_paralysed: Esta funcion define si un pokemon esta paralizado o no y con base a esto define si su ataque puede o no proceder
 - is_sleep: Esta funcion define si un pokemon esta dormido o no y con base a esto define si su ataque puede o no proceder
 - is_frozen: Esta funcion define si un pokemon esta congelado o no y con base a esto define si su ataque puede o no proceder
+- player_move: La funcion player_move determina de acuerdo con el estado del pokemon actual si este tiene o puede atacar o no, esto lo hace por medio de estructuras selectivas que mandan llamar el getter get_pokemon_current_state, el cual accede al estado actual del pokemon y en dado caso de no estar ni congelado, paralizado o recibiendo un ataque, te deja atacar
+- battle: La siguiente funcion es la que maneja lo que ocurre en la batalla primero a travez del getter get_enemy_pokemons y get_element saca al pokemon que el enemigo va a usar y lo imprime, seguido de esto manda a llamar a la funcion select_pokemon_for_battle, con la cual el jugador principal va a poder escoger un pokemon y si el jugador tiene pokemones vivos y el enemigo tambien entonces por medio la velocidad de los pokemones es el que ataca primero por medio de la funcion player_move que es la que controla el turno del jugador
