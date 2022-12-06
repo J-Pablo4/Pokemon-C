@@ -78,23 +78,25 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         JUMP
         choice = fight_menu(enemy_pokemon, player_pokemon);
         Attack *enemyAttack;
+
         do {
-            enemyAttack = select_attack(player_pokemon);
+            enemyAttack = getEnemyAttack(enemy_pokemon);
         }
-        while(get_attack_base_pp(enemyAttack) == 0);
+        while(get_attack_pp(enemyAttack) == 0);
 
         if(choice == 'a')
         {
             Attack *players_attack;
-            do {
+            do
+            {
                 players_attack = select_attack(player_pokemon);
-                if(get_attack_base_pp(players_attack) == 0)
+                if(get_attack_pp(players_attack) == 0)
                 {
                     printf("The movement is out of PP. Select another one!\n");
                     JUMP
                 }
             }
-            while(get_attack_base_pp(players_attack) == 0);
+            while(get_attack_pp(players_attack) == 0);
 
             if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
             {
@@ -142,7 +144,7 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         printf(" \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_| \n");
         JUMP
         sleep(1);
-        printf("Thanks for playing... See you next time\n");
+        printf("Thanks for playing... See you next time.\n");
         JUMP
     }
 
