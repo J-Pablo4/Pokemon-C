@@ -9,6 +9,8 @@
 
 #define JUMP printf("\n");
 
+/*Esta funcion actua como un controlador que manda a llamar las funciones que se ven en pantalla, las cuales
+ * despliegan el menu de pokemones que tiene el jugador, así como el menu de posiones y el de ataques disponibles*/
 Pokemon* select_pokemon_for_battle(RedPlayer *player);
 char fight_menu(Pokemon *enemy_pokemon, Pokemon *player_pokemon);
 void potions_menu(Pokemon *player_pokemon, RedPlayer *player);
@@ -140,6 +142,9 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
 
 }
 
+
+/*mediante los getters get_pokemon_name, get_element y get_player_pokemon, accedemos a la lista de pokemones que el jugador tiene
+ * despues de acuerdo a un switch case de los pokemones que tenemos, escoge al pokemon para pelear*/
 Pokemon* select_pokemon_for_battle(RedPlayer *player)
 {
     char choice;
@@ -191,6 +196,8 @@ Pokemon* select_pokemon_for_battle(RedPlayer *player)
     }
 }
 
+/*Esta función revisa si el pokemon que se selecciono tiene vida para pelear, y si si la tiene
+ * entonces despliega un menu para decidir si va a seguir peleando o tomara una posion */
 char fight_menu(Pokemon *enemy_pokemon, Pokemon *player_pokemon)
 {
     char choice = 'a';
@@ -208,6 +215,10 @@ char fight_menu(Pokemon *enemy_pokemon, Pokemon *player_pokemon)
     return choice;
 }
 
+/*Esta funcion accede a las posiones que el jugador tiene por medio del getterget_player_potions, no sin antes hacer una
+ * validacion sobre la existencia de las posiones en el arsenal del jugador, por medio de la funcion potion_exist
+ * despues por medio de un switch casedependiendo de la pision que el jugador haya escogido, manda a llamar la funcion
+ * pokemon_use_potion y por medio del setter set_player_potion_to_none elimina esa posion del arsenal del jugador*/
 void potions_menu(Pokemon *player_pokemon, RedPlayer *player)
 {
     char choice;
@@ -285,6 +296,8 @@ void potions_menu(Pokemon *player_pokemon, RedPlayer *player)
     }
 }
 
+/*Esta funcion accede a las posiones que el jugador tiene por medio de get_player_potions y
+ * las recorre por medio de un ciclo for para revisar que al menos haya una*/
 int potion_exist(RedPlayer *player)
 {
     for (int i = 0; i < 5; ++i)
@@ -297,6 +310,10 @@ int potion_exist(RedPlayer *player)
     return 0;
 }
 
+
+/*La siguiente funcion accede a la lista en la que los pokemones y sus ataques se encuentran almacenados y los asigna
+ * a los 4 ataques definidos, despues imprime un menu donde accede a los atributos de los atauqes por medio de getters
+ * y dependiendo de la eleccion que se realice un switch escoge el ataque a retronar */
 Attack* select_attack(Pokemon *player_pokemon)
 {
     Attack *at1 = get_element(get_pokemon_list_attacks(player_pokemon),0);
@@ -348,6 +365,7 @@ Attack* select_attack(Pokemon *player_pokemon)
     }
 }
 
+/*Hace exactamente lo mismo que la funcion anterior pero escoge el ataque de manera aleatoria*/
 Attack* getEnemyAttack(Pokemon* enemyPokemon)
 {
     int selectedAttack = true;
@@ -374,6 +392,8 @@ int get_random()
     return random;
 }
 
+/*Esta funcion define si un pokemon esta paralizado o no y con base a esto define si su ataque puede o no proceder
+ */
 void is_paralysed(Pokemon *attacker, Pokemon *receiver, Attack *attack)
 {
     if (get_random() <= 75) {
@@ -386,6 +406,8 @@ void is_paralysed(Pokemon *attacker, Pokemon *receiver, Attack *attack)
     }
 }
 
+/*Esta funcion define si un pokemon esta dormido o no y con base a esto define si su ataque puede o no proceder
+ */
 void is_sleep(Pokemon *attacker, Pokemon *receiver, Attack *attack)
 {
     if (get_random() <= 50) {
@@ -400,7 +422,8 @@ void is_sleep(Pokemon *attacker, Pokemon *receiver, Attack *attack)
         sleep(1);
     }
 }
-
+/*Esta funcion define si un pokemon esta congelado o no y con base a esto define si su ataque puede o no proceder
+ */
 void is_frozen(Pokemon *attacker, Pokemon *receiver, Attack *attack)
 {
     if (get_random() <= 50) {
@@ -415,6 +438,8 @@ void is_frozen(Pokemon *attacker, Pokemon *receiver, Attack *attack)
         sleep(1);
     }
 }
+
+//Esto aun no
 
 void is_burned(Pokemon *pokemon)
 {
