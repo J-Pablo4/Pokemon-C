@@ -30,5 +30,6 @@ State get_attack_state_change(Attack *attack);
 int get_attack_base_precision(Attack *attack);
 int get_attack_base_pp(Attack *attack);
 char* get_attack_name(Attack *attack);
+void attack_normalize(Attack *attack);
 
 #endif //POKEMON_ATTACKS_H

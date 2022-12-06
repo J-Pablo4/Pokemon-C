@@ -69,11 +69,25 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         printf("You: %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
         JUMP
         choice = fight_menu(enemy_pokemon, player_pokemon);
-        Attack *enemyAttack = getEnemyAttack(enemy_pokemon);
+        Attack *enemyAttack;
+        do {
+            enemyAttack = select_attack(player_pokemon);
+        }
+        while(get_attack_base_pp(enemyAttack) == 0);
 
         if(choice == 'a')
         {
-            Attack *players_attack = select_attack(player_pokemon);
+            Attack *players_attack;
+            do {
+                players_attack = select_attack(player_pokemon);
+                if(get_attack_base_pp(players_attack) == 0)
+                {
+                    printf("The movement is out of PP. Select another one!\n");
+                    JUMP
+                }
+            }
+            while(get_attack_base_pp(players_attack) == 0);
+
             if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
             {
                 player_move(player_pokemon, enemy_pokemon, players_attack);
@@ -84,7 +98,7 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
             } else
             {
                 player_move(enemy_pokemon, player_pokemon, enemyAttack);
-                if(get_pokemon_alive(enemy_pokemon))
+                if(get_pokemon_alive(player_pokemon))
                 {
                     player_move(player_pokemon, enemy_pokemon, players_attack);
                 }
@@ -102,7 +116,9 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
 
     if(teamPlayerAlive(player))
     {
-        printf("YOU WIN!!!\n");
+        player_normalize(player);
+        player_set_level(player, get_pokemon_level(player_pokemon) + 5);
+        printf("YOU WON!!!\n");
         JUMP
         sleep(1);
         printf("You have defeated %s", get_enemy_name(enemy));

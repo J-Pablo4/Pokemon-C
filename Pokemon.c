@@ -265,12 +265,23 @@ void modify_pokemon_state(State state, Pokemon *pokemon)
 }
 void pokemon_normalize(Pokemon *pokemon)
 {
+    pokemon->alive = 1;
+    pokemon->current_state = normal_state;
     pokemon->stats->hp = get_stat(pokemon->stats->level, pokemon->stats->base_hp, pokemon->stats->variable_hp, 1);
     pokemon->stats->attack = get_stat(pokemon->stats->level, pokemon->stats->base_attack, pokemon->stats->variable_attack, 0);
     pokemon->stats->defense = get_stat(pokemon->stats->level, pokemon->stats->base_defense, pokemon->stats->variable_defense, 0);
     pokemon->stats->speed = get_stat(pokemon->stats->level, pokemon->stats->base_speed, pokemon->stats->variable_speed, 0);
     pokemon->stats->S_attack = get_stat(pokemon->stats->level, pokemon->stats->base_S_attack, pokemon->stats->variable_S_attack, 0);
     pokemon->stats->S_defense = get_stat(pokemon->stats->level, pokemon->stats->base_S_defense, pokemon->stats->variable_S_defense, 0);
+    Attack *attack = NULL;
+    int i = 0;
+    while (get_element(get_pokemon_list_attacks(pokemon), i) != NULL)
+    {
+        attack = get_element(get_pokemon_list_attacks(pokemon), i);
+        attack_normalize(attack);
+        i++;
+    }
+
 }
 
 //Calcula el nivel de vida que debe de tener el Pokemon despues de tomar una de las posiones
@@ -302,22 +313,37 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                 if(get_attack_affected_stat(attack) == attack_affected_stat)
                 {
                     modify_pokemon_attack(get_pokemon_attack(pokemon) + get_attack_aggregated(attack), pokemon);
+                    printf("%s's attack has been affected by %d\n",get_pokemon_name(pokemon), get_attack_aggregated(attack));
+                    JUMP
+                    sleep(1);
                 }
                 else if(get_attack_affected_stat(attack) == defense_affected_stat)
                 {
                     modify_pokemon_defense(get_pokemon_defense(pokemon) + get_attack_aggregated(attack), pokemon);
+                    printf("%s's defense has been affected by %d\n",get_pokemon_name(pokemon), get_attack_aggregated(attack));
+                    JUMP
+                    sleep(1);
                 }
                 else if(get_attack_affected_stat(attack) == S_attack_affected_stat)
                 {
                     modify_pokemon_S_attack(get_pokemon_S_attack(pokemon) + get_attack_aggregated(attack), pokemon);
+                    printf("%s's special attack has been affected by %d\n",get_pokemon_name(pokemon), get_attack_aggregated(attack));
+                    JUMP
+                    sleep(1);
                 }
                 else if(get_attack_affected_stat(attack) == S_defense_affected_stat)
                 {
                     modify_pokemon_S_defense(get_pokemon_S_defense(pokemon) + get_attack_aggregated(attack), pokemon);
+                    printf("%s's special defense has been affected by %d\n",get_pokemon_name(pokemon), get_attack_aggregated(attack));
+                    JUMP
+                    sleep(1);
                 }
                 else if(get_attack_affected_stat(attack) == speed_affected_stat)
                 {
                     modify_pokemon_speed(get_pokemon_speed(pokemon) + get_attack_aggregated(attack), pokemon);
+                    printf("%s's speed has been affected by %d\n",get_pokemon_name(pokemon), get_attack_aggregated(attack));
+                    JUMP
+                    sleep(1);
                 }
                 else if(get_attack_affected_stat(attack) == hp_affected_stat)
                 {
@@ -339,7 +365,11 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                                 get_attack_aggregated(attack));
                         i++;
                     }
+                    printf("%s's accuracy has lowered\n",get_pokemon_name(pokemon));
+                    JUMP
+                    sleep(1);
                 }
+                break;
             }
             case paralyzed_state:
             {
@@ -350,9 +380,17 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                         modify_pokemon_state(paralyzed_state, pokemon);
                         printf("%s has been paralyzed.\n",get_pokemon_name(pokemon));
                         JUMP
+                        sleep(1);
                         modify_pokemon_speed((double)get_pokemon_speed(pokemon) * .75, pokemon);
                     }
                 }
+                else
+                {
+                    printf("%s is already %s.\n",get_pokemon_name(pokemon), state_to_string(get_pokemon_current_state(pokemon)));
+                    JUMP
+                    sleep(1);
+                }
+                break;
             }
             case burned_state:
             {
@@ -363,8 +401,16 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                         modify_pokemon_state(burned_state, pokemon);
                         printf("%s has been burned.\n",get_pokemon_name(pokemon));
                         JUMP
+                        sleep(1);
                     }
                 }
+                else
+                {
+                    printf("%s is already %s.\n",get_pokemon_name(pokemon), state_to_string(get_pokemon_current_state(pokemon)));
+                    JUMP
+                    sleep(1);
+                }
+                break;
             }
             case sleep_state:
             {
@@ -373,10 +419,18 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                     if(probability <= get_attack_state_probability(attack))
                     {
                         modify_pokemon_state(sleep_state, pokemon);
-                        printf("%s has been sleep_state.\n",get_pokemon_name(pokemon));
+                        printf("%s fell asleep.\n",get_pokemon_name(pokemon));
                         JUMP
+                        sleep(1);
                     }
                 }
+                else
+                {
+                    printf("%s is already %s.\n",get_pokemon_name(pokemon), state_to_string(get_pokemon_current_state(pokemon)));
+                    JUMP
+                    sleep(1);
+                }
+                break;
             }
             case poisoned_state:
             {
@@ -387,8 +441,16 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                         modify_pokemon_state(poisoned_state, pokemon);
                         printf("%s has been poisoned.\n",get_pokemon_name(pokemon));
                         JUMP
+                        sleep(1);
                     }
                 }
+                else
+                {
+                    printf("%s is already %s.\n",get_pokemon_name(pokemon), state_to_string(get_pokemon_current_state(pokemon)));
+                    JUMP
+                    sleep(1);
+                }
+                break;
             }
             case confused_state:
             {
@@ -401,6 +463,7 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                         JUMP
                     }
                 }
+                break;
             }
             case frozen_state:
             {
@@ -411,9 +474,19 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
                         modify_pokemon_state(frozen_state, pokemon);
                         printf("%s has been frozen_state.\n",get_pokemon_name(pokemon));
                         JUMP
+                        sleep(1);
                     }
                 }
+                else
+                {
+                    printf("%s is already %s.\n",get_pokemon_name(pokemon), state_to_string(get_pokemon_current_state(pokemon)));
+                    JUMP
+                    sleep(1);
+                }
+                break;
             }
+            default:
+                break;
         }
     }
 }

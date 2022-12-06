@@ -34,8 +34,7 @@ int main() {
     JUMP
     printf("[a] New Game");
     JUMP
-    printf("[b] Load");
-    JUMP
+
     printf("Choice > ");
     choice = fgetc(stdin);
 
@@ -74,10 +73,10 @@ int main() {
             printf("So, you grabbed the best Pokemons you have, 5 dollars to register for the tournament,\n");
             printf("a sandwich for lunch, and directed yourself towards the tournament.\n");
             JUMP
-            sleep(2);
-            printf("This are your pokemons. Take a look to them...");
+            sleep(3);
+            printf("This are your pokemons. Take a look to them...\n");
             JUMP
-            sleep(2);
+            sleep(3);
             print_pokemon(get_element(get_player_pokemons(red),0));
             sleep(2);
             JUMP
@@ -104,12 +103,11 @@ int main() {
             printf("Blue: You are strong as ever, I'll have to keep training\n");
             JUMP
             printf("      for our next match, good luck in the rest of the tournament my eternal rival.\n");
-            JUMP
             sleep(2);
             JUMP
             printf("(Red and Blue shake hands and Red goes down the hallway)\n");
             JUMP
-            sleep(2);
+            sleep(3);
             printf("Leaf: You finally are here, I'm not going to lose to you like Blue did\n");
             JUMP
             sleep(2);

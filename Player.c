@@ -8,7 +8,6 @@ struct redPlayer{
 
 struct enemy{
     List *enemyPokemons;
-    int defeated;
     char *name;
 };
 
@@ -64,4 +63,23 @@ char* get_enemy_name(Enemy *enemy)
 Potion* get_player_potions(RedPlayer *player)
 {
     return player->potions;
+}
+
+void player_normalize(RedPlayer *player)
+{
+    Pokemon *pokemon;
+    for(int i = 0; i < 5; i++)
+    {
+        pokemon = get_element(get_player_pokemons(player),i);
+        pokemon_normalize(pokemon);
+    }
+}
+void player_set_level(RedPlayer *player, int level)
+{
+    Pokemon *pokemon;
+    for(int i = 0; i < 6; i++)
+    {
+        pokemon = get_element(get_player_pokemons(player),i);
+        set_level(level, pokemon);
+    }
 }

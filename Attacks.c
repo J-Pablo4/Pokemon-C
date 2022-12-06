@@ -20,7 +20,11 @@ struct attack{
     int BASE_PRECISION;
     int BASE_PP;
 };
-
+void attack_normalize(Attack *attack)
+{
+    attack->precision = attack->BASE_PRECISION;
+    attack->pp = attack->BASE_PP;
+}
 //Recibe el ataque y la precición del mismo, con la cual despues se calculará si procede o no el ataque realizado
 void modify_attack_precision(Attack *attack, int precision)
 {
@@ -108,12 +112,6 @@ Attack* init_attack(char *name, Type type, AttackType attack, int power, int pre
     new_attack->aggregated =aggregated; //Nota> Era un float, si falla, regresar a float.
 
     return new_attack;
-}
-
-void attack_normalize(Attack *attack)
-{
-    attack->pp = attack->BASE_PP;
-    attack->precision = attack->BASE_PRECISION;
 }
 
 char* attack_get_name(Attack *attack)

@@ -18,5 +18,7 @@ List* get_enemy_pokemons(Enemy *enemy);
 Enemy* init_enemy(char *name);
 char* get_enemy_name(Enemy *enemy);
 Potion* get_player_potions(RedPlayer *player);
+void player_normalize(RedPlayer *player);
+void player_set_level(RedPlayer *player, int level);
 
 #endif //POKEMON_PLAYER_H
