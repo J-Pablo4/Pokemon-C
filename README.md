@@ -108,4 +108,15 @@ a un pokemon se le va a aplicar un estado despues de un ataque, ademas define qu
 - Las funciones teamPlayerAlive y teamEnemyAlive se encargan de revisar que tanto el jugador como el enemigo tengan pokemones vivos para pelear
 
 ## Battle
-
+- La funcion select_pokemon_for_battle actua como un controlador que manda a llamar las funciones que se ven en pantalla, las cuales
+despliegan el menu de pokemones que tiene el jugador, así como el menu de posiones y el de ataques disponibles por medio de las siguientes funciones: 
+   - fight_menu: Esta función revisa si el pokemon que se selecciono tiene vida para pelear, y si si la tiene
+   entonces despliega un menu para decidir si va a seguir peleando o tomara una posion
+   - potions_menu: Esta funcion accede a las posiones que el jugador tiene por medio del getterget_player_potions, no sin antes hacer una validacion sobre la existencia de las posiones en el arsenal del jugador, por medio de la funcion potion_exist despues por medio de un switch casedependiendo de la pision que el jugador haya escogido, manda a llamar la funcion pokemon_use_potion y por medio del setter set_player_potion_to_none elimina esa posion del arsenal del jugador
+   - select_attack: La siguiente funcion accede a la lista en la que los pokemones y sus ataques se encuentran almacenados y los asigna a los 4 ataques definidos, despues imprime un menu donde accede a los atributos de los atauqes por medio de getters y dependiendo de la eleccion que se realice un switch escoge el ataque a retronar 
+   - getEnemyAttack: Hace exactamente lo mismo que la funcion anterior pero escoge el ataque de manera aleatoria 
+   - get_random: Funcion trivial para sacar un numero aleatorio  
+- potion_exist: Esta funcion accede a las posiones que el jugador tiene por medio de get_player_potions y las recorre por medio de un ciclo for para revisar que al menos haya una
+- is_paralysed: Esta funcion define si un pokemon esta paralizado o no y con base a esto define si su ataque puede o no proceder
+- is_sleep: Esta funcion define si un pokemon esta dormido o no y con base a esto define si su ataque puede o no proceder
+- is_frozen: Esta funcion define si un pokemon esta congelado o no y con base a esto define si su ataque puede o no proceder
