@@ -1,4 +1,6 @@
-# Aaron conclusiones
+# Conclusiones
+
+## Aaron Ortega
 
 Fue un proyecto muy entretenido de programar aunque por desgracia no pudimos hacer la parte grafica al final en
 la terminal quedo bastante bien y la logica del juego tambien aunque nos costo un poco por muchos casos esquina
