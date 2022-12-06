@@ -116,10 +116,19 @@ int main() {
             sleep(2);
             printf("Lance: You must be pretty strong to get till this phase of the tournament\n");
             printf("       but I'm a Pokemon champion, I'm not losing to a kid\n");
+            sleep(2);
             battle(red, lance, 5);
             printf("Lance: That's it! I hate to admit it, but you are a pokemon master!");
             printf("       If I had my Dragonites I would have won!\n");
-
+            sleep(2);
+            printf("Creditos\n");
+            printf("------------------------------------------\n");
+            printf("Game developers:\n");
+            printf("Juan Pablo Lopez Zuñiga, GitHub: J-Pablo4\n");
+            printf("Miguel Ignacio Hernandez Noriega, GitHub: MiguelHIteso\n");
+            printf("Jose Antonio Mendoza Navarro, GitHub: josemenav\n");
+            printf("Francisco Aaron Ortega Anguiano, GitHub: AaronOrtega1");
+            sleep(3);
             break;
         }
         case 'b':
