@@ -18,18 +18,27 @@ struct attack{
     State state_change;
     int state_probability;
     int BASE_PRECISION;
-    int BASE_PP; //Power_Points
+    int BASE_PP;
 };
-
+void attack_normalize(Attack *attack)
+{
+    attack->precision = attack->BASE_PRECISION;
+    attack->pp = attack->BASE_PP;
+}
+//Recibe el ataque y la precición del mismo, con la cual despues se calculará si procede o no el ataque realizado
 void modify_attack_precision(Attack *attack, int precision)
 {
     attack->precision = precision;
 }
+
+/*Setter de la cantidad de veces que se puede utilizar un ataque,
+ * cada vez que se realiza se llama a esta función para disminuir la cantidad*/
 void modify_attack_pp(Attack *attack, int pp)
 {
     attack->pp = pp;
 }
 
+/*Las siguientes funciones son los getters necesarios para acceder a los atributos de los ataques*/
 Type get_attack_type(Attack *attack)
 {
     return attack->type;
@@ -37,6 +46,10 @@ Type get_attack_type(Attack *attack)
 int get_attack_state_probability(Attack *attack)
 {
     return attack->state_probability;
+}
+char* get_attack_name(Attack *attack)
+{
+    return attack->name;
 }
 AttackType get_attack_attack_type(Attack *attack)
 {
@@ -79,7 +92,8 @@ int get_attack_base_pp(Attack *attack)
     return attack->BASE_PP;
 }
 
-
+/*Función inicializadora de ataques, primero se le almacena la cantidad de memoria adecuada
+ * despues se setean los valores recibidos, se normalizan y se regresa el ataque*/
 Attack* init_attack(char *name, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
 {
     Attack * new_attack = malloc(sizeof (Attack));
@@ -98,12 +112,6 @@ Attack* init_attack(char *name, Type type, AttackType attack, int power, int pre
     new_attack->aggregated =aggregated; //Nota> Era un float, si falla, regresar a float.
 
     return new_attack;
-}
-
-void attack_normalize(Attack *attack)
-{
-    attack->pp = attack->BASE_PP;
-    attack->precision = attack->BASE_PRECISION;
 }
 
 char* attack_get_name(Attack *attack)

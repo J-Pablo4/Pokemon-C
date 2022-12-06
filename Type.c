@@ -4,6 +4,10 @@
 
 #include "Type.h"
 
+/*Esta función identifica el tipo de pokemon y les asigna un arreglo de
+ * sus debilidades correspondientes, esto debido a que cada tipo pokemon tiene diferente
+ * suceptibilidad contra otros tipos, una vez hecho esto copiamos el arreglo y se lo asignamos con memcpy.
+ * Para lograr lo anterior introdujimos una serie de estructuras selectivas dentro de un switch que revisa el tipo de pokemon*/
 double* get_weakness(Type type1, Type type2) {
     double *weakness = malloc(sizeof(double) * 14);
 

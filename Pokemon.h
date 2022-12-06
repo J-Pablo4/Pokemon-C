@@ -12,7 +12,6 @@
 #include "Player.h"
 
 typedef struct pokemon Pokemon;
-typedef enum potion{potion = 20, super_potion = 50, hyper_potion = 200, max_potion = 100000} Potion;
 
 
 Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, int defense, int speed, int S_attack, int S_defense);
@@ -40,9 +39,20 @@ void modify_pokemon_speed(double speed, Pokemon *pokemon);
 void modify_pokemon_hp(int hp, Pokemon *pokemon);
 void modify_pokemon_state(State state, Pokemon *pokemon);
 void print_pokemon(Pokemon *pokemon);
+char* type_to_string(Type type);
+char* state_to_string(State state);
+char* attack_type_to_string(AttackType attackType);
+char* affected_stat_to_string(Affected_stat affectedStat);
 void pokemon_normalize(Pokemon *pokemon);
+int get_pokemon_alive(Pokemon *pokemon);
 int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver);
 void init_pokemons();
 void obtain_pokemons_from_file(RedPlayer *player);
+void init_enemy_pokemons(Enemy *enemy, int flag);
+char* get_pokemon_name(Pokemon *pokemon);
+void set_player_potion_to_none(RedPlayer *player, int index);
+int teamPlayerAlive(RedPlayer *player);
+int teamEnemyAlive(Enemy *enemy, int index);
+int get_pokemon_fixed_hp(Pokemon *pokemon);
 
 #endif //POKEMON_POKEMON_H

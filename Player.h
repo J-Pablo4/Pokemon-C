@@ -6,20 +6,19 @@
 #include <stdio.h>
 #include "Lists.h"
 
-#define MAX_FRAME_SPEED 10
-#define MIN_FRAME_SPEED 1
-#define PLAYER_HOR_SPD 100.0f
-#define G 450
-#define PLAYER_JUMP_SPD 410.0f \
-
 typedef struct redPlayer RedPlayer;
-void UpdatePlayer(float delta, RedPlayer *player);
-RedPlayer* InitPlayer(int x, int y);
-Rectangle updatePlayerTexture(Texture2D playerTxtr, RedPlayer *player);
-Vector2 getPlayerPos(RedPlayer *player);
-void RenderPlayer(RedPlayer *player, int width);
-void setPlayerTexture(Texture2D t, RedPlayer *player);
-Rectangle getPlayerArea(RedPlayer *player, Texture2D playerTXTR);
+typedef struct enemy Enemy;
+
+typedef enum potion{potion = 20, super_potion = 50, hyper_potion = 200, max_potion = 100000, none_potion = -1} Potion;
+
+RedPlayer* init_player();
 List* get_player_pokemons(RedPlayer *player);
 void set_player_potions(RedPlayer *player);
+List* get_enemy_pokemons(Enemy *enemy);
+Enemy* init_enemy(char *name);
+char* get_enemy_name(Enemy *enemy);
+Potion* get_player_potions(RedPlayer *player);
+void player_normalize(RedPlayer *player);
+void player_set_level(RedPlayer *player, int level);
+
 #endif //POKEMON_PLAYER_H
