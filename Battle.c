@@ -27,7 +27,7 @@ void after_hit(Pokemon *pokemon);
  * el jugador principal va a poder escoger un pokemon y si el jugador tiene pokemones vivos y el enemigo tambien
  * entonces por medio la velocidad de los pokemones es el que ataca primero por medio de la funcion player_move
  * que es la que controla el turno del jugador*/
-void battle(RedPlayer *player, Enemy *enemy, int i)
+int battle(RedPlayer *player, Enemy *enemy, int i)
 {
     Pokemon *enemy_pokemon = NULL;
     Pokemon *player_pokemon = NULL;
@@ -94,6 +94,7 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
                 {
                     printf("The movement is out of PP. Select another one!\n");
                     JUMP
+                    sleep(1);
                 }
             }
             while(get_attack_pp(players_attack) == 0);
@@ -134,6 +135,7 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         printf("You have defeated %s", get_enemy_name(enemy));
         JUMP
         sleep(1);
+        return 1;
     } else
     {
         printf(" _____                         ____                 \n");
@@ -146,6 +148,7 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         sleep(1);
         printf("Thanks for playing... See you next time.\n");
         JUMP
+        return 0;
     }
 
 }

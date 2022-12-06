@@ -745,7 +745,7 @@ void init_pokemons()
     Pokemon *p7 = new_pokemon("Squirtle",water_type,none,44,48,65,43,50,64);
     define_attacks("Surf",p7,water_type,special,90,100,15,normal_state,0,0,0,0);
     define_attacks("Body slam",p7,normal_type,phisical,85,100,15,paralyzed_state,30,0,0,0);
-    define_attacks("Blizzard",p7,ice_type,stat,120,70,5,frozen_state,10,0,0,0);
+    define_attacks("Blizzard",p7,ice_type,special,120,70,5,frozen_state,10,0,0,0);
     define_attacks("Earthquake",p7,ground_type,phisical,100,100,10,normal_state,0,0,0,0);
 
     set_level(50, p7);
@@ -790,7 +790,7 @@ void init_pokemons()
 
     file = fopen("../pokemon.txt", "a");
     Pokemon *p11 = new_pokemon("Metapod",bug_type,none,50,20,55,30,25,25);     define_attacks("String Shot",p11,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
-    define_attacks("String Shot",p10,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
+    define_attacks("String Shot",p11,bug_type,stat,0,95,40,normal_state,100,speed_affected_stat,0,-1);
     define_attacks("Tackle",p11,normal_type,phisical,35,95,35,normal_state,0,0,0,0);
     define_attacks("Harden",p11,normal_type,stat,0,-100,30,normal_state,100,defense_affected_stat,1,1);
 
@@ -1121,7 +1121,7 @@ void init_enemy_pokemons(Enemy *enemy, int flag)
 int teamPlayerAlive(RedPlayer *player)
 {
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 6; ++i) {
         Pokemon *pk = get_element(get_player_pokemons(player),i);
         if(pk->alive == 1)
         {
@@ -1134,7 +1134,7 @@ int teamPlayerAlive(RedPlayer *player)
 int teamEnemyAlive(Enemy *enemy, int index)
 {
 
-    for (int i = 0; i < index; ++i) {
+    for (int i = 0; i <= index; ++i) {
         Pokemon *pk = get_element(get_enemy_pokemons(enemy),i);
         if(pk->alive == 1)
         {
