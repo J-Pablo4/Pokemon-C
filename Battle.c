@@ -17,6 +17,7 @@ Attack* select_attack(Pokemon *player_pokemon);
 Attack* getEnemyAttack(Pokemon* enemyPokemon);
 int get_random();
 void player_move(Pokemon *attacker, Pokemon *receiver, Attack* attack);
+void after_hit(Pokemon *pokemon);
 
 void battle(RedPlayer *player, Enemy *enemy, int i)
 {
@@ -35,10 +36,11 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
     printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
     JUMP
     sleep(1);
-    while (teamPlayerAlive(player) && teamEnemyAlive(enemy))
+    while (teamPlayerAlive(player) && teamEnemyAlive(enemy, i))
     {
         if(!get_pokemon_alive(enemy_pokemon))
         {
+
             printf("%s has fainted.\n", get_pokemon_name(enemy_pokemon));
             JUMP
             sleep(1);
@@ -87,10 +89,14 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
                     player_move(player_pokemon, enemy_pokemon, players_attack);
                 }
             }
+            after_hit(player_pokemon);
+            after_hit(enemy_pokemon);
         } else
         {
             potions_menu(player_pokemon, player);
             player_move(enemy_pokemon, player_pokemon, enemyAttack);
+            after_hit(player_pokemon);
+            after_hit(enemy_pokemon);
         }
     }
 
@@ -100,6 +106,8 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         JUMP
         sleep(1);
         printf("You have defeated %s", get_enemy_name(enemy));
+        JUMP
+        sleep(1);
     } else
     {
         printf(" _____                         ____                 \n");
@@ -111,6 +119,7 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
         JUMP
         sleep(1);
         printf("Thanks for playing... See you next time\n");
+        JUMP
     }
 
 }
@@ -394,13 +403,27 @@ void is_frozen(Pokemon *attacker, Pokemon *receiver, Attack *attack)
 void is_burned(Pokemon *pokemon)
 {
     modify_pokemon_hp(get_pokemon_hp(pokemon)-(get_pokemon_fixed_hp(pokemon)/16), pokemon);
+    modify_pokemon_attack(get_pokemon_attack(pokemon)/2,pokemon);
+    printf("%s is hurt by its burned.\n", get_pokemon_name(pokemon));
+    JUMP
+    sleep(1);
+}
+void is_poisoned(Pokemon *pokemon)
+{
+    modify_pokemon_hp(get_pokemon_hp(pokemon)-(get_pokemon_fixed_hp(pokemon)/16), pokemon);
+    printf("%s is hurt by poison.\n", get_pokemon_name(pokemon));
+    JUMP
+    sleep(1);
 }
 
 void after_hit(Pokemon *pokemon)
 {
     if(get_pokemon_current_state(pokemon) == burned_state)
     {
-
+        is_burned(pokemon);
+    } else if(get_pokemon_current_state(pokemon) == poisoned_state)
+    {
+        is_poisoned(pokemon);
     }
 }
 
