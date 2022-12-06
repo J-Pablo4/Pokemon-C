@@ -1058,10 +1058,10 @@ int teamPlayerAlive(RedPlayer *player)
     return 0;
 }
 
-int teamEnemyAlive(Enemy *enemy)
+int teamEnemyAlive(Enemy *enemy, int index)
 {
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < index; ++i) {
         Pokemon *pk = get_element(get_enemy_pokemons(enemy),i);
         if(pk->alive == 1)
         {
