@@ -15,6 +15,8 @@ void potions_menu(Pokemon *player_pokemon, RedPlayer *player);
 int potion_exist(RedPlayer *player);
 Attack* select_attack(Pokemon *player_pokemon);
 Attack* getEnemyAttack(Pokemon* enemyPokemon);
+int get_random();
+void player_move(Pokemon *attacker, Pokemon *receiver, Attack* attack);
 
 void battle(RedPlayer *player, Enemy *enemy, int i)
 {
@@ -40,20 +42,20 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
             printf("%s has fainted.\n", get_pokemon_name(enemy_pokemon));
             JUMP
             sleep(1);
+            index--;
+            enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
             printf("The enemy has chosen %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
             JUMP
             sleep(1);
-            index--;
-            enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
         }else if(!get_pokemon_alive(player_pokemon))
         {
             printf("%s has fainted.\n", get_pokemon_name(player_pokemon));
             JUMP
             sleep(1);
+            player_pokemon = select_pokemon_for_battle(player);
             printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
             JUMP
             sleep(1);
-            player_pokemon = select_pokemon_for_battle(player);
             while (!get_pokemon_alive(player_pokemon))
             {
                 printf("This pokemon is fainted... Select another one.\n");
@@ -72,23 +74,23 @@ void battle(RedPlayer *player, Enemy *enemy, int i)
             Attack *players_attack = select_attack(player_pokemon);
             if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
             {
-                hit(players_attack,player_pokemon,enemy_pokemon);
+                player_move(player_pokemon, enemy_pokemon, players_attack);
                 if(get_pokemon_alive(enemy_pokemon))
                 {
-                    hit(enemyAttack,enemy_pokemon,player_pokemon);
+                    player_move(enemy_pokemon, player_pokemon, enemyAttack);
                 }
             } else
             {
-                hit(enemyAttack,enemy_pokemon,player_pokemon);
+                player_move(enemy_pokemon, player_pokemon, enemyAttack);
                 if(get_pokemon_alive(enemy_pokemon))
                 {
-                    hit(players_attack,player_pokemon,enemy_pokemon);
+                    player_move(player_pokemon, enemy_pokemon, players_attack);
                 }
             }
         } else
         {
             potions_menu(player_pokemon, player);
-            hit(enemyAttack,enemy_pokemon,player_pokemon);
+            player_move(enemy_pokemon, player_pokemon, enemyAttack);
         }
     }
 
@@ -336,4 +338,72 @@ Attack* getEnemyAttack(Pokemon* enemyPokemon)
             return a;
     }
     return 0;
+}
+
+int get_random()
+{
+    time_t t;
+    int random;
+    srand((unsigned) time(&t));
+    random = (rand() % 100);
+    return random;
+}
+
+void is_paralysed(Pokemon *attacker, Pokemon *receiver, Attack *attack)
+{
+    if (get_random() <= 75) {
+        hit(attack, attacker, receiver);
+
+    } else {
+        printf("%s is paralyzed and is unable to move.\n", get_pokemon_name(attacker));
+        JUMP
+        sleep(1);
+    }
+}
+
+void is_sleep(Pokemon *attacker, Pokemon *receiver, Attack *attack)
+{
+    if (get_random() <= 50) {
+        printf("%s woke up.\n", get_pokemon_name(attacker));
+        JUMP
+        sleep(1);
+        modify_pokemon_state(normal_state, attacker);
+        hit(attack, attacker, receiver);
+    } else {
+        printf("%s is fast asleep.\n", get_pokemon_name(attacker));
+        JUMP
+        sleep(1);
+    }
+}
+
+void is_frozen(Pokemon *attacker, Pokemon *receiver, Attack *attack)
+{
+    if (get_random() <= 50) {
+        printf("%s has warmed up.\n", get_pokemon_name(attacker));
+        JUMP
+        sleep(1);
+        modify_pokemon_state(normal_state, attacker);
+        hit(attack, attacker, receiver);
+    } else {
+        printf("%s is frozen solid.\n", get_pokemon_name(attacker));
+        JUMP
+        sleep(1);
+    }
+}
+
+void player_move(Pokemon *attacker, Pokemon *receiver, Attack* attack)
+{
+    if(get_pokemon_current_state(attacker) == paralyzed_state)
+    {
+        is_paralysed(attacker, receiver, attack);
+    } else if(get_pokemon_current_state(attacker) == sleep_state)
+    {
+        is_sleep(attacker, receiver, attack);
+    }else if(get_pokemon_current_state(attacker) == frozen_state)
+    {
+        is_frozen(attacker, receiver, attack);
+    }else
+    {
+        hit(attack, attacker, receiver);
+    }
 }
