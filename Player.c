@@ -12,6 +12,8 @@ struct enemy{
     char *name;
 };
 
+/*Función inicializadora de la estructura del enemigo, primero asignamos memoria para la estructura
+ * y despues le asignamos una lista para almacenar a sus pokemones y los demas datos correspondientes*/
 Enemy* init_enemy(char *name)
 {
     Enemy *npc = calloc(1, sizeof (Enemy));
@@ -20,12 +22,15 @@ Enemy* init_enemy(char *name)
     return npc;
 }
 
+/*Función inicializadora de la estructura del jugador, primero asignamos memoria para la estructura
+ * y despues le asignamos una lista para almacenar a sus pokemones y los demas datos correspondientes*/
 RedPlayer* init_player()
 {
     RedPlayer *newRed = calloc(1, sizeof(RedPlayer));
     newRed->pokemons = list_new();
     return newRed;
 }
+
 
 void set_player_potions(RedPlayer *player)
 {

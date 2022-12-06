@@ -50,7 +50,8 @@ struct pokemon
 };
 
 
-
+/*Inicializa un nuevo pokekemon con todos los valores de su struct, sin embargo, las variables de pelea
+se seleccionan de manera aleatoria*/
 Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, int defense, int speed, int S_attack, int S_defense)
 {
 //    Variables important for the rand function and srand
@@ -122,6 +123,8 @@ Pokemon* new_pokemon(char *name, Type type1, Type type2, int hp,  int attack, in
     return pokemon_new;
 }
 
+
+//Recupera el hp, ataque, defensa, velocidad, ataques y defensa especiales y los asigna a los stats del pokemon
 void set_level(int level, Pokemon *pokemon)
 {
     if (level >= 1 && level <= 1000)
@@ -137,12 +140,16 @@ void set_level(int level, Pokemon *pokemon)
     }
 }
 
+/*A partir del pokemon que se le es pasado como argumento a la función, esta le asigna un nuevo ataque
+con los datos asignados y los agrega nuestra estructura lista de los ataques del pokemon*/
 void define_attacks(char *name, Pokemon *pokemon, Type type, AttackType attack, int power, int precision, int pp, State state_change, int state_probability, Affected_stat affected_stat, int direction, int aggregated)
 {
     Attack *new_attack = init_attack(name,type, attack, power, precision, pp, state_change, state_probability, affected_stat, direction, aggregated);
     list_append(pokemon->attacks, new_attack);
 }
 
+/*Esta es nuestra función calculadora de los stats
+ * de acuerdo a la base y variable, así como el nivel del pokemon*/
 int get_stat(int level, int base_stat, int variable_stat, int set_hp)
 {
     int stat;
@@ -157,6 +164,8 @@ int get_stat(int level, int base_stat, int variable_stat, int set_hp)
     }
 }
 
+/*Las siguientes funciones son los setters y getters que utilizamos para
+acceder y modificar a los pokemones*/
 char* get_pokemon_name(Pokemon *pokemon)
 {
     return pokemon->name;
@@ -256,6 +265,8 @@ void pokemon_normalize(Pokemon *pokemon)
     pokemon->stats->S_attack = get_stat(pokemon->stats->level, pokemon->stats->base_S_attack, pokemon->stats->variable_S_attack, 0);
     pokemon->stats->S_defense = get_stat(pokemon->stats->level, pokemon->stats->base_S_defense, pokemon->stats->variable_S_defense, 0);
 }
+
+//Calcula el nivel de vida que debe de tener el Pokemon despues de tomar una de las posiones
 void pokemon_use_potion(Pokemon *pokemon, Potion potion)
 {
     pokemon->stats->hp += potion;
@@ -264,6 +275,11 @@ void pokemon_use_potion(Pokemon *pokemon, Potion potion)
         pokemon->stats->hp = pokemon->stats->fixed_hp;
     }
 }
+
+/*Aplica el efecto correspondiendte de acuerdo al ataque que recibe, para esto
+ * realiza una validación a partir de una variable aleatoria que determina si
+ * el ataque procede o no, si si procede, entra en un switch que determina el cambio de estado
+ * así como los stats que afecta cada uno de los estados*/
 void apply_effect(Pokemon *pokemon, Attack *attack)
 {
     time_t t;
@@ -383,6 +399,10 @@ void apply_effect(Pokemon *pokemon, Attack *attack)
     }
 }
 
+
+/*Recibe el daño causado y dependiendo de las caracteristicas
+ * del pokemon y del ataque se le da una bonificación, se accede a la potencia del ataque, y dependiendo del
+ * tipo de ataque se afectan los stats correspondientos*/
 int get_damage(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)
 {
     double bonification = (get_pokemon_type1(pokemon_attacker) == get_attack_type(attack) || get_pokemon_type2(pokemon_attacker) == get_attack_type(attack)) ? 1.5 : 1;
@@ -399,7 +419,7 @@ int get_damage(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_recei
     if(get_attack_power(attack) == 0)
         return damage;
 
-        //    Faltan returns
+
     if(get_attack_attack_type(attack) == phisical)
     {
         damage = (int) ((.01 * bonification * (*(get_pokemon_weaknesses(pokemon_receiver) + get_attack_type(attack)) ) * variation) *
@@ -419,6 +439,15 @@ int get_damage(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_recei
     return damage;
 }
 
+
+/*
+ * Recibe un ataque y dos pokemones, el que ataca y el que lo recibe, a partir de eso
+ * conseguimos un numero de 0 a 100 y dependiendo de ese número procede el ataque o no,
+ * esto dependiendo de la presición del ataque(revisar estructura del ataque), despues
+ * llama a la función que calcula la resta de vida y la aplica con el setter modify_pokemon_hp,
+ * despues dependiendo del tipo de ataque, manda a llamar la función o de appl_effect y aplica el efecto que le corresponde
+ * Finalmente se resta la cantidad de veces que se puede realizar un ataque
+*/
 int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//	metodo que asigna valores despues de un movimiento
 {
     time_t t;
@@ -468,13 +497,14 @@ int hit(Attack *attack, Pokemon *pokemon_attacker, Pokemon *pokemon_receiver)	//
         }
 
         modify_attack_pp(attack,get_attack_pp(attack)-1);
-        return 0;	//	el golpe fue un exito
+        return 0;
     }
     else
         modify_attack_pp(attack,get_attack_pp(attack)-1);
-    return -1;	// el golpe fallo
+    return -1;
 }
 
+//Funcion trivial para imprimir al pokemon
 void print_pokemon(Pokemon *pokemon)
 {
     printf("Pokemon: %s\n", pokemon->name);
@@ -534,6 +564,8 @@ char* affected_stat_to_string(Affected_stat affectedStat)
 }
 
 
+/*Funcion para inicializar a los pokemones, primero abre el documento donde se van a definir a los pokemone
+ * despues define los ataques de acuerdo a cada uno de estos y los escribe en el documento*/
 void init_pokemons()
 {
     FILE *file;
@@ -790,6 +822,9 @@ int is_index_in_array(int *indexes, int index)
     return 0;
 }
 
+/*Esta función setea los pokemones inicializados al jugador, primero abre el documento
+ * en donde previamente se definieron los pokemones del jugador y los almacena en un arreglo
+ * una vez hecho esto, asigna a los pokemones de manera aleatoria al jugador principal con el setter set_pokemons_to_player*/
 void set_pokemons_to_player(RedPlayer *player, Pokemon pokemon_array[], int index_array, int *indexes)
 {
     time_t t;
@@ -830,6 +865,8 @@ void obtain_pokemons_from_file(RedPlayer *player)
     }
 }
 
+/*Función identica a la de init_pokemons pero que inicializa los pokemones
+ * que le serán asignados a los enemigos*/
 void init_enemy_pokemons(Enemy *enemy, int flag)
 {
     if(flag == 0)
@@ -978,6 +1015,10 @@ void init_enemy_pokemons(Enemy *enemy, int flag)
     }
 }
 
+
+/*las siguentes funciones revisan que tanto el jugador principal como el enemigo tengan poquemones vivos
+ *Lo que hace es un ciclo for que itera a los pokemones de cada uno y revisa si su bandera de vida esta en 1
+ * si esta en cero es que estan muertos*/
 int teamPlayerAlive(RedPlayer *player)
 {
 
