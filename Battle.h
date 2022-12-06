@@ -6,6 +6,6 @@
 #define POKEMON_BATTLE_H
 #include "Player.h"
 #include <time.h>
-void battle(RedPlayer *player, Enemy *enemy, int i);
+int battle(RedPlayer *player, Enemy *enemy, int i);
 
 #endif //POKEMON_BATTLE_H

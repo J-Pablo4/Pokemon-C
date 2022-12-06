@@ -7,6 +7,7 @@
 
 int main() {
     char choice;
+    int game_status;
 
     printf("Welcome to...");
     sleep(2);
@@ -99,7 +100,11 @@ int main() {
             printf("Blue: we face each other again Red... this time i'm going to win!!!\n");
             JUMP
             sleep(2);
-            battle(red, blue, 3);
+            game_status = battle(red, blue, 3);
+            if (!game_status)
+            {
+                return 0;
+            }
             printf("Blue: You are strong as ever, I'll have to keep training\n");
             JUMP
             printf("      for our next match, good luck in the rest of the tournament my eternal rival.\n");
@@ -111,7 +116,11 @@ int main() {
             printf("Leaf: You finally are here, I'm not going to lose to you like Blue did\n");
             JUMP
             sleep(2);
-            battle(red, leaf,4);
+            game_status = battle(red, leaf,4);
+            if (!game_status)
+            {
+                return 0;
+            }
             printf("Leaf: You so damn strong, but I almost got you\n");
             JUMP
             printf("Leaf: I'm heading to mt. Silver to keep combat with some strong pokemon\n");
@@ -124,7 +133,11 @@ int main() {
             printf("       but I'm a Pokemon champion, I'm not losing to a kid\n");
             JUMP
             sleep(2);
-            battle(red, lance, 5);
+            game_status = battle(red, lance, 5);
+            if (!game_status)
+            {
+                return 0;
+            }
             printf("Lance: That's it! I hate to admit it, but you are a pokemon master!");
             JUMP
             printf("       If I had my Dragonites I would have won!\n");

@@ -68,7 +68,7 @@ Potion* get_player_potions(RedPlayer *player)
 void player_normalize(RedPlayer *player)
 {
     Pokemon *pokemon;
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 6; i++)
     {
         pokemon = get_element(get_player_pokemons(player),i);
         pokemon_normalize(pokemon);
