@@ -16,12 +16,12 @@ int potion_exist(RedPlayer *player);
 Attack* select_attack(Pokemon *player_pokemon);
 Attack* getEnemyAttack(Pokemon* enemyPokemon);
 
-void battle(RedPlayer *player, Enemy *enemy)
+void battle(RedPlayer *player, Enemy *enemy, int i)
 {
     Pokemon *enemy_pokemon = NULL;
     Pokemon *player_pokemon = NULL;
     char choice;
-    int index = 3;
+    int index = i;
     printf("you're gonna fight with %s\n", get_enemy_name(enemy));
     enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
     JUMP
@@ -37,14 +37,26 @@ void battle(RedPlayer *player, Enemy *enemy)
     {
         if(!get_pokemon_alive(enemy_pokemon))
         {
+            printf("%s has fainted.\n", get_pokemon_name(enemy_pokemon));
+            JUMP
+            sleep(1);
+            printf("The enemy has chosen %s lv:%d <%d HP>\n", get_pokemon_name(enemy_pokemon), get_pokemon_level(enemy_pokemon), get_pokemon_hp(enemy_pokemon));
+            JUMP
+            sleep(1);
             index--;
             enemy_pokemon = get_element(get_enemy_pokemons(enemy), index);
         }else if(!get_pokemon_alive(player_pokemon))
         {
+            printf("%s has fainted.\n", get_pokemon_name(player_pokemon));
+            JUMP
+            sleep(1);
+            printf("You have selected %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
+            JUMP
+            sleep(1);
             player_pokemon = select_pokemon_for_battle(player);
             while (!get_pokemon_alive(player_pokemon))
             {
-                printf("This pokemon is fainted... Select another one.");
+                printf("This pokemon is fainted... Select another one.\n");
                 JUMP
                 player_pokemon = select_pokemon_for_battle(player);
             }
@@ -53,11 +65,11 @@ void battle(RedPlayer *player, Enemy *enemy)
         printf("You: %s lv:%d <%d HP>\n", get_pokemon_name(player_pokemon), get_pokemon_level(player_pokemon), get_pokemon_hp(player_pokemon));
         JUMP
         choice = fight_menu(enemy_pokemon, player_pokemon);
+        Attack *enemyAttack = getEnemyAttack(enemy_pokemon);
 
         if(choice == 'a')
         {
             Attack *players_attack = select_attack(player_pokemon);
-            Attack *enemyAttack = getEnemyAttack(enemy_pokemon);
             if(get_pokemon_speed(player_pokemon) > get_pokemon_speed(enemy_pokemon))
             {
                 hit(players_attack,player_pokemon,enemy_pokemon);
@@ -68,11 +80,35 @@ void battle(RedPlayer *player, Enemy *enemy)
             } else
             {
                 hit(enemyAttack,enemy_pokemon,player_pokemon);
+                if(get_pokemon_alive(enemy_pokemon))
+                {
+                    hit(players_attack,player_pokemon,enemy_pokemon);
+                }
             }
         } else
         {
             potions_menu(player_pokemon, player);
+            hit(enemyAttack,enemy_pokemon,player_pokemon);
         }
+    }
+
+    if(teamPlayerAlive(player))
+    {
+        printf("YOU WIN!!!\n");
+        JUMP
+        sleep(1);
+        printf("You have defeated %s", get_enemy_name(enemy));
+    } else
+    {
+        printf(" _____                         ____                 \n");
+        printf("/ ____|                       / __ \\                \n");
+        printf("| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ \n");
+        printf("| | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__|\n");
+        printf("| |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |   \n");
+        printf(" \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_| \n");
+        JUMP
+        sleep(1);
+        printf("Thanks for playing... See you next time\n");
     }
 
 }
