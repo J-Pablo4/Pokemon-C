@@ -168,6 +168,10 @@ int get_pokemon_attack(Pokemon *pokemon)
 {
     return pokemon->stats->attack;
 }
+int get_pokemon_fixed_hp(Pokemon *pokemon)
+{
+    return pokemon->stats->fixed_hp;
+}
 int get_pokemon_defense(Pokemon *pokemon)
 {
     return pokemon->stats->defense;

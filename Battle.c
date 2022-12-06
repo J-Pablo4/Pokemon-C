@@ -391,6 +391,19 @@ void is_frozen(Pokemon *attacker, Pokemon *receiver, Attack *attack)
     }
 }
 
+void is_burned(Pokemon *pokemon)
+{
+    modify_pokemon_hp(get_pokemon_hp(pokemon)-(get_pokemon_fixed_hp(pokemon)/16), pokemon);
+}
+
+void after_hit(Pokemon *pokemon)
+{
+    if(get_pokemon_current_state(pokemon) == burned_state)
+    {
+
+    }
+}
+
 void player_move(Pokemon *attacker, Pokemon *receiver, Attack* attack)
 {
     if(get_pokemon_current_state(attacker) == paralyzed_state)

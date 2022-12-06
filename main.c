@@ -97,7 +97,7 @@ int main() {
             sleep(2);
             JUMP
 
-            printf("Blue: we face eachother again Red... this time i'm going to win!!!\n");
+            printf("Blue: we face each other again Red... this time i'm going to win!!!\n");
             sleep(2);
             battle(red, blue, 3);
             printf("Blue: You are strong as ever, I'll have to keep training\n");
