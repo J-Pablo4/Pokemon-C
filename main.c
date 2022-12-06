@@ -129,12 +129,46 @@ int main() {
             JUMP
             printf("       If I had my Dragonites I would have won!\n");
             JUMP
+            sleep(3);
+            printf("At last, you were able to stand over all the participants\n");
+            JUMP
+            printf("and crown yourself as the best pokemon train!!!\n");
+            JUMP
             sleep(2);
-            printf("Creditos\n");
+            printf("Finally, you received the tournament cup. Congratulations!!!\n");
+            printf("  _______\n");
+            printf(" |       |\n");
+            printf("(|  RED  |)\n");
+            printf(" |  #X   |\n");
+            printf("  \\     /\n");
+            printf("   `---'\n");
+            printf("   _|_|_\n");
+            JUMP
+            sleep(2);
+            printf("Thanks for playing... See you next time.\n");
+            JUMP
+            sleep(1);
+            printf("       \\:.             .:/\n");
+            printf("        \\``._________.''/ \n");
+            printf("         \\             / \n");
+            printf(" .--.--, / .':.   .':. \\\n");
+            printf("/__:  /  | '::' . '::' |\n");
+            printf("   / /   |`.   ._.   .'|\n");
+            printf("  / /    |.'         '.|\n");
+            printf(" /___-_-,|.\\  \\   /  /.|\n");
+            printf("      // |''\\.;   ;,/ '|\n");
+            printf("      `==|:=         =:|\n");
+            printf("         `.          .'\n");
+            printf("           :-._____.-:\n");
+            printf("          `''       `''\n");
+            JUMP
+            printf("See you next time. :)\n");
+            sleep(3);
+            printf("Credits\n");
             printf("------------------------------------------\n");
             JUMP
             printf("Game developers:\n");
-            printf("Juan Pablo Lopez Zuñiga, GitHub: J-Pablo4\n");
+            printf("Juan Pablo Lopez Zuniga, GitHub: J-Pablo4\n");
             printf("Miguel Ignacio Hernandez Noriega, GitHub: MiguelHIteso\n");
             printf("Jose Antonio Mendoza Navarro, GitHub: josemenav\n");
             printf("Francisco Aaron Ortega Anguiano, GitHub: AaronOrtega1\n");
